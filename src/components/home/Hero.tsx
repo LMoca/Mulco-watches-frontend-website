@@ -1,49 +1,19 @@
-import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
 
 export default function Hero() {
   const { t } = useLanguage();
-  const bgRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number>(0);
-
-  useEffect(() => {
-    let currentY = 0;
-    let targetY = 0;
-
-    function onScroll() {
-      targetY = window.scrollY * 0.3;
-    }
-
-    function tick() {
-      // Lerp for silky smooth parallax
-      currentY += (targetY - currentY) * 0.08;
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translate3d(0,${currentY}px,0)`;
-      }
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    rafRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
 
   return (
     <section className="relative h-screen min-h-[680px] overflow-hidden">
-      {/* Parallax background */}
+      {/* Static background */}
       <div
-        ref={bgRef}
-        className="absolute inset-0 scale-[1.15] will-change-transform gpu"
+        className="absolute inset-0"
         style={{
           backgroundImage:
             'url(/images/ui/Banner_principal_web_Usa_Spring_2800x1000_crop_center.jpg)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundPosition: 'center',
         }}
       />
 
