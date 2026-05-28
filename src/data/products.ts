@@ -40,9 +40,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 205,
     images: [
-      '/images/watches/Blue_Marine_Fusion_White.jpg',
-      '/images/watches/Fusion_1.jpg',
-      '/images/watches/Blue_Marine_Fusion_Blue.jpg',
+      '/images/watches/blue_marine_fusion/blue_marine_fusion_white.jpg',
+      '/images/watches/blue_marine_fusion/blue_marine_fusion_detail_01.jpg',
+      '/images/watches/blue_marine_fusion/blue_marine_fusion_blue.jpg',
     ],
     tags: ['Swarovski Crystals', 'Quartz', '100M Water Resistant'],
     description:
@@ -65,9 +65,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 185,
     images: [
-      '/images/watches/BlueMarineInfinityBlue.jpg',
-      '/images/watches/Infinity_2_d311b037-4459-41be-87b4-72221e806bf5.jpg',
-      '/images/watches/Blue_Marine_Infinity_White.jpg',
+      '/images/watches/blue_marine_infinity/blue_marine_infinity_blue.jpg',
+      '/images/watches/blue_marine_infinity/blue_marine_infinity_detail_01.jpg',
+      '/images/watches/blue_marine_infinity/blue_marine_infinity_white.jpg',
     ],
     tags: ['Mother of Pearl', 'Quartz', '100M Water Resistant'],
     description:
@@ -90,9 +90,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 196,
     images: [
-      '/images/watches/MW3-241029-012-Front_3.jpg',
-      '/images/watches/Medusa_2.jpg',
-      '/images/watches/MedusaBlack_Silver-2_1.jpg',
+      '/images/watches/blue_marine_medusa/blue_marine_medusa_white.jpg',
+      '/images/watches/blue_marine_medusa/blue_marine_medusa_detail_02.jpg',
+      '/images/watches/blue_marine_medusa/blue_marine_medusa_detail_05.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -115,9 +115,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/Enchanted_Maple_Pink.jpg',
-      '/images/watches/Maple_9.jpg',
-      '/images/watches/Enchanted_Maple_Blue.jpg',
+      '/images/watches/enchanted_maple/enchanted_maple_pink.jpg',
+      '/images/watches/enchanted_maple/enchanted_maple_detail_02.jpg',
+      '/images/watches/enchanted_maple/enchanted_maple_blue.jpg',
     ],
     tags: ['Rose Gold Details', 'Quartz', '100M Water Resistant'],
     description:
@@ -140,9 +140,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 196,
     images: [
-      '/images/watches/Enchanted_Quartz_White_2.jpg',
-      '/images/watches/Enchanted_Quartz_White_3.jpg',
-      '/images/watches/Enchanted_Quartz_White_1.jpg',
+      '/images/watches/enchanted_quartz/enchanted_quartz_white.jpg',
+      '/images/watches/enchanted_quartz/enchanted_quartz_detail_01.jpg',
+      '/images/watches/enchanted_quartz/enchanted_quartz_detail_02.jpg',
     ],
     tags: ['Mother of Pearl', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -165,9 +165,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 215,
     images: [
-      '/images/watches/kripton_lady_blanco_1.jpg',
-      '/images/watches/Kripton_Lady_1.jpg',
-      '/images/watches/KRIPTON_LADIES_NEGRO.jpg',
+      '/images/watches/kripton_lady/kripton_lady_white.jpg',
+      '/images/watches/kripton_lady/kripton_lady_detail_07.jpg',
+      '/images/watches/kripton_lady/kripton_lady_detail_13.jpg',
     ],
     tags: ['Pearl Finish Dial', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -189,9 +189,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 205,
     images: [
-      '/images/watches/MW3-24993L-083-Front_1.jpg',
-      '/images/watches/Kripton_Royal_Lady_2.jpg',
-      '/images/watches/Kripton_royal_wopman_copia_4.jpg',
+      '/images/watches/kripton_royale_lady/kripton_royale_lady_pink.jpg',
+      '/images/watches/kripton_royale_lady/kripton_royale_lady_detail_01.jpg',
+      '/images/watches/kripton_royale_lady/kripton_royale_lady_detail_02.jpg',
     ],
     tags: ['Textured Dial', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -214,9 +214,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 245,
     images: [
-      '/images/watches/MW3-24053-013-Front.jpg',
-      '/images/watches/Dream_catcher_4.jpg',
-      '/images/watches/4_5387d335-9716-4d45-9ce4-25c29a79ccf3.jpg',
+      '/images/watches/dreamcatcher/dreamcatcher_white.jpg',
+      '/images/watches/dreamcatcher/dreamcatcher_detail_01.jpg',
+      '/images/watches/dreamcatcher/dreamcatcher_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -240,9 +240,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/Gardenia-013_2.jpg',
-      '/images/watches/Gardenia-013_3.jpg',
-      '/images/watches/Gardenia-013_1.jpg',
+      '/images/watches/la_fleur_gardenia/la_fleur_gardenia_white.jpg',
+      '/images/watches/la_fleur_gardenia/la_fleur_gardenia_detail_01.jpg',
+      '/images/watches/la_fleur_gardenia/la_fleur_gardenia_detail_02.jpg',
     ],
     tags: ['Swarovski Crystals', 'Floral Design', '100M Water Resistant'],
     description:
@@ -265,9 +265,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/Lady_D_4.jpg',
-      '/images/watches/LAdy_d_4_1.jpg',
-      '/images/watches/1500Photo_Jun_18_2024_5_26_14_PM.jpg',
+      '/images/watches/lady_d/lady_d_detail_01.jpg',
+      '/images/watches/lady_d/lady_d_detail_02.jpg',
+      '/images/watches/lady_d/lady_d_detail_03.jpg',
     ],
     tags: ['Pearl Accents', 'Rose Gold', '100M Water Resistant'],
     description:
@@ -289,9 +289,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/M10NamastePurple.jpg',
-      '/images/watches/Namaste_3.jpg',
-      '/images/watches/M10_4_4.jpg',
+      '/images/watches/m10_namaste/m10_namaste_purple.jpg',
+      '/images/watches/m10_namaste/m10_namaste_detail_01.jpg',
+      '/images/watches/m10_namaste/m10_namaste_detail_02.jpg',
     ],
     tags: ['Zen Design', 'Rose Gold', '100M Water Resistant'],
     description:
@@ -313,9 +313,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 200,
     images: [
-      '/images/watches/Frost_Full_Moon_Red.jpg',
-      '/images/watches/Frost_3.jpg',
-      '/images/watches/Frost_3_1.jpg',
+      '/images/watches/frost_full_moon/frost_full_moon_red.jpg',
+      '/images/watches/frost_full_moon/frost_full_moon_detail_01.jpg',
+      '/images/watches/frost_full_moon/frost_full_moon_detail_02.jpg',
     ],
     tags: ['Mother of Pearl', 'Swarovski Stones', '100M Water Resistant'],
     description:
@@ -338,9 +338,9 @@ export const products: Product[] = [
     price: 175,
     originalPrice: 205,
     images: [
-      '/images/watches/MW3-23928-803-Front.jpg',
-      '/images/watches/Freedom_3.jpg',
-      '/images/watches/Freedom_5.jpg',
+      '/images/watches/freedom/freedom_yellow.jpg',
+      '/images/watches/freedom/freedom_detail_01.jpg',
+      '/images/watches/freedom/freedom_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -363,9 +363,9 @@ export const products: Product[] = [
     price: 140,
     originalPrice: 195,
     images: [
-      '/images/watches/MW3-22810L-043-Front.jpg',
-      '/images/watches/Titan_6.jpg',
-      '/images/watches/MW3-22810L-013-Front.jpg',
+      '/images/watches/titans_snap_ladies/titans_snap_ladies_blue.jpg',
+      '/images/watches/titans_snap_ladies/titans_snap_ladies_detail_01.jpg',
+      '/images/watches/titans_snap_ladies/titans_snap_ladies_white.jpg',
     ],
     tags: ['Quartz', 'Stainless Steel', '100M Water Resistant'],
     description:
@@ -390,9 +390,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 195,
     images: [
-      '/images/watches/Breathe_whte.jpg',
-      '/images/watches/Breathe_1.jpg',
-      '/images/watches/Breathe_1_1.jpg',
+      '/images/watches/mulco_breathe/mulco_breathe_white.jpg',
+      '/images/watches/mulco_breathe/mulco_breathe_detail_01.jpg',
+      '/images/watches/mulco_breathe/mulco_breathe_detail_02.jpg',
     ],
     tags: ['Mother of Pearl', 'Embossed Dial', '100M Water Resistant'],
     description:
@@ -415,9 +415,9 @@ export const products: Product[] = [
     price: 160,
     originalPrice: 210,
     images: [
-      '/images/watches/Era_50_black.jpg',
-      '/images/watches/Era_50_6.jpg',
-      '/images/watches/Era_50_6_1.jpg',
+      '/images/watches/era_50/era_50_black.jpg',
+      '/images/watches/era_50/era_50_detail_01.jpg',
+      '/images/watches/era_50/era_50_detail_02.jpg',
     ],
     tags: ['Luminous Markers', 'Stainless Steel', '100M Water Resistant'],
     description:
@@ -440,9 +440,9 @@ export const products: Product[] = [
     price: 175,
     originalPrice: 205,
     images: [
-      '/images/watches/MW3-23928-015-Front_2.jpg',
-      '/images/watches/Pride_2.jpg',
-      '/images/watches/Pride_1.jpg',
+      '/images/watches/pride/pride_white.jpg',
+      '/images/watches/pride/pride_detail_01.jpg',
+      '/images/watches/pride/pride_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Luminous', '100M Water Resistant'],
     description:
@@ -467,9 +467,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 215,
     images: [
-      '/images/watches/Tentacles_3_1.jpg',
-      '/images/watches/Tentacles_4.jpg',
-      '/images/watches/Tentacles5_1.jpg',
+      '/images/watches/buzo_tentacles/buzo_tentacles_blue.jpg',
+      '/images/watches/buzo_tentacles/buzo_tentacles_detail_01.jpg',
+      '/images/watches/buzo_tentacles/buzo_tentacles_white.jpg',
     ],
     tags: ['Quartz Multifunctional', 'IP Black Steel', '100M Water Resistant'],
     description:
@@ -492,9 +492,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 245,
     images: [
-      '/images/watches/MW3-24979-028-Front_1.jpg',
-      '/images/watches/Atlantis_3.jpg',
-      '/images/watches/MW3-24979-305-Front_1.jpg',
+      '/images/watches/buzo_atlantis/buzo_atlantis_black_and_pink.jpg',
+      '/images/watches/buzo_atlantis/buzo_atlantis_detail_01.jpg',
+      '/images/watches/buzo_atlantis/buzo_atlantis_ochre.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -517,9 +517,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 220,
     images: [
-      '/images/watches/Ajustes_buzo_Silicone_723_3.jpg',
-      '/images/watches/Buzo_blue.jpg',
-      '/images/watches/Buzo_Silicon_1.jpg',
+      '/images/watches/buzo_dive_silicone/buzo_dive_silicone_black_and_rose_gold.jpg',
+      '/images/watches/buzo_dive_silicone/buzo_dive_silicone_blue.jpg',
+      '/images/watches/buzo_dive_silicone/buzo_dive_silicone_detail_07.jpg',
     ],
     tags: ['Chronograph', 'Black Steel', '100M Water Resistant'],
     description:
@@ -541,9 +541,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 245,
     images: [
-      '/images/watches/Ajuste_Buzo_Steel_021_2.jpg',
-      '/images/watches/Buzo_Metal_Gold_copia_2.jpg',
-      '/images/watches/Buzo_Dive_Stainless_Steel_Silver_and_black_1.jpg',
+      '/images/watches/buzo_dive_stainless/buzo_dive_stainless_gold_and_white.jpg',
+      '/images/watches/buzo_dive_stainless/buzo_dive_stainless_silver_and_black.jpg',
+      '/images/watches/buzo_dive_stainless/buzo_dive_stainless_detail_03.jpg',
     ],
     tags: ['Chronograph', 'Steel Bracelet', '100M Water Resistant'],
     description:
@@ -566,9 +566,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 205,
     images: [
-      '/images/watches/Cobra_Yellow.jpg',
-      '/images/watches/COBRA_Blue.jpg',
-      '/images/watches/COBRA_Black.jpg',
+      '/images/watches/cobra/cobra_yellow.jpg',
+      '/images/watches/cobra/cobra_blue.jpg',
+      '/images/watches/cobra/cobra_black_and_red.jpg',
     ],
     tags: ['Miyota Quartz', 'Ion-Plated Steel', '100M Water Resistant'],
     description:
@@ -591,9 +591,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 215,
     images: [
-      '/images/watches/MW3-24993G-085-Front.jpg',
-      '/images/watches/Kripton_Royal_man_copia_5.jpg',
-      '/images/watches/Royal_Hombre_copia_5.jpg',
+      '/images/watches/kripton_royale_gents/kripton_royale_gents_black_and_pink.jpg',
+      '/images/watches/kripton_royale_gents/kripton_royale_gents_detail_01.jpg',
+      '/images/watches/kripton_royale_gents/kripton_royale_gents_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Bold Luxury', '100M Water Resistant'],
     description:
@@ -616,9 +616,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 255,
     images: [
-      '/images/watches/MW3-241056-014-Front_1.jpg',
-      '/images/watches/2_7a8d6e76-916c-4970-b0a8-a688f809b613.jpg',
-      '/images/watches/Square_3-1.jpg',
+      '/images/watches/kripton_square/kripton_square_white.jpg',
+      '/images/watches/kripton_square/kripton_square_detail_01.jpg',
+      '/images/watches/kripton_square/kripton_square_detail_02.jpg',
     ],
     tags: ['Square Case', 'Quartz Analog', '100M Water Resistant'],
     description:
@@ -642,9 +642,9 @@ export const products: Product[] = [
     price: 180,
     originalPrice: 275,
     images: [
-      '/images/watches/MW5-4828-715Front_95c3790b-90b6-4c42-87a0-5996107fea4f.jpg',
-      '/images/watches/Kripton_1.jpg',
-      '/images/watches/Kripton_viper.jpg',
+      '/images/watches/kripton_viper/kripton_viper_neon_green.jpg',
+      '/images/watches/kripton_viper/kripton_viper_detail_01.jpg',
+      '/images/watches/kripton_viper/kripton_viper_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Date Window', '100M Water Resistant'],
     description:
@@ -666,9 +666,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 205,
     images: [
-      '/images/watches/Evol_Reloaded_White.jpg',
-      '/images/watches/Evol_6.jpg',
-      '/images/watches/Reloaded_copia_2.jpg',
+      '/images/watches/evol_reloaded/evol_reloaded_white.jpg',
+      '/images/watches/evol_reloaded/evol_reloaded_detail_01.jpg',
+      '/images/watches/evol_reloaded/evol_reloaded_detail_02.jpg',
     ],
     tags: ['Radial Sunray Dial', 'IP Black Steel', '100M Water Resistant'],
     description:
@@ -693,8 +693,8 @@ export const products: Product[] = [
     gender: 'women',
     price: 32,
     images: [
-      '/images/jewelry/PhotoMay042023_52309PM.jpg',
-      '/images/jewelry/IMG_3355.jpg',
+      '/images/jewelry/big_star_chain_necklace/big_star_chain_necklace_01.jpg',
+      '/images/jewelry/big_star_chain_necklace/big_star_chain_necklace_02.jpg',
     ],
     tags: ['Cubic Zirconia', 'White Gold Dipped', 'Layerable'],
     description:
@@ -713,9 +713,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 25,
     images: [
-      '/images/jewelry/110.jpg',
-      '/images/jewelry/112.jpg',
-      '/images/jewelry/Foto16-4-24_50642p.m.1000x1000.jpg',
+      '/images/jewelry/chunky_hoop_earrings/chunky_hoop_earrings_01.jpg',
+      '/images/jewelry/chunky_hoop_earrings/chunky_hoop_earrings_02.jpg',
+      '/images/jewelry/chunky_hoop_earrings/chunky_hoop_earrings_03.jpg',
     ],
     tags: ['Stainless Steel', 'Hypoallergenic', 'Gold or Silver'],
     description:
@@ -734,9 +734,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 46,
     images: [
-      '/images/jewelry/2-_1.png',
-      '/images/jewelry/27B.jpg',
-      '/images/jewelry/27A.jpg',
+      '/images/jewelry/connecting_drop_chain_earrings/connecting_drop_chain_earrings_01.png',
+      '/images/jewelry/connecting_drop_chain_earrings/connecting_drop_chain_earrings_02.jpg',
+      '/images/jewelry/connecting_drop_chain_earrings/connecting_drop_chain_earrings_03.jpg',
     ],
     tags: ['Drop Style', 'Chain Link', 'Classic Design'],
     description:
@@ -755,9 +755,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 22,
     images: [
-      '/images/jewelry/37C.jpg',
-      '/images/jewelry/30D.jpg',
-      '/images/jewelry/30A.jpg',
+      '/images/jewelry/entwined_hoop_earrings/entwined_hoop_earrings_01.jpg',
+      '/images/jewelry/entwined_hoop_earrings/entwined_hoop_earrings_02.jpg',
+      '/images/jewelry/entwined_hoop_earrings/entwined_hoop_earrings_03.jpg',
     ],
     tags: ['Hoop', 'Gold & Silver', 'Everyday Wear'],
     description:
@@ -776,9 +776,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 17,
     images: [
-      '/images/jewelry/WhatsAppImage2026-01-09at7.53.29PM.jpg',
-      '/images/jewelry/7_1fb495c1-1c66-4888-b590-c170a162621f.png',
-      '/images/jewelry/4_1c99a3fa-2e71-4896-a998-2d79ee28d6d0.png',
+      '/images/jewelry/u_hoop_earrings/u_hoop_earrings_01.jpg',
+      '/images/jewelry/u_hoop_earrings/u_hoop_earrings_02.png',
+      '/images/jewelry/u_hoop_earrings/u_hoop_earrings_03.png',
     ],
     tags: ['Minimalist', 'Everyday', 'U-Shape'],
     description:
@@ -797,9 +797,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 45,
     images: [
-      '/images/jewelry/156.jpg',
-      '/images/jewelry/4_fe8c4520-e9fe-47bc-ad64-e6aecedded11.jpg',
-      '/images/jewelry/131_1de9ba1c-4768-47ff-9226-89d11f160ce9.jpg',
+      '/images/jewelry/a_round_tennis_bracelet/a_round_tennis_bracelet_01.jpg',
+      '/images/jewelry/a_round_tennis_bracelet/a_round_tennis_bracelet_02.jpg',
+      '/images/jewelry/a_round_tennis_bracelet/a_round_tennis_bracelet_03.jpg',
     ],
     tags: ['Zirconia', 'Butterfly Clasp', 'Gold or Silver'],
     description:
@@ -821,9 +821,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 36,
     images: [
-      '/images/jewelry/PhotoApr282023_75213PM.jpg',
-      '/images/jewelry/PhotoApr282023_80949PM.jpg',
-      '/images/jewelry/IMG_3410_1.jpg',
+      '/images/jewelry/havana_gold_chain_necklace/havana_gold_chain_necklace_01.jpg',
+      '/images/jewelry/havana_gold_chain_necklace/havana_gold_chain_necklace_02.jpg',
+      '/images/jewelry/havana_gold_chain_necklace/havana_gold_chain_necklace_03.jpg',
     ],
     tags: ['Cubic Zirconia', 'Gold Dipped', 'Adjustable'],
     description:
@@ -842,8 +842,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 79,
     images: [
-      '/images/jewelry/1.2.jpg',
-      '/images/jewelry/1.1.jpg',
+      '/images/jewelry/star_shape_zirconia_ring/star_shape_zirconia_ring_01.jpg',
+      '/images/jewelry/star_shape_zirconia_ring/star_shape_zirconia_ring_02.jpg',
     ],
     tags: ['Sterling Silver 925', 'Two-Finger', 'Pavé Zirconia'],
     description:
@@ -861,9 +861,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 28,
     images: [
-      '/images/jewelry/54.jpg',
-      '/images/jewelry/12_ea6a67a9-89db-4bc2-a554-657e56aa778b.jpg',
-      '/images/jewelry/23_15b74a84-6944-4aaa-9b77-c801ad05d90d.jpg',
+      '/images/jewelry/bar_pave_bangle_bracelet/bar_pave_bangle_bracelet_01.jpg',
+      '/images/jewelry/bar_pave_bangle_bracelet/bar_pave_bangle_bracelet_02.jpg',
+      '/images/jewelry/bar_pave_bangle_bracelet/bar_pave_bangle_bracelet_03.jpg',
     ],
     tags: ['Pavé Zircon', 'Magnetic Closure', 'Silver / Gold / Rose Gold'],
     description:
@@ -882,9 +882,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 35,
     images: [
-      '/images/jewelry/Mesadetrabajo1copia12_1.jpg',
-      '/images/jewelry/Mesadetrabajo1copia9_1.jpg',
-      '/images/jewelry/19.jpg',
+      '/images/jewelry/braided_leather_bracelet/braided_leather_bracelet_01.jpg',
+      '/images/jewelry/braided_leather_bracelet/braided_leather_bracelet_02.jpg',
+      '/images/jewelry/braided_leather_bracelet/braided_leather_bracelet_03.jpg',
     ],
     tags: ['Genuine Leather', 'Stainless Steel', 'Magnetic Closure'],
     description:
@@ -903,9 +903,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 33,
     images: [
-      '/images/jewelry/16B.jpg',
-      '/images/jewelry/16A.jpg',
-      '/images/jewelry/1._f338546a-bb89-4dc4-99b3-7651cc04e9cf.png',
+      '/images/jewelry/love_bracelet/love_bracelet_01.jpg',
+      '/images/jewelry/love_bracelet/love_bracelet_02.jpg',
+      '/images/jewelry/love_bracelet/love_bracelet_03.png',
     ],
     tags: ['Chain Link', 'Love Charm', 'Silver or Gold'],
     description:
@@ -924,9 +924,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 42,
     images: [
-      '/images/jewelry/152.jpg',
-      '/images/jewelry/146.jpg',
-      '/images/jewelry/144_83b4201d-8909-4363-84b3-16d3a2cc2794.jpg',
+      '/images/jewelry/oval_zirconia_bracelet/oval_zirconia_bracelet_01.jpg',
+      '/images/jewelry/oval_zirconia_bracelet/oval_zirconia_bracelet_02.jpg',
+      '/images/jewelry/oval_zirconia_bracelet/oval_zirconia_bracelet_03.jpg',
     ],
     tags: ['Oval-Cut Zircon', 'Flexible Fit', 'Hypoallergenic'],
     description:
@@ -948,8 +948,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      '/images/straps/MW3-10302-033_a8928c04-41e5-4612-84dc-a3e1eea2d3fb.jpg',
-      '/images/straps/MW3-10302-033.jpg',
+      '/images/straps/silicone_strap_black/silicone_strap_black_01.jpg',
+      '/images/straps/silicone_strap_black/silicone_strap_black_02.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', 'Universal Fit'],
     description:
@@ -968,8 +968,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      '/images/straps/MW1-10186-092_5e875868-6adf-4829-9ae7-d8687e7243d4.jpg',
-      '/images/straps/MW1-10186-092.jpg',
+      '/images/straps/silicone_strap_yellow/silicone_strap_yellow_01.jpg',
+      '/images/straps/silicone_strap_yellow/silicone_strap_yellow_02.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', 'Universal Fit'],
     description:
@@ -988,8 +988,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      '/images/straps/MW1-10186-092_5e875868-6adf-4829-9ae7-d8687e7243d4.jpg',
-      '/images/straps/MW3-10302-033.jpg',
+      '/images/straps/silicone_strap_yellow/silicone_strap_yellow_01.jpg',
+      '/images/straps/silicone_strap_black/silicone_strap_black_02.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', 'Universal Fit'],
     description:
@@ -1008,8 +1008,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      '/images/straps/MW3-10302-033_a8928c04-41e5-4612-84dc-a3e1eea2d3fb.jpg',
-      '/images/straps/MW1-10186-092.jpg',
+      '/images/straps/silicone_strap_black/silicone_strap_black_01.jpg',
+      '/images/straps/silicone_strap_yellow/silicone_strap_yellow_02.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', '20+ Colors Available'],
     description:
