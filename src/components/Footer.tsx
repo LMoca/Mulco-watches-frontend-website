@@ -97,6 +97,28 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* As Seen In */}
+        <div className="border-t border-b border-brand-gold/10 py-8 mb-10">
+          <p className="text-[9px] font-sans tracking-[0.35em] uppercase text-brand-muted text-center mb-6">As Seen In</p>
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {[
+              { name: 'E! Entertainment',  note: 'Grammy Awards Sponsor' },
+              { name: 'Fratello Watches',  note: 'Featured Review'       },
+              { name: 'The Grammy Awards', note: 'Official Sponsor'      },
+            ].map(({ name, note }, i, arr) => (
+              <div key={name} className="flex items-center gap-6 md:gap-10">
+                <div className="text-center">
+                  <p className="font-serif text-base text-brand-white/70 tracking-wide leading-none">{name}</p>
+                  <p className="text-[9px] font-sans tracking-[0.2em] uppercase text-brand-gold/50 mt-1">{note}</p>
+                </div>
+                {i < arr.length - 1 && (
+                  <span className="hidden sm:block w-px h-6 bg-brand-gold/15" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Social Icons */}
         <div className="flex justify-center gap-6 mb-10">
           <a
