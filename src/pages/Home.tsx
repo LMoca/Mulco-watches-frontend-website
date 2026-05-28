@@ -4,6 +4,7 @@ import CollectionsGrid from '../components/home/CollectionsGrid';
 import ProductSpotlight from '../components/home/ProductSpotlight';
 import SocialProof from '../components/home/SocialProof';
 import AccessoriesSection from '../components/home/AccessoriesSection';
+import InstagramSection from '../components/home/InstagramSection';
 import NewsletterSection from '../components/home/NewsletterSection';
 import FaqPreview from '../components/home/FaqPreview';
 
@@ -16,6 +17,7 @@ export default function Home() {
       <ProductSpotlight />
       <AccessoriesSection />
       <SocialProof />
+      <InstagramSection />
       <NewsletterSection />
       <FaqPreview />
     </>

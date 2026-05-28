@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { X } from 'lucide-react';
+import { X, Instagram, Facebook, Twitter } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface MobileNavProps {
@@ -99,16 +99,24 @@ export default function MobileNav({ open, onClose }: MobileNavProps) {
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-5 border-t border-brand-gold/20 flex items-center justify-between">
+        <div className="px-6 py-5 border-t border-brand-gold/20 flex items-center justify-between gap-4">
           <button
             onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
             className="text-xs uppercase tracking-[0.25em] text-brand-muted hover:text-brand-gold transition-colors duration-200"
           >
             {language === 'en' ? 'Español' : 'English'}
           </button>
-          <span className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-gold/40">
-            Since 1958
-          </span>
+          <div className="flex items-center gap-5">
+            <a href="https://www.instagram.com/mulcowatches" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-brand-muted hover:text-brand-gold transition-colors duration-200">
+              <Instagram size={17} />
+            </a>
+            <a href="https://www.facebook.com/mulcowatches" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-brand-muted hover:text-brand-gold transition-colors duration-200">
+              <Facebook size={17} />
+            </a>
+            <a href="https://twitter.com/mulcowatches" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-brand-muted hover:text-brand-gold transition-colors duration-200">
+              <Twitter size={17} />
+            </a>
+          </div>
         </div>
       </div>
     </div>
