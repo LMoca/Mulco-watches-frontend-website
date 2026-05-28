@@ -54,6 +54,9 @@ export default function Footer() {
               <Link to="/our-story" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('nav.ourStory')}
               </Link>
+              <Link to="/warranty-registration" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
+                Warranty Registration
+              </Link>
               <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('footer.warranty')}
               </Link>

@@ -578,9 +578,14 @@ export default function ProductDetail() {
                 <p>All MULCO timepieces are covered by a <span className="text-brand-white">2-year international limited warranty</span> from the date of purchase.</p>
                 <p>The warranty covers manufacturing defects in materials and workmanship under normal use. It does not cover damage resulting from accidents, misuse, unauthorized modification, water damage beyond the rated resistance, or normal wear and tear.</p>
                 <p>To initiate a warranty claim, contact our support team at <span className="text-brand-gold">support@mulco.com</span> with proof of purchase.</p>
-                <Link to="/faq" className="inline-block mt-2 text-brand-gold text-xs border-b border-brand-gold/40 pb-0.5 hover:border-brand-gold transition-colors">
-                  Read full warranty FAQ →
-                </Link>
+                <div className="flex flex-wrap gap-5 mt-4">
+                  <Link to="/warranty-registration" className="text-brand-gold text-xs border-b border-brand-gold/40 pb-0.5 hover:border-brand-gold transition-colors">
+                    Register your watch →
+                  </Link>
+                  <Link to="/faq" className="text-brand-gold text-xs border-b border-brand-gold/40 pb-0.5 hover:border-brand-gold transition-colors">
+                    Warranty FAQ →
+                  </Link>
+                </div>
               </div>
             )}
           </div>
