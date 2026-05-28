@@ -582,6 +582,9 @@ export default function ProductDetail() {
                   <Link to="/warranty-registration" className="text-brand-gold text-xs border-b border-brand-gold/40 pb-0.5 hover:border-brand-gold transition-colors">
                     Register your watch →
                   </Link>
+                  <Link to="/watch-care" className="text-brand-gold text-xs border-b border-brand-gold/40 pb-0.5 hover:border-brand-gold transition-colors">
+                    Watch care guide →
+                  </Link>
                   <Link to="/faq" className="text-brand-gold text-xs border-b border-brand-gold/40 pb-0.5 hover:border-brand-gold transition-colors">
                     Warranty FAQ →
                   </Link>

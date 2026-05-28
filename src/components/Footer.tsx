@@ -60,6 +60,9 @@ export default function Footer() {
               <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('footer.warranty')}
               </Link>
+              <Link to="/watch-care" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
+                Watch Care Guide
+              </Link>
               <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('footer.repairs')}
               </Link>

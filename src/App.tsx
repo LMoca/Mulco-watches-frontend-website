@@ -18,6 +18,7 @@ import ReturnsPolicy from './pages/ReturnsPolicy';
 import Lookbook from './pages/Lookbook';
 import FindRetailer from './pages/FindRetailer';
 import WarrantyRegistration from './pages/WarrantyRegistration';
+import WatchCare from './pages/WatchCare';
 import CookieBanner from './components/CookieBanner';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
             <Route path="/lookbook" element={<Lookbook />} />
             <Route path="/find-a-retailer" element={<FindRetailer />} />
             <Route path="/warranty-registration" element={<WarrantyRegistration />} />
+            <Route path="/watch-care" element={<WatchCare />} />
           </Routes>
         </main>
         <Footer />
