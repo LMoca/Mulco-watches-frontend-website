@@ -56,6 +56,9 @@ export default function ProductDetail() {
   const [added, setAdded] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>('description');
   const [zoomed, setZoomed] = useState(false);
+  const [selectedColor, setSelectedColor] = useState<{ name: string; image: string } | null>(
+    () => product?.colors?.[0] ?? null
+  );
 
   if (!product) {
     return (
@@ -112,8 +115,8 @@ export default function ProductDetail() {
               onClick={() => setZoomed(!zoomed)}
             >
               <img
-                src={product.images[activeImage]}
-                alt={product.name}
+                src={selectedColor ? selectedColor.image : product.images[activeImage]}
+                alt={selectedColor ? `${product.name} in ${selectedColor.name}` : product.name}
                 className={`w-full h-full object-cover will-change-transform transition-transform duration-500 ease-out ${zoomed ? 'scale-150' : 'scale-100'}`}
               />
               {!zoomed && (
@@ -134,7 +137,7 @@ export default function ProductDetail() {
                 {product.images.map((img, i) => (
                   <button
                     key={i}
-                    onClick={() => { setActiveImage(i); setZoomed(false); }}
+                    onClick={() => { setActiveImage(i); setSelectedColor(null); setZoomed(false); }}
                     aria-label={`View image ${i + 1}`}
                     className={`flex-shrink-0 w-20 h-20 overflow-hidden border-2 transition-all duration-200 ${
                       activeImage === i ? 'border-brand-gold' : 'border-transparent opacity-60 hover:opacity-100'
@@ -168,6 +171,38 @@ export default function ProductDetail() {
                 </span>
               ))}
             </div>
+
+            {/* Color picker — watches only */}
+            {product.category === 'watches' && product.colors && product.colors.length > 0 && (
+              <div className="flex flex-col gap-2.5">
+                <p className="text-[11px] font-sans text-brand-muted tracking-widest uppercase">
+                  Color: <span className="text-brand-white ml-1">{selectedColor?.name ?? product.colors[0].name}</span>
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {product.colors.map((c) => (
+                    <button
+                      key={c.name}
+                      onClick={() => { setSelectedColor(c); setZoomed(false); }}
+                      title={c.name}
+                      aria-label={`Select ${c.name}`}
+                      className="relative w-11 h-11 overflow-hidden transition-all duration-200"
+                      style={{
+                        outline: selectedColor?.name === c.name ? '2px solid #C9A84C' : '2px solid transparent',
+                        outlineOffset: '2px',
+                        transform: selectedColor?.name === c.name ? 'scale(1.08)' : 'scale(1)',
+                      }}
+                    >
+                      <img
+                        src={c.image}
+                        alt={c.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Price */}
             <div className="flex items-baseline gap-4">
