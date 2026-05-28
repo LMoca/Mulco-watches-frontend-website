@@ -11,6 +11,11 @@ import FAQ from './pages/FAQ';
 import Support from './pages/Support';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
+import ShippingPolicy from './pages/ShippingPolicy';
+import ReturnsPolicy from './pages/ReturnsPolicy';
+import CookieBanner from './components/CookieBanner';
 
 function App() {
   return (
@@ -31,9 +36,14 @@ function App() {
             <Route path="/support" element={<Support />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/shipping" element={<ShippingPolicy />} />
+            <Route path="/returns" element={<ReturnsPolicy />} />
           </Routes>
         </main>
         <Footer />
+        <CookieBanner />
       </div>
     </BrowserRouter>
   );

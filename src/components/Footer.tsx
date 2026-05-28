@@ -72,10 +72,10 @@ export default function Footer() {
               {t('footer.support')}
             </h4>
             <nav className="flex flex-col gap-3">
-              <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
+              <Link to="/shipping" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('footer.shippingPolicy')}
               </Link>
-              <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
+              <Link to="/returns" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('footer.returns')}
               </Link>
               <Link to="/support" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
@@ -120,13 +120,22 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-brand-gold/10 pt-6 text-center">
+        <div className="border-t border-brand-gold/10 pt-6 flex flex-col items-center gap-3">
           <p className="text-xs text-brand-muted">
             &copy; {new Date().getFullYear()} {t('footer.copyright')}
           </p>
-          <p className="text-xs text-brand-muted mt-1">
+          <p className="text-xs text-brand-muted">
             19790 W Dixie Hwy, Suite 201, Aventura, FL 33180
           </p>
+          <div className="flex items-center gap-4 flex-wrap justify-center">
+            <Link to="/privacy-policy" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Privacy Policy</Link>
+            <span className="text-brand-gold/20 text-xs">·</span>
+            <Link to="/terms" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Terms &amp; Conditions</Link>
+            <span className="text-brand-gold/20 text-xs">·</span>
+            <Link to="/shipping" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Shipping</Link>
+            <span className="text-brand-gold/20 text-xs">·</span>
+            <Link to="/returns" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Returns</Link>
+          </div>
         </div>
       </div>
     </footer>
