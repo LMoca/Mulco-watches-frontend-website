@@ -1,12 +1,247 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { ChevronRight, ShoppingBag, CheckCircle, Minus, Plus, ArrowLeft, ZoomIn } from 'lucide-react';
+import { ChevronRight, ShoppingBag, CheckCircle, Minus, Plus, ArrowLeft, ZoomIn, Star, PenLine } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { useInView } from '../hooks/useInView';
 import { getProductById, getRelatedProducts } from '../data/products';
+import { getSeedReviews, type Review } from '../data/reviews';
 
 type Tab = 'description' | 'specifications' | 'warranty';
+
+const STORAGE_KEY = 'mulco-reviews';
+
+function StarRow({ rating, size = 14 }: { rating: number; size?: number }) {
+  return (
+    <span className="flex items-center gap-0.5">
+      {[1, 2, 3, 4, 5].map((n) => (
+        <Star
+          key={n}
+          size={size}
+          strokeWidth={1.5}
+          className={n <= rating ? 'text-brand-gold fill-brand-gold' : 'text-brand-gold/25'}
+        />
+      ))}
+    </span>
+  );
+}
+
+function ReviewsSection({ productId }: { productId: string }) {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [showForm, setShowForm] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ author: '', location: '', rating: 5, title: '', body: '' });
+  const [formError, setFormError] = useState('');
+
+  const loadReviews = useCallback(() => {
+    const seed = getSeedReviews(productId);
+    const stored: Review[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+    const userReviews = stored.filter((r) => r.productId === productId);
+    setReviews([...seed, ...userReviews].sort((a, b) => b.date.localeCompare(a.date)));
+  }, [productId]);
+
+  useEffect(() => { loadReviews(); }, [loadReviews]);
+
+  const avg = reviews.length ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0;
+
+  const countByRating = [5, 4, 3, 2, 1].map((n) => ({
+    n,
+    count: reviews.filter((r) => r.rating === n).length,
+  }));
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form.author.trim() || !form.title.trim() || !form.body.trim()) {
+      setFormError('Please fill in all required fields.');
+      return;
+    }
+    const newReview: Review = {
+      id: `u-${Date.now()}`,
+      productId,
+      author: form.author.trim(),
+      location: form.location.trim() || 'Verified Buyer',
+      rating: form.rating,
+      title: form.title.trim(),
+      body: form.body.trim(),
+      date: new Date().toISOString().slice(0, 10),
+      verified: false,
+    };
+    const stored: Review[] = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...stored, newReview]));
+    setSubmitted(true);
+    setShowForm(false);
+    setForm({ author: '', location: '', rating: 5, title: '', body: '' });
+    setFormError('');
+    loadReviews();
+  }
+
+  return (
+    <div className="mt-16 border-t border-brand-gold/12 pt-12">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div>
+          <h2 className="font-serif text-2xl text-brand-white mb-1">
+            Customer Reviews
+            {reviews.length > 0 && <span className="font-sans text-base text-brand-muted ml-3">({reviews.length})</span>}
+          </h2>
+          {reviews.length > 0 && (
+            <div className="flex items-center gap-3 mt-2">
+              <StarRow rating={Math.round(avg)} size={16} />
+              <span className="font-serif text-brand-gold text-lg">{avg.toFixed(1)}</span>
+              <span className="text-xs font-sans text-brand-muted">out of 5</span>
+            </div>
+          )}
+        </div>
+        {!showForm && (
+          <button
+            onClick={() => { setShowForm(true); setSubmitted(false); }}
+            className="flex items-center gap-2 text-xs font-sans font-medium tracking-widest uppercase border border-brand-gold/30 px-5 py-2.5 text-brand-gold hover:bg-brand-gold hover:text-brand-black transition-all duration-200 self-start sm:self-auto"
+          >
+            <PenLine size={12} />
+            Write a Review
+          </button>
+        )}
+      </div>
+
+      {/* Rating breakdown */}
+      {reviews.length > 0 && (
+        <div className="mb-10 max-w-xs space-y-2">
+          {countByRating.map(({ n, count }) => (
+            <div key={n} className="flex items-center gap-3">
+              <span className="text-[10px] font-sans text-brand-muted w-4 text-right">{n}</span>
+              <Star size={10} className="text-brand-gold fill-brand-gold flex-shrink-0" />
+              <div className="flex-1 h-1 bg-brand-gold/10 overflow-hidden">
+                <div
+                  className="h-full bg-brand-gold transition-all duration-500"
+                  style={{ width: reviews.length ? `${(count / reviews.length) * 100}%` : '0%' }}
+                />
+              </div>
+              <span className="text-[10px] font-sans text-brand-muted w-4">{count}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Write a review form */}
+      {showForm && (
+        <form onSubmit={handleSubmit} className="mb-10 border border-brand-gold/15 bg-brand-gold/[0.02] p-6 space-y-5">
+          <p className="font-serif text-lg text-brand-white">Share your experience</p>
+          {/* Star picker */}
+          <div className="flex flex-col gap-1.5">
+            <label className="text-[10px] font-sans tracking-widest uppercase text-brand-muted">Your Rating *</label>
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <button key={n} type="button" onClick={() => setForm((f) => ({ ...f, rating: n }))} aria-label={`${n} stars`}>
+                  <Star
+                    size={22}
+                    strokeWidth={1.5}
+                    className={`transition-colors duration-150 ${n <= form.rating ? 'text-brand-gold fill-brand-gold' : 'text-brand-gold/30 hover:text-brand-gold/60'}`}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[10px] font-sans tracking-widest uppercase text-brand-muted">Name *</label>
+              <input
+                value={form.author}
+                onChange={(e) => setForm((f) => ({ ...f, author: e.target.value }))}
+                placeholder="Your name"
+                className="bg-transparent border border-brand-gold/20 text-brand-white text-sm font-sans px-3 py-2.5 placeholder:text-brand-muted/50 focus:outline-none focus:border-brand-gold/60 transition-colors"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[10px] font-sans tracking-widest uppercase text-brand-muted">Location</label>
+              <input
+                value={form.location}
+                onChange={(e) => setForm((f) => ({ ...f, location: e.target.value }))}
+                placeholder="City, State (optional)"
+                className="bg-transparent border border-brand-gold/20 text-brand-white text-sm font-sans px-3 py-2.5 placeholder:text-brand-muted/50 focus:outline-none focus:border-brand-gold/60 transition-colors"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-[10px] font-sans tracking-widest uppercase text-brand-muted">Review Title *</label>
+            <input
+              value={form.title}
+              onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+              placeholder="Sum it up in a few words"
+              className="bg-transparent border border-brand-gold/20 text-brand-white text-sm font-sans px-3 py-2.5 placeholder:text-brand-muted/50 focus:outline-none focus:border-brand-gold/60 transition-colors"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-[10px] font-sans tracking-widest uppercase text-brand-muted">Your Review *</label>
+            <textarea
+              value={form.body}
+              onChange={(e) => setForm((f) => ({ ...f, body: e.target.value }))}
+              placeholder="Tell others what you think about this watch"
+              rows={4}
+              className="bg-transparent border border-brand-gold/20 text-brand-white text-sm font-sans px-3 py-2.5 placeholder:text-brand-muted/50 focus:outline-none focus:border-brand-gold/60 transition-colors resize-none"
+            />
+          </div>
+          {formError && <p className="text-xs font-sans text-brand-rose">{formError}</p>}
+          <div className="flex gap-3 pt-1">
+            <button
+              type="submit"
+              className="px-7 py-2.5 bg-brand-gold text-brand-black text-xs font-sans font-bold tracking-[0.2em] uppercase hover:bg-brand-white transition-colors duration-200"
+            >
+              Submit Review
+            </button>
+            <button
+              type="button"
+              onClick={() => { setShowForm(false); setFormError(''); }}
+              className="px-5 py-2.5 text-xs font-sans text-brand-muted hover:text-brand-white transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+
+      {submitted && (
+        <div className="mb-8 flex items-center gap-2 text-sm font-sans text-brand-gold border border-brand-gold/20 px-4 py-3 bg-brand-gold/[0.04]">
+          <CheckCircle size={14} strokeWidth={1.5} />
+          Thank you — your review has been submitted.
+        </div>
+      )}
+
+      {/* Review list */}
+      {reviews.length > 0 ? (
+        <div className="space-y-8">
+          {reviews.map((r) => (
+            <div key={r.id} className="border-b border-brand-gold/8 pb-8 last:border-0">
+              <div className="flex items-start justify-between gap-4 mb-2">
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <StarRow rating={r.rating} size={12} />
+                    {r.verified && (
+                      <span className="text-[9px] font-sans tracking-widest uppercase text-brand-gold/70 flex items-center gap-1">
+                        <CheckCircle size={9} strokeWidth={2} /> Verified Purchase
+                      </span>
+                    )}
+                  </div>
+                  <p className="font-serif text-base text-brand-white mt-1">{r.title}</p>
+                </div>
+                <span className="text-[10px] font-sans text-brand-muted flex-shrink-0">
+                  {new Date(r.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </span>
+              </div>
+              <p className="font-sans text-sm text-brand-muted leading-relaxed mb-2">{r.body}</p>
+              <p className="text-[10px] font-sans text-brand-muted/60">{r.author} · {r.location}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="py-12 text-center border border-brand-gold/10 bg-brand-gold/[0.02]">
+          <Star size={24} className="text-brand-gold/30 mx-auto mb-3" strokeWidth={1.5} />
+          <p className="font-serif text-lg text-brand-muted mb-1">No reviews yet</p>
+          <p className="text-xs font-sans text-brand-muted/60">Be the first to share your experience with this timepiece.</p>
+        </div>
+      )}
+    </div>
+  );
+}
 
 /* ── Related product mini-card ── */
 function RelatedCard({ id, name, collection, price, image }: { id: string; name: string; collection: string; price: number; image: string }) {
@@ -347,6 +582,9 @@ export default function ProductDetail() {
             )}
           </div>
         </div>
+
+        {/* ── Reviews ── */}
+        <ReviewsSection productId={product.id} />
 
         {/* ── Related Products ── */}
         {related.length > 0 && (
