@@ -133,6 +133,12 @@ export default function Navbar() {
                 {t('nav.accessories')}
               </Link>
               <Link
+                to="/lookbook"
+                className="text-sm uppercase tracking-wider text-brand-white hover:text-brand-gold transition-colors duration-200"
+              >
+                Lookbook
+              </Link>
+              <Link
                 to="/our-story"
                 className="text-sm uppercase tracking-wider text-brand-white hover:text-brand-gold transition-colors duration-200"
               >

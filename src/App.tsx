@@ -15,6 +15,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import ShippingPolicy from './pages/ShippingPolicy';
 import ReturnsPolicy from './pages/ReturnsPolicy';
+import Lookbook from './pages/Lookbook';
 import CookieBanner from './components/CookieBanner';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/terms" element={<Terms />} />
             <Route path="/shipping" element={<ShippingPolicy />} />
             <Route path="/returns" element={<ReturnsPolicy />} />
+            <Route path="/lookbook" element={<Lookbook />} />
           </Routes>
         </main>
         <Footer />

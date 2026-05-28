@@ -22,6 +22,12 @@ const collectionDescriptions: Record<string, string> = {
 
 type SortKey = 'featured' | 'price-asc' | 'price-desc' | 'newest';
 
+const WATCH_COLLECTIONS = [
+  'Blue Marine', 'Breathe', 'Buzo', 'Cobra', 'Dreamcatcher',
+  'Enchanted', 'Era', 'Evol', 'Freedom', 'Frost',
+  'Kripton', 'La Fleur', 'Lady D', 'M10', 'Pride', 'Titans',
+];
+
 function ProductCard({ product, index }: { product: Product; index: number }) {
   const { addItem } = useCart();
   const [added, setAdded] = useState(false);
@@ -152,11 +158,13 @@ export default function Collections() {
   const [genderFilter, setGenderFilter] = useState<'all' | 'women' | 'men'>(
     resolvedSlug === 'women' ? 'women' : resolvedSlug === 'men' ? 'men' : 'all'
   );
+  const [collectionFilter, setCollectionFilter] = useState<string>('all');
   const [sort, setSort] = useState<SortKey>('featured');
   const [filterOpen, setFilterOpen] = useState(false);
 
   useEffect(() => {
     setGenderFilter(resolvedSlug === 'women' ? 'women' : resolvedSlug === 'men' ? 'men' : 'all');
+    setCollectionFilter('all');
     setSort('featured');
   }, [resolvedSlug]);
 
@@ -169,13 +177,17 @@ export default function Collections() {
       ? watches
       : watches.filter((p) => p.gender === activeGender || p.gender === 'unisex');
 
+    if (collectionFilter !== 'all') {
+      list = list.filter((p) => p.collection === collectionFilter);
+    }
+
     switch (sort) {
       case 'price-asc': return [...list].sort((a, b) => a.price - b.price);
       case 'price-desc': return [...list].sort((a, b) => b.price - a.price);
       case 'newest': return [...list].sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
       default: return [...list].sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
     }
-  }, [resolvedSlug, genderFilter, sort]);
+  }, [resolvedSlug, genderFilter, collectionFilter, sort]);
 
   const pageTitle = resolvedSlug === 'women' ? "Women's" : resolvedSlug === 'men' ? "Men's" : resolvedSlug === 'new-arrivals' ? 'New Arrivals' : 'All Collections';
 
@@ -258,6 +270,27 @@ export default function Collections() {
             )}
           </div>
         </div>
+
+        {/* Collection name filter strip */}
+        {resolvedSlug !== 'new-arrivals' && (
+          <div className="mb-8 -mx-1">
+            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none" style={{ scrollbarWidth: 'none' }}>
+              {['all', ...WATCH_COLLECTIONS].map((col) => (
+                <button
+                  key={col}
+                  onClick={() => setCollectionFilter(col)}
+                  className={`flex-shrink-0 px-4 py-1.5 text-[10px] font-sans font-medium tracking-[0.18em] uppercase transition-all duration-200 border ${
+                    collectionFilter === col
+                      ? 'bg-brand-gold text-brand-black border-brand-gold'
+                      : 'text-brand-muted border-brand-gold/20 hover:border-brand-gold/50 hover:text-brand-white'
+                  }`}
+                >
+                  {col === 'all' ? 'All' : col}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Grid */}
         {filtered.length > 0 ? (
