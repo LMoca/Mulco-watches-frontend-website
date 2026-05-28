@@ -27,19 +27,19 @@ const CATEGORIES = {
     label: 'Jewelry',
     headline: 'Wear Every Detail',
     sub: 'Complements designed to move with your watch. Each piece carries the same material standards as the collections.',
-    hero: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994',
+    hero: '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg',
   },
   straps: {
     label: 'Straps',
     headline: 'Change the Character',
     sub: 'Interchangeable straps let one watch live many lives. Explore silicone, leather, ceramic, and steel options.',
-    hero: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994',
+    hero: '/images/ui/Banners_mega_menu_hombre_2.jpg',
   },
 };
 
 const ALL_CATEGORIES = [
-  { slug: 'jewelry', label: 'Jewelry', image: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994', desc: 'Curated complements' },
-  { slug: 'straps',  label: 'Straps',  image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994', desc: 'Interchangeable bands' },
+  { slug: 'jewelry', label: 'Jewelry', image: '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg', desc: 'Curated complements' },
+  { slug: 'straps',  label: 'Straps',  image: '/images/ui/Banners_mega_menu_hombre_2.jpg', desc: 'Interchangeable bands' },
 ];
 
 function ProductCard({ product, index }: { product: Product; index: number }) {
@@ -145,7 +145,7 @@ export default function Accessories() {
         <div
           className="relative h-[50vh] flex items-end overflow-hidden"
           style={{
-            backgroundImage: 'url(https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994)',
+            backgroundImage: 'url(/images/ui/Banners_mega_menu_mujer_1.jpg',
             backgroundSize: 'cover',
             backgroundPosition: 'center 30%',
           }}

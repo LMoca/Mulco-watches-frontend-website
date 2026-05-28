@@ -7,10 +7,10 @@ import { useInView } from '../hooks/useInView';
 import { products, type Product } from '../data/products';
 
 const heroBanners: Record<string, string> = {
-  women: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994',
-  men: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_1.jpg?v=1764274994',
-  'new-arrivals': 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994',
-  all: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994',
+  women: '/images/ui/Banners_mega_menu_mujer_1.jpg',
+  men: '/images/ui/Banners_mega_menu_hombre_1.jpg',
+  'new-arrivals': '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg',
+  all: '/images/ui/Banners_mega_menu_hombre_2.jpg',
 };
 
 const collectionDescriptions: Record<string, string> = {

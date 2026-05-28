@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, ArrowRight } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
 
-const HERO_IMG = 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994';
-const WOMEN_IMG = 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994';
-const MEN_IMG = 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_1.jpg?v=1764274994';
-const GREEN_IMG = 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994';
+const HERO_IMG = '/images/ui/Banners_mega_menu_hombre_2.jpg';
+const WOMEN_IMG = '/images/ui/Banners_mega_menu_mujer_1.jpg';
+const MEN_IMG = '/images/ui/Banners_mega_menu_hombre_1.jpg';
+const GREEN_IMG = '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg';
 
 function FadeSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const { ref, inView } = useInView(0.1);

@@ -40,9 +40,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 205,
     images: [
-      'https://mulco.com/cdn/shop/files/Blue_Marine_Fusion_White.jpg?v=1774540858',
-      'https://mulco.com/cdn/shop/files/Fusion_1.jpg?v=1774540858',
-      'https://mulco.com/cdn/shop/files/Blue_Marine_Fusion_Blue.jpg?v=1774540858',
+      '/images/watches/Blue_Marine_Fusion_White.jpg',
+      '/images/watches/Fusion_1.jpg',
+      '/images/watches/Blue_Marine_Fusion_Blue.jpg',
     ],
     tags: ['Swarovski Crystals', 'Quartz', '100M Water Resistant'],
     description:
@@ -65,9 +65,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 185,
     images: [
-      'https://mulco.com/cdn/shop/files/BlueMarineInfinityBlue.jpg?v=1776695028',
-      'https://mulco.com/cdn/shop/files/Infinity_2_d311b037-4459-41be-87b4-72221e806bf5.jpg?v=1776695028',
-      'https://mulco.com/cdn/shop/files/Blue_Marine_Infinity_White.jpg?v=1774457553',
+      '/images/watches/BlueMarineInfinityBlue.jpg',
+      '/images/watches/Infinity_2_d311b037-4459-41be-87b4-72221e806bf5.jpg',
+      '/images/watches/Blue_Marine_Infinity_White.jpg',
     ],
     tags: ['Mother of Pearl', 'Quartz', '100M Water Resistant'],
     description:
@@ -90,9 +90,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 196,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-241029-012-Front_3.jpg?v=1774547283',
-      'https://mulco.com/cdn/shop/files/Medusa_2.jpg?v=1774547283',
-      'https://mulco.com/cdn/shop/files/MedusaBlack_Silver-2_1.jpg?v=1774547283',
+      '/images/watches/MW3-241029-012-Front_3.jpg',
+      '/images/watches/Medusa_2.jpg',
+      '/images/watches/MedusaBlack_Silver-2_1.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -115,9 +115,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      'https://mulco.com/cdn/shop/files/Enchanted_Maple_Pink.jpg?v=1772291845',
-      'https://mulco.com/cdn/shop/files/Maple_9.jpg?v=1774453467',
-      'https://mulco.com/cdn/shop/files/Enchanted_Maple_Blue.jpg?v=1776699840',
+      '/images/watches/Enchanted_Maple_Pink.jpg',
+      '/images/watches/Maple_9.jpg',
+      '/images/watches/Enchanted_Maple_Blue.jpg',
     ],
     tags: ['Rose Gold Details', 'Quartz', '100M Water Resistant'],
     description:
@@ -140,9 +140,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 196,
     images: [
-      'https://mulco.com/cdn/shop/files/Enchanted_Quartz_White_2.jpg?v=1778685282',
-      'https://mulco.com/cdn/shop/files/Enchanted_Quartz_White_3.jpg?v=1778685282',
-      'https://mulco.com/cdn/shop/files/Enchanted_Quartz_White_1.jpg?v=1778685282',
+      '/images/watches/Enchanted_Quartz_White_2.jpg',
+      '/images/watches/Enchanted_Quartz_White_3.jpg',
+      '/images/watches/Enchanted_Quartz_White_1.jpg',
     ],
     tags: ['Mother of Pearl', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -165,9 +165,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 215,
     images: [
-      'https://mulco.com/cdn/shop/files/kripton_lady_blanco_1.jpg?v=1776439179',
-      'https://mulco.com/cdn/shop/files/Kripton_Lady_1.jpg?v=1776439179',
-      'https://mulco.com/cdn/shop/files/KRIPTON_LADIES_NEGRO.jpg?v=1776439179',
+      '/images/watches/kripton_lady_blanco_1.jpg',
+      '/images/watches/Kripton_Lady_1.jpg',
+      '/images/watches/KRIPTON_LADIES_NEGRO.jpg',
     ],
     tags: ['Pearl Finish Dial', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -189,9 +189,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 205,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-24993L-083-Front_1.jpg?v=1772292159',
-      'https://mulco.com/cdn/shop/files/Kripton_Royal_Lady_2.jpg?v=1774388270',
-      'https://mulco.com/cdn/shop/files/Kripton_royal_wopman_copia_4.jpg?v=1774388270',
+      '/images/watches/MW3-24993L-083-Front_1.jpg',
+      '/images/watches/Kripton_Royal_Lady_2.jpg',
+      '/images/watches/Kripton_royal_wopman_copia_4.jpg',
     ],
     tags: ['Textured Dial', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -214,9 +214,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 245,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-24053-013-Front.jpg?v=1773146421',
-      'https://mulco.com/cdn/shop/files/Dream_catcher_4.jpg?v=1774385972',
-      'https://mulco.com/cdn/shop/files/4_5387d335-9716-4d45-9ce4-25c29a79ccf3.jpg?v=1774385972',
+      '/images/watches/MW3-24053-013-Front.jpg',
+      '/images/watches/Dream_catcher_4.jpg',
+      '/images/watches/4_5387d335-9716-4d45-9ce4-25c29a79ccf3.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -240,9 +240,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      'https://mulco.com/cdn/shop/files/Gardenia-013_2.jpg?v=1779479444',
-      'https://mulco.com/cdn/shop/files/Gardenia-013_3.jpg?v=1779479444',
-      'https://mulco.com/cdn/shop/files/Gardenia-013_1.jpg?v=1779479444',
+      '/images/watches/Gardenia-013_2.jpg',
+      '/images/watches/Gardenia-013_3.jpg',
+      '/images/watches/Gardenia-013_1.jpg',
     ],
     tags: ['Swarovski Crystals', 'Floral Design', '100M Water Resistant'],
     description:
@@ -265,9 +265,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      'https://mulco.com/cdn/shop/files/Lady_D_4.jpg?v=1776445276',
-      'https://mulco.com/cdn/shop/files/LAdy_d_4_1.jpg?v=1776445276',
-      'https://mulco.com/cdn/shop/files/1500Photo_Jun_18_2024_5_26_14_PM.jpg?v=1776445276',
+      '/images/watches/Lady_D_4.jpg',
+      '/images/watches/LAdy_d_4_1.jpg',
+      '/images/watches/1500Photo_Jun_18_2024_5_26_14_PM.jpg',
     ],
     tags: ['Pearl Accents', 'Rose Gold', '100M Water Resistant'],
     description:
@@ -289,9 +289,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      'https://mulco.com/cdn/shop/files/M10NamastePurple.jpg?v=1776443370',
-      'https://mulco.com/cdn/shop/files/Namaste_3.jpg?v=1776443370',
-      'https://mulco.com/cdn/shop/files/M10_4_4.jpg?v=1776443370',
+      '/images/watches/M10NamastePurple.jpg',
+      '/images/watches/Namaste_3.jpg',
+      '/images/watches/M10_4_4.jpg',
     ],
     tags: ['Zen Design', 'Rose Gold', '100M Water Resistant'],
     description:
@@ -313,9 +313,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 200,
     images: [
-      'https://mulco.com/cdn/shop/files/Frost_Full_Moon_Red.jpg?v=1776275016',
-      'https://mulco.com/cdn/shop/files/Frost_3.jpg?v=1776275016',
-      'https://mulco.com/cdn/shop/files/Frost_3_1.jpg?v=1776275016',
+      '/images/watches/Frost_Full_Moon_Red.jpg',
+      '/images/watches/Frost_3.jpg',
+      '/images/watches/Frost_3_1.jpg',
     ],
     tags: ['Mother of Pearl', 'Swarovski Stones', '100M Water Resistant'],
     description:
@@ -338,9 +338,9 @@ export const products: Product[] = [
     price: 175,
     originalPrice: 205,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-23928-803-Front.jpg?v=1776441689',
-      'https://mulco.com/cdn/shop/files/Freedom_3.jpg?v=1776441689',
-      'https://mulco.com/cdn/shop/files/Freedom_5.jpg?v=1776441689',
+      '/images/watches/MW3-23928-803-Front.jpg',
+      '/images/watches/Freedom_3.jpg',
+      '/images/watches/Freedom_5.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -363,9 +363,9 @@ export const products: Product[] = [
     price: 140,
     originalPrice: 195,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-22810L-043-Front.jpg?v=1774542927',
-      'https://mulco.com/cdn/shop/files/Titan_6.jpg?v=1774542927',
-      'https://mulco.com/cdn/shop/files/MW3-22810L-013-Front.jpg?v=1774542927',
+      '/images/watches/MW3-22810L-043-Front.jpg',
+      '/images/watches/Titan_6.jpg',
+      '/images/watches/MW3-22810L-013-Front.jpg',
     ],
     tags: ['Quartz', 'Stainless Steel', '100M Water Resistant'],
     description:
@@ -390,9 +390,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 195,
     images: [
-      'https://mulco.com/cdn/shop/files/Breathe_whte.jpg?v=1776360283',
-      'https://mulco.com/cdn/shop/files/Breathe_1.jpg?v=1776360283',
-      'https://mulco.com/cdn/shop/files/Breathe_1_1.jpg?v=1776360283',
+      '/images/watches/Breathe_whte.jpg',
+      '/images/watches/Breathe_1.jpg',
+      '/images/watches/Breathe_1_1.jpg',
     ],
     tags: ['Mother of Pearl', 'Embossed Dial', '100M Water Resistant'],
     description:
@@ -415,9 +415,9 @@ export const products: Product[] = [
     price: 160,
     originalPrice: 210,
     images: [
-      'https://mulco.com/cdn/shop/files/Era_50_black.jpg?v=1774551495',
-      'https://mulco.com/cdn/shop/files/Era_50_6.jpg?v=1774551495',
-      'https://mulco.com/cdn/shop/files/Era_50_6_1.jpg?v=1774551495',
+      '/images/watches/Era_50_black.jpg',
+      '/images/watches/Era_50_6.jpg',
+      '/images/watches/Era_50_6_1.jpg',
     ],
     tags: ['Luminous Markers', 'Stainless Steel', '100M Water Resistant'],
     description:
@@ -440,9 +440,9 @@ export const products: Product[] = [
     price: 175,
     originalPrice: 205,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-23928-015-Front_2.jpg?v=1755787071',
-      'https://mulco.com/cdn/shop/files/Pride_2.jpg?v=1774450848',
-      'https://mulco.com/cdn/shop/files/Pride_1.jpg?v=1774450848',
+      '/images/watches/MW3-23928-015-Front_2.jpg',
+      '/images/watches/Pride_2.jpg',
+      '/images/watches/Pride_1.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Luminous', '100M Water Resistant'],
     description:
@@ -467,9 +467,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 215,
     images: [
-      'https://mulco.com/cdn/shop/files/Tentacles_3_1.jpg?v=1773865362',
-      'https://mulco.com/cdn/shop/files/Tentacles_4.jpg?v=1774494932',
-      'https://mulco.com/cdn/shop/files/Tentacles5_1.jpg?v=1775498664',
+      '/images/watches/Tentacles_3_1.jpg',
+      '/images/watches/Tentacles_4.jpg',
+      '/images/watches/Tentacles5_1.jpg',
     ],
     tags: ['Quartz Multifunctional', 'IP Black Steel', '100M Water Resistant'],
     description:
@@ -492,9 +492,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 245,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-24979-028-Front_1.jpg?v=1772292527',
-      'https://mulco.com/cdn/shop/files/Atlantis_3.jpg?v=1774468500',
-      'https://mulco.com/cdn/shop/files/MW3-24979-305-Front_1.jpg?v=1774468500',
+      '/images/watches/MW3-24979-028-Front_1.jpg',
+      '/images/watches/Atlantis_3.jpg',
+      '/images/watches/MW3-24979-305-Front_1.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -517,9 +517,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 220,
     images: [
-      'https://mulco.com/cdn/shop/files/Ajustes_buzo_Silicone_723_3.jpg?v=1775570711',
-      'https://mulco.com/cdn/shop/files/Buzo_blue.jpg?v=1776355895',
-      'https://mulco.com/cdn/shop/files/Buzo_Silicon_1.jpg?v=1774628011',
+      '/images/watches/Ajustes_buzo_Silicone_723_3.jpg',
+      '/images/watches/Buzo_blue.jpg',
+      '/images/watches/Buzo_Silicon_1.jpg',
     ],
     tags: ['Chronograph', 'Black Steel', '100M Water Resistant'],
     description:
@@ -541,9 +541,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 245,
     images: [
-      'https://mulco.com/cdn/shop/files/Ajuste_Buzo_Steel_021_2.jpg?v=1776365153',
-      'https://mulco.com/cdn/shop/files/Buzo_Metal_Gold_copia_2.jpg?v=1759331416',
-      'https://mulco.com/cdn/shop/files/Buzo_Dive_Stainless_Steel_Silver_and_black_1.jpg?v=1776364447',
+      '/images/watches/Ajuste_Buzo_Steel_021_2.jpg',
+      '/images/watches/Buzo_Metal_Gold_copia_2.jpg',
+      '/images/watches/Buzo_Dive_Stainless_Steel_Silver_and_black_1.jpg',
     ],
     tags: ['Chronograph', 'Steel Bracelet', '100M Water Resistant'],
     description:
@@ -566,9 +566,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 205,
     images: [
-      'https://mulco.com/cdn/shop/files/Cobra_Yellow.jpg?v=1776367211',
-      'https://mulco.com/cdn/shop/files/COBRA_Blue.jpg?v=1776367211',
-      'https://mulco.com/cdn/shop/files/COBRA_Black.jpg?v=1776367211',
+      '/images/watches/Cobra_Yellow.jpg',
+      '/images/watches/COBRA_Blue.jpg',
+      '/images/watches/COBRA_Black.jpg',
     ],
     tags: ['Miyota Quartz', 'Ion-Plated Steel', '100M Water Resistant'],
     description:
@@ -591,9 +591,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 215,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-24993G-085-Front.jpg?v=1772292589',
-      'https://mulco.com/cdn/shop/files/Kripton_Royal_man_copia_5.jpg?v=1774460370',
-      'https://mulco.com/cdn/shop/files/Royal_Hombre_copia_5.jpg?v=1774460370',
+      '/images/watches/MW3-24993G-085-Front.jpg',
+      '/images/watches/Kripton_Royal_man_copia_5.jpg',
+      '/images/watches/Royal_Hombre_copia_5.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Bold Luxury', '100M Water Resistant'],
     description:
@@ -616,9 +616,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 255,
     images: [
-      'https://mulco.com/cdn/shop/files/MW3-241056-014-Front_1.jpg?v=1774496334',
-      'https://mulco.com/cdn/shop/files/2_7a8d6e76-916c-4970-b0a8-a688f809b613.jpg?v=1774496334',
-      'https://mulco.com/cdn/shop/files/Square_3-1.jpg?v=1774496334',
+      '/images/watches/MW3-241056-014-Front_1.jpg',
+      '/images/watches/2_7a8d6e76-916c-4970-b0a8-a688f809b613.jpg',
+      '/images/watches/Square_3-1.jpg',
     ],
     tags: ['Square Case', 'Quartz Analog', '100M Water Resistant'],
     description:
@@ -642,9 +642,9 @@ export const products: Product[] = [
     price: 180,
     originalPrice: 275,
     images: [
-      'https://mulco.com/cdn/shop/files/MW5-4828-715Front_95c3790b-90b6-4c42-87a0-5996107fea4f.jpg?v=1751297679',
-      'https://mulco.com/cdn/shop/files/Kripton_1.jpg?v=1774622059',
-      'https://mulco.com/cdn/shop/files/Kripton_viper.jpg?v=1774622059',
+      '/images/watches/MW5-4828-715Front_95c3790b-90b6-4c42-87a0-5996107fea4f.jpg',
+      '/images/watches/Kripton_1.jpg',
+      '/images/watches/Kripton_viper.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Date Window', '100M Water Resistant'],
     description:
@@ -666,9 +666,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 205,
     images: [
-      'https://mulco.com/cdn/shop/files/Evol_Reloaded_White.jpg?v=1775574925',
-      'https://mulco.com/cdn/shop/files/Evol_6.jpg?v=1775574925',
-      'https://mulco.com/cdn/shop/files/Reloaded_copia_2.jpg?v=1775574925',
+      '/images/watches/Evol_Reloaded_White.jpg',
+      '/images/watches/Evol_6.jpg',
+      '/images/watches/Reloaded_copia_2.jpg',
     ],
     tags: ['Radial Sunray Dial', 'IP Black Steel', '100M Water Resistant'],
     description:
@@ -693,8 +693,8 @@ export const products: Product[] = [
     gender: 'women',
     price: 32,
     images: [
-      'https://mulco.com/cdn/shop/files/PhotoMay042023_52309PM.jpg?v=1689885375',
-      'https://mulco.com/cdn/shop/files/IMG_3355.jpg?v=1689885421',
+      '/images/jewelry/PhotoMay042023_52309PM.jpg',
+      '/images/jewelry/IMG_3355.jpg',
     ],
     tags: ['Cubic Zirconia', 'White Gold Dipped', 'Layerable'],
     description:
@@ -713,9 +713,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 25,
     images: [
-      'https://mulco.com/cdn/shop/files/110.jpg?v=1715368391',
-      'https://mulco.com/cdn/shop/files/112.jpg?v=1773345804',
-      'https://mulco.com/cdn/shop/files/Foto16-4-24_50642p.m.1000x1000.jpg?v=1773345804',
+      '/images/jewelry/110.jpg',
+      '/images/jewelry/112.jpg',
+      '/images/jewelry/Foto16-4-24_50642p.m.1000x1000.jpg',
     ],
     tags: ['Stainless Steel', 'Hypoallergenic', 'Gold or Silver'],
     description:
@@ -734,9 +734,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 46,
     images: [
-      'https://mulco.com/cdn/shop/files/2-_1.png?v=1768002979',
-      'https://mulco.com/cdn/shop/products/27B.jpg?v=1682108792',
-      'https://mulco.com/cdn/shop/products/27A.jpg?v=1768004303',
+      '/images/jewelry/2-_1.png',
+      '/images/jewelry/27B.jpg',
+      '/images/jewelry/27A.jpg',
     ],
     tags: ['Drop Style', 'Chain Link', 'Classic Design'],
     description:
@@ -755,9 +755,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 22,
     images: [
-      'https://mulco.com/cdn/shop/files/37C.jpg?v=1768332709',
-      'https://mulco.com/cdn/shop/files/30D.jpg?v=1768251390',
-      'https://mulco.com/cdn/shop/files/30A.jpg?v=1768251390',
+      '/images/jewelry/37C.jpg',
+      '/images/jewelry/30D.jpg',
+      '/images/jewelry/30A.jpg',
     ],
     tags: ['Hoop', 'Gold & Silver', 'Everyday Wear'],
     description:
@@ -776,9 +776,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 17,
     images: [
-      'https://mulco.com/cdn/shop/files/WhatsAppImage2026-01-09at7.53.29PM.jpg?v=1768003221',
-      'https://mulco.com/cdn/shop/files/7_1fb495c1-1c66-4888-b590-c170a162621f.png?v=1768003258',
-      'https://mulco.com/cdn/shop/files/4_1c99a3fa-2e71-4896-a998-2d79ee28d6d0.png?v=1768003411',
+      '/images/jewelry/WhatsAppImage2026-01-09at7.53.29PM.jpg',
+      '/images/jewelry/7_1fb495c1-1c66-4888-b590-c170a162621f.png',
+      '/images/jewelry/4_1c99a3fa-2e71-4896-a998-2d79ee28d6d0.png',
     ],
     tags: ['Minimalist', 'Everyday', 'U-Shape'],
     description:
@@ -797,9 +797,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 45,
     images: [
-      'https://mulco.com/cdn/shop/files/156.jpg?v=1715271620',
-      'https://mulco.com/cdn/shop/files/4_fe8c4520-e9fe-47bc-ad64-e6aecedded11.jpg?v=1773338524',
-      'https://mulco.com/cdn/shop/files/131_1de9ba1c-4768-47ff-9226-89d11f160ce9.jpg?v=1777040060',
+      '/images/jewelry/156.jpg',
+      '/images/jewelry/4_fe8c4520-e9fe-47bc-ad64-e6aecedded11.jpg',
+      '/images/jewelry/131_1de9ba1c-4768-47ff-9226-89d11f160ce9.jpg',
     ],
     tags: ['Zirconia', 'Butterfly Clasp', 'Gold or Silver'],
     description:
@@ -821,9 +821,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 36,
     images: [
-      'https://mulco.com/cdn/shop/files/PhotoApr282023_75213PM.jpg?v=1689168682',
-      'https://mulco.com/cdn/shop/files/PhotoApr282023_80949PM.jpg?v=1689168430',
-      'https://mulco.com/cdn/shop/files/IMG_3410_1.jpg?v=1689168682',
+      '/images/jewelry/PhotoApr282023_75213PM.jpg',
+      '/images/jewelry/PhotoApr282023_80949PM.jpg',
+      '/images/jewelry/IMG_3410_1.jpg',
     ],
     tags: ['Cubic Zirconia', 'Gold Dipped', 'Adjustable'],
     description:
@@ -842,8 +842,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 79,
     images: [
-      'https://mulco.com/cdn/shop/files/1.2.jpg?v=1743001764',
-      'https://mulco.com/cdn/shop/files/1.1.jpg?v=1743001764',
+      '/images/jewelry/1.2.jpg',
+      '/images/jewelry/1.1.jpg',
     ],
     tags: ['Sterling Silver 925', 'Two-Finger', 'Pavé Zirconia'],
     description:
@@ -861,9 +861,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 28,
     images: [
-      'https://mulco.com/cdn/shop/files/54.jpg?v=1715273980',
-      'https://mulco.com/cdn/shop/files/12_ea6a67a9-89db-4bc2-a554-657e56aa778b.jpg?v=1773345488',
-      'https://mulco.com/cdn/shop/files/23_15b74a84-6944-4aaa-9b77-c801ad05d90d.jpg?v=1773345488',
+      '/images/jewelry/54.jpg',
+      '/images/jewelry/12_ea6a67a9-89db-4bc2-a554-657e56aa778b.jpg',
+      '/images/jewelry/23_15b74a84-6944-4aaa-9b77-c801ad05d90d.jpg',
     ],
     tags: ['Pavé Zircon', 'Magnetic Closure', 'Silver / Gold / Rose Gold'],
     description:
@@ -882,9 +882,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 35,
     images: [
-      'https://mulco.com/cdn/shop/files/Mesadetrabajo1copia12_1.jpg?v=1708354591',
-      'https://mulco.com/cdn/shop/files/Mesadetrabajo1copia9_1.jpg?v=1771438858',
-      'https://mulco.com/cdn/shop/files/19.jpg?v=1771438858',
+      '/images/jewelry/Mesadetrabajo1copia12_1.jpg',
+      '/images/jewelry/Mesadetrabajo1copia9_1.jpg',
+      '/images/jewelry/19.jpg',
     ],
     tags: ['Genuine Leather', 'Stainless Steel', 'Magnetic Closure'],
     description:
@@ -903,9 +903,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 33,
     images: [
-      'https://mulco.com/cdn/shop/files/16B.jpg?v=1776892785',
-      'https://mulco.com/cdn/shop/files/16A.jpg?v=1776892785',
-      'https://mulco.com/cdn/shop/files/1._f338546a-bb89-4dc4-99b3-7651cc04e9cf.png?v=1776892786',
+      '/images/jewelry/16B.jpg',
+      '/images/jewelry/16A.jpg',
+      '/images/jewelry/1._f338546a-bb89-4dc4-99b3-7651cc04e9cf.png',
     ],
     tags: ['Chain Link', 'Love Charm', 'Silver or Gold'],
     description:
@@ -924,9 +924,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 42,
     images: [
-      'https://mulco.com/cdn/shop/files/152.jpg?v=1765406083',
-      'https://mulco.com/cdn/shop/files/146.jpg?v=1765406083',
-      'https://mulco.com/cdn/shop/files/144_83b4201d-8909-4363-84b3-16d3a2cc2794.jpg?v=1777311815',
+      '/images/jewelry/152.jpg',
+      '/images/jewelry/146.jpg',
+      '/images/jewelry/144_83b4201d-8909-4363-84b3-16d3a2cc2794.jpg',
     ],
     tags: ['Oval-Cut Zircon', 'Flexible Fit', 'Hypoallergenic'],
     description:
@@ -948,8 +948,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      'https://mulco.com/cdn/shop/products/MW3-10302-033_a8928c04-41e5-4612-84dc-a3e1eea2d3fb.jpg?v=1579502768',
-      'https://mulco.com/cdn/shop/products/MW3-10302-033.jpg?v=1579502768',
+      '/images/straps/MW3-10302-033_a8928c04-41e5-4612-84dc-a3e1eea2d3fb.jpg',
+      '/images/straps/MW3-10302-033.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', 'Universal Fit'],
     description:
@@ -968,8 +968,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      'https://mulco.com/cdn/shop/products/MW1-10186-092_5e875868-6adf-4829-9ae7-d8687e7243d4.jpg?v=1579502765',
-      'https://mulco.com/cdn/shop/products/MW1-10186-092.jpg?v=1579502765',
+      '/images/straps/MW1-10186-092_5e875868-6adf-4829-9ae7-d8687e7243d4.jpg',
+      '/images/straps/MW1-10186-092.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', 'Universal Fit'],
     description:
@@ -988,8 +988,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      'https://mulco.com/cdn/shop/products/MW1-10186-092_5e875868-6adf-4829-9ae7-d8687e7243d4.jpg?v=1579502765',
-      'https://mulco.com/cdn/shop/products/MW3-10302-033.jpg?v=1579502768',
+      '/images/straps/MW1-10186-092_5e875868-6adf-4829-9ae7-d8687e7243d4.jpg',
+      '/images/straps/MW3-10302-033.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', 'Universal Fit'],
     description:
@@ -1008,8 +1008,8 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 20,
     images: [
-      'https://mulco.com/cdn/shop/products/MW3-10302-033_a8928c04-41e5-4612-84dc-a3e1eea2d3fb.jpg?v=1579502768',
-      'https://mulco.com/cdn/shop/products/MW1-10186-092.jpg?v=1579502765',
+      '/images/straps/MW3-10302-033_a8928c04-41e5-4612-84dc-a3e1eea2d3fb.jpg',
+      '/images/straps/MW1-10186-092.jpg',
     ],
     tags: ['Silicone', 'Water Resistant', '20+ Colors Available'],
     description:

@@ -50,7 +50,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
               <img
-                src="https://mulco.com/cdn/shop/files/mulco_logo_blanco.png?v=1613552939"
+                src="/images/ui/mulco_logo_blanco.png"
                 alt="MULCO"
                 className="h-8 md:h-9"
               />
@@ -100,10 +100,10 @@ export default function Navbar() {
                     </div>
                     <div className="relative overflow-hidden">
                       {[
-                        { key: 'women', src: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994' },
-                        { key: 'men', src: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_1.jpg?v=1764274994' },
-                        { key: 'new-arrivals', src: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994' },
-                        { key: 'all', src: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994' },
+                        { key: 'women', src: '/images/ui/Banners_mega_menu_mujer_1.jpg' },
+                        { key: 'men', src: '/images/ui/Banners_mega_menu_hombre_1.jpg' },
+                        { key: 'new-arrivals', src: '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg' },
+                        { key: 'all', src: '/images/ui/Banners_mega_menu_hombre_2.jpg' },
                       ].map(({ key, src }) => (
                         <img
                           key={key}

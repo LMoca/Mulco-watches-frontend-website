@@ -18,7 +18,7 @@ export default function Cart() {
         <div
           className="relative h-[38vh] flex items-end"
           style={{
-            backgroundImage: 'url(https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994)',
+            backgroundImage: 'url(/images/ui/Banners_mega_menu_hombre_2.jpg',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
@@ -63,7 +63,7 @@ export default function Cart() {
       <div
         className="relative h-[32vh] flex items-end"
         style={{
-          backgroundImage: 'url(https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994)',
+          backgroundImage: 'url(/images/ui/Banners_mega_menu_hombre_2.jpg',
           backgroundSize: 'cover',
           backgroundPosition: 'center 30%',
         }}

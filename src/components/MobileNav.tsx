@@ -41,7 +41,7 @@ export default function MobileNav({ open, onClose }: MobileNavProps) {
         <div className="flex items-center justify-between px-6 pt-6 pb-5 border-b border-brand-gold/20">
           <Link to="/" onClick={onClose}>
             <img
-              src="https://mulco.com/cdn/shop/files/mulco_logo_blanco.png?v=1613552939"
+              src="/images/ui/mulco_logo_blanco.png"
               alt="MULCO"
               className="h-8"
             />

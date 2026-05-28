@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="flex justify-center mb-12">
           <Link to="/">
             <img
-              src="https://mulco.com/cdn/shop/files/mulco_logo_blanco.png?v=1613552939"
+              src="/images/ui/mulco_logo_blanco.png"
               alt="MULCO"
               className="h-8"
             />

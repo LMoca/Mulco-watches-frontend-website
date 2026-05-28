@@ -10,14 +10,14 @@ const categories = [
     label: 'Jewelry',
     desc: 'Crafted to complement.',
     href: '/accessories/jewelry',
-    image: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994',
+    image: '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg',
   },
   {
     key: 'straps',
     label: 'Straps',
     desc: 'Change the look. Keep the precision.',
     href: '/accessories/straps',
-    image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994',
+    image: '/images/ui/Banners_mega_menu_hombre_2.jpg',
   },
 ];
 

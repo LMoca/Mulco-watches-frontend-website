@@ -55,7 +55,7 @@ export default function Support() {
       <div
         className="relative h-[38vh] flex items-end overflow-hidden"
         style={{
-          backgroundImage: 'url(https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_1.jpg?v=1764274994)',
+          backgroundImage: 'url(/images/ui/Banners_mega_menu_hombre_1.jpg',
           backgroundSize: 'cover',
           backgroundPosition: 'center 40%',
         }}

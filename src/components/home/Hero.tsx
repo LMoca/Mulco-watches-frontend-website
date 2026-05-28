@@ -41,7 +41,7 @@ export default function Hero() {
         className="absolute inset-0 scale-[1.15] will-change-transform gpu"
         style={{
           backgroundImage:
-            'url(https://mulco.com/cdn/shop/files/Banner_principal_web_Usa_Spring_2800x1000_crop_center.jpg?v=1772208511)',
+            'url(/images/ui/Banner_principal_web_Usa_Spring_2800x1000_crop_center.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}

@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { useInView } from '../../hooks/useInView';
 import { useLanguage } from '../../context/LanguageContext';
 
-const CAMPAIGN_IMAGE = 'https://mulco.com/cdn/shop/collections/X2A2691.jpg?v=1777411699';
+const CAMPAIGN_IMAGE = '/images/ui/X2A2691.jpg';
 
 export default function BrandStory() {
   const { ref: headlineRef, inView: headlineInView } = useInView(0.2);
