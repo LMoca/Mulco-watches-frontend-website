@@ -1,7 +1,10 @@
-import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { ChevronRight, ArrowRight, ShoppingBag, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useCart } from '../context/CartContext';
 import { useInView } from '../hooks/useInView';
+import { getProductsByCategory, type Product } from '../data/products';
 
 function FadeSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const { ref, inView } = useInView(0.08);
@@ -19,106 +22,109 @@ function FadeSection({ children, delay = 0 }: { children: React.ReactNode; delay
   );
 }
 
-/* ── Data ── */
-interface AccessoryItem {
-  id: string;
-  name: string;
-  subtitle: string;
-  price: number;
-  image: string;
-  tags: string[];
-  gender?: 'men' | 'women' | 'unisex';
-}
-
-const sunglasses: AccessoryItem[] = [
-  { id: 'sg-1', name: 'Medusa Shield', subtitle: 'Oversized Shield Frame', price: 129, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994', tags: ['UV400', 'Acetate Frame'], gender: 'women' },
-  { id: 'sg-2', name: 'Cobra Aviator', subtitle: 'Gold-Tone Aviator', price: 119, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994', tags: ['Polarized', 'Metal Frame'], gender: 'men' },
-  { id: 'sg-3', name: 'Lush Cat-Eye', subtitle: 'Modern Cat-Eye', price: 109, image: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994', tags: ['UV400', 'Acetate'], gender: 'women' },
-  { id: 'sg-4', name: 'Kripton Sport', subtitle: 'Sport Wraparound', price: 139, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_1.jpg?v=1764274994', tags: ['Polarized', 'Lightweight'], gender: 'men' },
-];
-
-const jewelry: AccessoryItem[] = [
-  { id: 'jw-1', name: 'Illusion Bracelet', subtitle: 'Crystal-Set Cuff', price: 89, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994', tags: ['Swarovski', 'Gold Plated'] },
-  { id: 'jw-2', name: 'Blue Marine Pendant', subtitle: 'Sterling Silver Pendant', price: 79, image: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994', tags: ['925 Silver', 'MOP'] },
-  { id: 'jw-3', name: 'Couture Chain', subtitle: 'IP Rose Gold Chain', price: 99, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994', tags: ['IP Rose Gold', 'Stainless'] },
-  { id: 'jw-4', name: 'Cobra Ring', subtitle: 'Bold Statement Ring', price: 69, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994', tags: ['IP Black', 'Stainless'] },
-];
-
-const straps: AccessoryItem[] = [
-  { id: 'st-1', name: 'Marine Silicone', subtitle: 'High-Grade Silicone Strap', price: 49, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_1.jpg?v=1764274994', tags: ['20mm', '22mm', 'Waterproof'] },
-  { id: 'st-2', name: 'Couture Leather', subtitle: 'Italian Full-Grain Leather', price: 69, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994', tags: ['18mm', '20mm', 'Calfskin'] },
-  { id: 'st-3', name: 'Kripton Mesh', subtitle: 'IP Black Mesh Bracelet', price: 79, image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994', tags: ['20mm', '22mm', 'IP Black'] },
-  { id: 'st-4', name: 'Lush Ceramic', subtitle: 'High-Gloss Ceramic Band', price: 99, image: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994', tags: ['18mm', 'Scratch-Resistant'] },
-];
-
 const CATEGORIES = {
-  sunglasses: {
-    label: 'Sunglasses',
-    headline: 'Shade with Purpose',
-    sub: 'Precision eyewear crafted with the same aesthetic conviction as every MULCO timepiece.',
-    hero: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994',
-    items: sunglasses,
-    hasGenderFilter: true,
-  },
   jewelry: {
     label: 'Jewelry',
     headline: 'Wear Every Detail',
     sub: 'Complements designed to move with your watch. Each piece carries the same material standards as the collections.',
     hero: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994',
-    items: jewelry,
-    hasGenderFilter: false,
   },
   straps: {
     label: 'Straps',
     headline: 'Change the Character',
     sub: 'Interchangeable straps let one watch live many lives. Explore silicone, leather, ceramic, and steel options.',
     hero: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994',
-    items: straps,
-    hasGenderFilter: false,
   },
 };
 
 const ALL_CATEGORIES = [
-  { slug: 'sunglasses', label: 'Sunglasses', image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994', desc: 'UV-protective eyewear' },
-  { slug: 'jewelry',    label: 'Jewelry',    image: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994', desc: 'Curated complements' },
-  { slug: 'straps',     label: 'Straps',     image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994', desc: 'Interchangeable bands' },
+  { slug: 'jewelry', label: 'Jewelry', image: 'https://mulco.com/cdn/shop/files/Banners_Mega_menu_1_version_quartz_verde.jpg?v=1764274994', desc: 'Curated complements' },
+  { slug: 'straps',  label: 'Straps',  image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994', desc: 'Interchangeable bands' },
 ];
 
-function AccessoryCard({ item }: { item: AccessoryItem }) {
+function ProductCard({ product, index }: { product: Product; index: number }) {
+  const { addItem } = useCart();
+  const [added, setAdded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  function handleAdd(e: React.MouseEvent) {
+    e.preventDefault();
+    addItem({ id: product.id, name: product.name, collection: product.collection, price: product.price, image: product.images[0] });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2200);
+  }
+
   return (
-    <div className="group flex flex-col">
-      <div className="relative overflow-hidden aspect-square">
+    <div
+      className="group flex flex-col gpu"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        opacity: 1,
+        animation: `fade-in-up 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 60}ms both`,
+      }}
+    >
+      <Link to={`/product/${product.id}`} className="relative overflow-hidden aspect-square block">
         <img
-          src={item.image}
-          alt={item.name}
+          src={product.images[0]}
+          alt={product.name}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover will-change-transform"
+          style={{
+            transform: hovered ? 'scale(1.06)' : 'scale(1)',
+            transition: 'transform 0.75s cubic-bezier(0.22,1,0.36,1)',
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-black/70 via-brand-black/20 to-transparent" />
-        {/* Hover reveal */}
-        <div className="absolute inset-x-0 bottom-4 flex justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-          <span className="text-[9px] font-sans tracking-[0.22em] uppercase text-brand-white bg-brand-black/80 px-5 py-2">
-            Discover
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-black/60 via-transparent to-transparent" />
+        {product.isNew && (
+          <span className="absolute top-3 left-3 text-[9px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-gold text-brand-black px-2 py-1">
+            New
+          </span>
+        )}
+        <div
+          className="absolute inset-x-0 bottom-0 p-4"
+          style={{
+            transform: hovered ? 'translateY(0)' : 'translateY(100%)',
+            transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1)',
+          }}
+        >
+          <span className="block text-center text-[10px] font-sans font-semibold tracking-widest uppercase bg-brand-black/85 backdrop-blur-sm text-brand-white py-2.5">
+            View Details
           </span>
         </div>
-        {item.gender && (
-          <div className="absolute top-3 left-3">
-            <span className="text-[8px] font-sans tracking-[0.2em] uppercase text-brand-white bg-brand-black/70 px-2 py-1">
-              {item.gender === 'men' ? 'Men' : 'Women'}
-            </span>
+      </Link>
+
+      <div
+        className="p-4 flex-1 flex flex-col transition-colors duration-300"
+        style={{ background: hovered ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.015)' }}
+      >
+        <p className="text-[10px] font-sans text-brand-gold tracking-widest uppercase">{product.collection}</p>
+        <Link to={`/product/${product.id}`} className="font-serif text-base text-brand-white hover:text-brand-gold transition-colors duration-200 leading-tight mt-0.5 block">
+          {product.name}
+        </Link>
+        <p className="text-[10px] font-sans text-brand-muted mt-1.5 flex-1">{product.tags.join(' · ')}</p>
+        <div className="flex items-center justify-between mt-3">
+          <div className="flex flex-col leading-tight">
+            <span className="font-serif text-brand-gold text-lg">${product.price}</span>
+            {product.originalPrice && (
+              <span className="font-serif text-brand-muted text-sm line-through">${product.originalPrice}</span>
+            )}
           </div>
-        )}
-      </div>
-      <div className="mt-3 space-y-1">
-        <div className="flex flex-wrap gap-1.5">
-          {item.tags.slice(0, 2).map((t) => (
-            <span key={t} className="text-[8px] font-sans tracking-[0.15em] uppercase text-brand-gold">{t}</span>
-          ))}
+          <button
+            onClick={handleAdd}
+            aria-label={`Add ${product.name} to cart`}
+            className="flex items-center gap-1.5 text-[10px] font-sans font-medium tracking-widest uppercase px-3 py-2 border transition-all duration-200 ease-out active:scale-95"
+            style={{
+              borderColor: added ? 'rgba(201,168,76,0.9)' : 'rgba(201,168,76,0.4)',
+              backgroundColor: added ? 'rgba(201,168,76,0.12)' : 'transparent',
+              color: '#C9A84C',
+            }}
+          >
+            {added ? <CheckCircle size={11} /> : <ShoppingBag size={11} />}
+            {added ? 'Added' : 'Add'}
+          </button>
         </div>
-        <p className="font-serif text-base text-brand-white group-hover:text-brand-gold transition-colors duration-200 leading-tight">{item.name}</p>
-        <p className="font-sans text-[11px] text-brand-muted">{item.subtitle}</p>
-        <p className="font-serif text-sm text-brand-gold">${item.price.toFixed(2)}</p>
       </div>
     </div>
   );
@@ -129,6 +135,7 @@ export default function Accessories() {
   const { t } = useLanguage();
 
   const cat = category ? CATEGORIES[category as keyof typeof CATEGORIES] : null;
+  const catProducts = cat ? getProductsByCategory(category as 'jewelry' | 'straps') : [];
 
   /* ── Landing (no category) ── */
   if (!cat) {
@@ -160,11 +167,11 @@ export default function Accessories() {
           <FadeSection>
             <div className="text-center mb-14">
               <p className="font-sans text-sm text-brand-muted max-w-xl mx-auto leading-relaxed">
-                Every detail tells a story. Explore eyewear, jewelry, and straps designed with the same precision and boldness as every MULCO timepiece.
+                Every detail tells a story. Explore jewelry and straps designed with the same precision and boldness as every MULCO timepiece.
               </p>
             </div>
           </FadeSection>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {ALL_CATEGORIES.map((c, i) => (
               <FadeSection key={c.slug} delay={i * 100}>
                 <Link to={`/accessories/${c.slug}`} className="group block relative overflow-hidden aspect-[3/4]">
@@ -226,14 +233,12 @@ export default function Accessories() {
 
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
-          {cat.items.map((item, i) => (
-            <FadeSection key={item.id} delay={i * 60}>
-              <AccessoryCard item={item} />
-            </FadeSection>
+          {catProducts.map((product, i) => (
+            <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
 
-        {/* Other categories */}
+        {/* Other category */}
         <div className="mt-20 pt-14 border-t border-brand-gold/12">
           <FadeSection>
             <div className="flex items-end justify-between mb-8">

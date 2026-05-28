@@ -256,14 +256,22 @@ export default function ProductDetail() {
 
             {activeTab === 'specifications' && (
               <dl className="space-y-0 divide-y divide-brand-gold/8">
-                {[
-                  [t('spotlight.movement'), product.specs.movement],
-                  [t('spotlight.waterResistance'), product.specs.waterResistance],
-                  ['Case Diameter', product.specs.caseDiameter],
-                  [t('spotlight.caseMaterial'), product.specs.caseMaterial],
-                  ['Band Type', product.specs.bandType],
-                  ['Crystal Type', product.specs.crystalType],
-                ].map(([label, value]) => (
+                {(product.category === 'watches'
+                  ? [
+                      [t('spotlight.movement'), product.specs.movement],
+                      [t('spotlight.waterResistance'), product.specs.waterResistance],
+                      ['Case Diameter', product.specs.caseDiameter],
+                      [t('spotlight.caseMaterial'), product.specs.caseMaterial],
+                      ['Band Type', product.specs.bandType],
+                      ['Crystal Type', product.specs.crystalType],
+                    ]
+                  : [
+                      ['Material', product.specs.material],
+                      ['Finish', product.specs.finish],
+                      ['Dimensions', product.specs.dimensions],
+                      ['Closure', product.specs.closure],
+                    ]
+                ).filter(([, value]) => value != null).map(([label, value]) => (
                   <div key={label} className="flex justify-between py-3.5">
                     <dt className="text-xs font-sans text-brand-muted uppercase tracking-wider">{label}</dt>
                     <dd className="text-xs font-sans text-brand-white text-right">{value}</dd>

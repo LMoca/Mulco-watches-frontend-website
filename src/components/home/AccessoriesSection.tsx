@@ -6,13 +6,6 @@ import { useInView } from '../../hooks/useInView';
 
 const categories = [
   {
-    key: 'sunglasses',
-    label: 'Sunglasses',
-    desc: 'Bold frames, refined vision.',
-    href: '/accessories/sunglasses',
-    image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994',
-  },
-  {
     key: 'jewelry',
     label: 'Jewelry',
     desc: 'Crafted to complement.',
@@ -132,7 +125,7 @@ export default function AccessoriesSection() {
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-5">
           {categories.map((cat, i) => (
             <CategoryCard key={cat.key} cat={cat} index={i} inView={inView} />
           ))}

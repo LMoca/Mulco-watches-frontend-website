@@ -156,11 +156,12 @@ export default function Collections() {
   const [filterOpen, setFilterOpen] = useState(false);
 
   const filtered = useMemo(() => {
+    const watches = products.filter((p) => p.category === 'watches');
     let list = resolvedSlug === 'new-arrivals'
-      ? products.filter((p) => p.isNew)
+      ? watches.filter((p) => p.isNew)
       : genderFilter === 'all'
-      ? products
-      : products.filter((p) => p.gender === genderFilter || p.gender === 'unisex');
+      ? watches
+      : watches.filter((p) => p.gender === genderFilter || p.gender === 'unisex');
 
     switch (sort) {
       case 'price-asc': return [...list].sort((a, b) => a.price - b.price);
