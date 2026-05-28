@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, ChevronRight, Lock, Shield, RotateCcw, Truck } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -8,6 +9,16 @@ export default function Cart() {
   const { t } = useLanguage();
   const { items, removeItem, updateQuantity, totalPrice } = useCart();
   const navigate = useNavigate();
+  const [pendingRemove, setPendingRemove] = useState<string | null>(null);
+
+  function itemKey(id: string, variant?: string) { return `${id}-${variant ?? ''}`; }
+  function confirmRemove(id: string, variant?: string) { setPendingRemove(itemKey(id, variant)); }
+  function cancelRemove() { setPendingRemove(null); }
+  function doRemove(id: string, variant?: string) { removeItem(id, variant); setPendingRemove(null); }
+  function handleDecrease(id: string, quantity: number, variant?: string) {
+    if (quantity > 1) { updateQuantity(id, quantity - 1, variant); }
+    else { confirmRemove(id, variant); }
+  }
 
   const relatedProducts = getRelatedProducts(items[0]?.id ?? '', 4);
 
@@ -99,76 +110,92 @@ export default function Cart() {
             </div>
 
             <div className="divide-y divide-brand-gold/[0.08]">
-              {items.map((item) => (
-                <div key={`${item.id}-${item.variant ?? ''}`} className="py-7 grid grid-cols-[96px_1fr] md:grid-cols-[96px_1fr_auto_auto] gap-5 md:gap-6 items-center group">
+              {items.map((item) => {
+                const key = itemKey(item.id, item.variant);
+                const isPending = pendingRemove === key;
+                return (
+                  <div key={key} className="py-7 grid grid-cols-[96px_1fr] md:grid-cols-[96px_1fr_auto_auto] gap-5 md:gap-6 items-center group">
 
-                  {/* Image */}
-                  <Link to={`/product/${item.id}`} className="relative overflow-hidden aspect-square flex items-center justify-center">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </Link>
+                    {/* Image */}
+                    <Link to={`/product/${item.id}`} className="relative overflow-hidden aspect-square flex items-center justify-center">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        style={{ opacity: isPending ? 0.4 : 1, transition: 'opacity 0.2s ease' }}
+                      />
+                    </Link>
 
-                  {/* Info */}
-                  <div className="flex flex-col justify-center gap-2 min-w-0">
-                    <div>
-                      <span className="text-[9px] font-sans tracking-[0.25em] uppercase text-brand-gold">{item.collection}</span>
-                      <Link
-                        to={`/product/${item.id}`}
-                        className="block font-serif text-xl md:text-2xl text-brand-white hover:text-brand-gold transition-colors duration-200 leading-tight mt-0.5"
-                      >
-                        {item.name}
-                      </Link>
-                      {item.variant && (
-                        <p className="text-[11px] font-sans text-brand-muted mt-1">{item.variant}</p>
+                    {/* Info */}
+                    <div className="flex flex-col justify-center gap-2 min-w-0">
+                      <div>
+                        <span className="text-[9px] font-sans tracking-[0.25em] uppercase text-brand-gold">{item.collection}</span>
+                        <Link
+                          to={`/product/${item.id}`}
+                          className="block font-serif text-xl md:text-2xl text-brand-white hover:text-brand-gold transition-colors duration-200 leading-tight mt-0.5"
+                        >
+                          {item.name}
+                        </Link>
+                        {item.variant && (
+                          <p className="text-[11px] font-sans text-brand-muted mt-1">{item.variant}</p>
+                        )}
+                      </div>
+                      <p className="font-serif text-lg text-brand-gold md:hidden">${(item.price * item.quantity).toFixed(2)}</p>
+
+                      {/* Mobile qty + remove */}
+                      <div className="flex items-center gap-4 md:hidden">
+                        {isPending ? (
+                          <RemoveConfirm onConfirm={() => doRemove(item.id, item.variant)} onCancel={cancelRemove} />
+                        ) : (
+                          <>
+                            <QtyControl
+                              quantity={item.quantity}
+                              onDecrease={() => handleDecrease(item.id, item.quantity, item.variant)}
+                              onIncrease={() => updateQuantity(item.id, item.quantity + 1, item.variant)}
+                            />
+                            <button
+                              onClick={() => confirmRemove(item.id, item.variant)}
+                              className="text-brand-muted hover:text-red-400 transition-colors duration-150 text-[10px] font-sans tracking-wider uppercase flex items-center gap-1"
+                            >
+                              <Trash2 size={11} /> Remove
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Desktop qty */}
+                    <div className="hidden md:flex flex-col items-center gap-3">
+                      {isPending ? (
+                        <RemoveConfirm onConfirm={() => doRemove(item.id, item.variant)} onCancel={cancelRemove} />
+                      ) : (
+                        <>
+                          <QtyControl
+                            quantity={item.quantity}
+                            onDecrease={() => handleDecrease(item.id, item.quantity, item.variant)}
+                            onIncrease={() => updateQuantity(item.id, item.quantity + 1, item.variant)}
+                          />
+                          <button
+                            onClick={() => confirmRemove(item.id, item.variant)}
+                            aria-label={t('cart.remove')}
+                            className="text-brand-muted hover:text-red-400 transition-colors duration-150"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </>
                       )}
                     </div>
-                    <p className="font-serif text-lg text-brand-gold md:hidden">${(item.price * item.quantity).toFixed(2)}</p>
 
-                    {/* Mobile qty + remove */}
-                    <div className="flex items-center gap-4 md:hidden">
-                      <QtyControl
-                        quantity={item.quantity}
-                        onDecrease={() => item.quantity > 1 ? updateQuantity(item.id, item.quantity - 1, item.variant) : removeItem(item.id, item.variant)}
-                        onIncrease={() => updateQuantity(item.id, item.quantity + 1, item.variant)}
-                      />
-                      <button
-                        onClick={() => removeItem(item.id, item.variant)}
-                        className="text-brand-muted hover:text-red-400 transition-colors duration-150 text-[10px] font-sans tracking-wider uppercase flex items-center gap-1"
-                      >
-                        <Trash2 size={11} /> Remove
-                      </button>
+                    {/* Desktop line total */}
+                    <div className="hidden md:flex flex-col items-end justify-center gap-1">
+                      <span className="font-serif text-2xl text-brand-gold">${(item.price * item.quantity).toFixed(2)}</span>
+                      <span className="text-[10px] font-sans text-brand-muted">${item.price.toFixed(2)} each</span>
                     </div>
                   </div>
-
-                  {/* Desktop qty */}
-                  <div className="hidden md:flex flex-col items-center gap-3">
-                    <QtyControl
-                      quantity={item.quantity}
-                      onDecrease={() => item.quantity > 1 ? updateQuantity(item.id, item.quantity - 1, item.variant) : removeItem(item.id, item.variant)}
-                      onIncrease={() => updateQuantity(item.id, item.quantity + 1, item.variant)}
-                    />
-                    <button
-                      onClick={() => removeItem(item.id, item.variant)}
-                      aria-label={t('cart.remove')}
-                      className="text-brand-muted hover:text-red-400 transition-colors duration-150"
-                    >
-                      <Trash2 size={13} />
-                    </button>
-                  </div>
-
-                  {/* Desktop line total */}
-                  <div className="hidden md:flex flex-col items-end justify-center gap-1">
-                    <span className="font-serif text-2xl text-brand-gold">${(item.price * item.quantity).toFixed(2)}</span>
-                    <span className="text-[10px] font-sans text-brand-muted">${item.price.toFixed(2)} each</span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Bottom action row */}
@@ -324,6 +351,28 @@ export default function Cart() {
 
       {/* ── Trust Strip ── */}
       <TrustStrip />
+    </div>
+  );
+}
+
+function RemoveConfirm({ onConfirm, onCancel }: { onConfirm: () => void; onCancel: () => void }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <p className="text-[10px] font-sans text-brand-white tracking-wide">Remove this item?</p>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onConfirm}
+          className="text-[10px] font-sans font-semibold tracking-[0.15em] uppercase px-3 py-1.5 bg-red-500/80 text-white hover:bg-red-500 transition-colors duration-150"
+        >
+          Remove
+        </button>
+        <button
+          onClick={onCancel}
+          className="text-[10px] font-sans tracking-[0.15em] uppercase px-3 py-1.5 border border-brand-gold/25 text-brand-muted hover:text-brand-white hover:border-brand-gold/50 transition-colors duration-150"
+        >
+          Keep
+        </button>
+      </div>
     </div>
   );
 }
