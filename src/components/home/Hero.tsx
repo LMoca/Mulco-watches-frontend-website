@@ -42,7 +42,7 @@ export default function Hero() {
         style={{
           backgroundImage:
             'url(https://mulco.com/cdn/shop/files/Banner_principal_web_Usa_Spring_2800x1000_crop_center.jpg?v=1772208511)',
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}
       />
