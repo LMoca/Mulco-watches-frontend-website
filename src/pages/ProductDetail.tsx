@@ -515,6 +515,9 @@ export default function ProductDetail() {
               <span className="text-[10px] font-sans text-brand-muted">Free shipping (PR & USA)</span>
               <span className="text-[10px] font-sans text-brand-muted">2-Year International Warranty</span>
               <span className="text-[10px] font-sans text-brand-muted">Easy 30-day returns</span>
+              <Link to="/find-a-retailer" className="text-[10px] font-sans text-brand-gold hover:text-brand-white transition-colors">
+                Find a retailer near you →
+              </Link>
             </div>
           </div>
         </div>

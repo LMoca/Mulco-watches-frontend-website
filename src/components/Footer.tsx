@@ -84,6 +84,9 @@ export default function Footer() {
               <Link to="/support" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('footer.storeLocation')}
               </Link>
+              <Link to="/find-a-retailer" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
+                Find a Retailer
+              </Link>
             </nav>
           </div>
         </div>
