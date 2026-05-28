@@ -5,6 +5,7 @@ import ProductSpotlight from '../components/home/ProductSpotlight';
 import SocialProof from '../components/home/SocialProof';
 import AccessoriesSection from '../components/home/AccessoriesSection';
 import InstagramSection from '../components/home/InstagramSection';
+import VideoSection from '../components/home/VideoSection';
 import NewsletterSection from '../components/home/NewsletterSection';
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <ProductSpotlight />
       <AccessoriesSection />
       <SocialProof />
+      <VideoSection />
       <InstagramSection />
       <NewsletterSection />
     </>

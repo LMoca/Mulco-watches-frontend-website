@@ -1,10 +1,47 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, Search, ChevronRight } from 'lucide-react';
+import { ChevronDown, Search, ChevronRight, Play } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useInView } from '../hooks/useInView';
 import { faqData } from '../data/faqData';
 import { sanitizeInput } from '../utils/sanitize';
+
+function TutorialTile({ id, title }: { id: string; title: string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="relative aspect-video overflow-hidden bg-brand-black group border border-brand-gold/12 hover:border-brand-gold/30 transition-colors duration-200">
+      {playing ? (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full border-0"
+        />
+      ) : (
+        <>
+          <img
+            src={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`}
+            alt={title}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300"
+          />
+          <div className="absolute inset-0 bg-brand-black/40" />
+          <button
+            onClick={() => setPlaying(true)}
+            aria-label={`Play ${title}`}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 focus:outline-none"
+          >
+            <div className="w-10 h-10 rounded-full border border-brand-white/70 flex items-center justify-center group-hover:border-brand-gold group-hover:bg-brand-gold/10 transition-all duration-200">
+              <Play size={14} className="text-brand-white group-hover:text-brand-gold ml-0.5 transition-colors duration-200" fill="currentColor" />
+            </div>
+            <span className="font-sans text-xs text-brand-white group-hover:text-brand-gold transition-colors duration-200 tracking-wide">{title}</span>
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
 
 function AccordionItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
@@ -121,6 +158,24 @@ export default function FAQ() {
             ))}
           </div>
         )}
+
+        {/* Watch Tutorials */}
+        <div className="mt-20">
+          <h2 className="font-serif text-2xl text-brand-white mb-1">Watch Tutorials</h2>
+          <div className="w-6 h-px bg-brand-gold mb-6" />
+          <p className="font-sans text-sm text-brand-muted mb-8 leading-relaxed">
+            Not sure how to set your MULCO? These official tutorials walk you through each movement type.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { id: 'zveQTY1KgQU', title: 'Quartz Movement' },
+              { id: 'p0uzj5Fn4EY', title: 'Chronograph Movement' },
+              { id: 'O9YyXJTouHs', title: 'Multifunctional Movement' },
+            ].map((v) => (
+              <TutorialTile key={v.id} id={v.id} title={v.title} />
+            ))}
+          </div>
+        </div>
 
         {/* Contact CTA */}
         <div
