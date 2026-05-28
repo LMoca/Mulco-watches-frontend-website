@@ -40,9 +40,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 205,
     images: [
-      '/images/watches/blue_marine_fusion/blue_marine_fusion_white.jpg',
-      '/images/watches/blue_marine_fusion/blue_marine_fusion_detail_01.jpg',
-      '/images/watches/blue_marine_fusion/blue_marine_fusion_blue.jpg',
+      '/images/watches/blue_marine_fusion/white/blue_marine_fusion_white.jpg',
+      '/images/watches/blue_marine_fusion/detail/blue_marine_fusion_detail_01.jpg',
+      '/images/watches/blue_marine_fusion/blue/blue_marine_fusion_blue.jpg',
     ],
     tags: ['Swarovski Crystals', 'Quartz', '100M Water Resistant'],
     description:
@@ -65,9 +65,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 185,
     images: [
-      '/images/watches/blue_marine_infinity/blue_marine_infinity_blue.jpg',
-      '/images/watches/blue_marine_infinity/blue_marine_infinity_detail_01.jpg',
-      '/images/watches/blue_marine_infinity/blue_marine_infinity_white.jpg',
+      '/images/watches/blue_marine_infinity/blue/blue_marine_infinity_blue.jpg',
+      '/images/watches/blue_marine_infinity/detail/blue_marine_infinity_detail_01.jpg',
+      '/images/watches/blue_marine_infinity/white/blue_marine_infinity_white.jpg',
     ],
     tags: ['Mother of Pearl', 'Quartz', '100M Water Resistant'],
     description:
@@ -90,9 +90,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 196,
     images: [
-      '/images/watches/blue_marine_medusa/blue_marine_medusa_white.jpg',
-      '/images/watches/blue_marine_medusa/blue_marine_medusa_detail_02.jpg',
-      '/images/watches/blue_marine_medusa/blue_marine_medusa_detail_05.jpg',
+      '/images/watches/blue_marine_medusa/white/blue_marine_medusa_white.jpg',
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_02.jpg',
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_05.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -115,9 +115,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/enchanted_maple/enchanted_maple_pink.jpg',
-      '/images/watches/enchanted_maple/enchanted_maple_detail_02.jpg',
-      '/images/watches/enchanted_maple/enchanted_maple_blue.jpg',
+      '/images/watches/enchanted_maple/pink/enchanted_maple_pink.jpg',
+      '/images/watches/enchanted_maple/detail/enchanted_maple_detail_02.jpg',
+      '/images/watches/enchanted_maple/blue/enchanted_maple_blue.jpg',
     ],
     tags: ['Rose Gold Details', 'Quartz', '100M Water Resistant'],
     description:
@@ -140,9 +140,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 196,
     images: [
-      '/images/watches/enchanted_quartz/enchanted_quartz_white.jpg',
-      '/images/watches/enchanted_quartz/enchanted_quartz_detail_01.jpg',
-      '/images/watches/enchanted_quartz/enchanted_quartz_detail_02.jpg',
+      '/images/watches/enchanted_quartz/white/enchanted_quartz_white.jpg',
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_01.jpg',
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_02.jpg',
     ],
     tags: ['Mother of Pearl', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -165,9 +165,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 215,
     images: [
-      '/images/watches/kripton_lady/kripton_lady_white.jpg',
-      '/images/watches/kripton_lady/kripton_lady_detail_07.jpg',
-      '/images/watches/kripton_lady/kripton_lady_detail_13.jpg',
+      '/images/watches/kripton_lady/white/kripton_lady_white.jpg',
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_07.jpg',
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_13.jpg',
     ],
     tags: ['Pearl Finish Dial', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -189,9 +189,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 205,
     images: [
-      '/images/watches/kripton_royale_lady/kripton_royale_lady_pink.jpg',
-      '/images/watches/kripton_royale_lady/kripton_royale_lady_detail_01.jpg',
-      '/images/watches/kripton_royale_lady/kripton_royale_lady_detail_02.jpg',
+      '/images/watches/kripton_royale_lady/pink/kripton_royale_lady_pink.jpg',
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_01.jpg',
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_02.jpg',
     ],
     tags: ['Textured Dial', 'Rose Gold Accents', '100M Water Resistant'],
     description:
@@ -214,9 +214,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 245,
     images: [
-      '/images/watches/dreamcatcher/dreamcatcher_white.jpg',
-      '/images/watches/dreamcatcher/dreamcatcher_detail_01.jpg',
-      '/images/watches/dreamcatcher/dreamcatcher_detail_02.jpg',
+      '/images/watches/dreamcatcher/white/dreamcatcher_white.jpg',
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_01.jpg',
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -240,9 +240,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/la_fleur_gardenia/la_fleur_gardenia_white.jpg',
-      '/images/watches/la_fleur_gardenia/la_fleur_gardenia_detail_01.jpg',
-      '/images/watches/la_fleur_gardenia/la_fleur_gardenia_detail_02.jpg',
+      '/images/watches/la_fleur_gardenia/white/la_fleur_gardenia_white.jpg',
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_01.jpg',
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_02.jpg',
     ],
     tags: ['Swarovski Crystals', 'Floral Design', '100M Water Resistant'],
     description:
@@ -265,9 +265,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/lady_d/lady_d_detail_01.jpg',
-      '/images/watches/lady_d/lady_d_detail_02.jpg',
-      '/images/watches/lady_d/lady_d_detail_03.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_01.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_02.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_03.jpg',
     ],
     tags: ['Pearl Accents', 'Rose Gold', '100M Water Resistant'],
     description:
@@ -289,9 +289,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 195,
     images: [
-      '/images/watches/m10_namaste/m10_namaste_purple.jpg',
-      '/images/watches/m10_namaste/m10_namaste_detail_01.jpg',
-      '/images/watches/m10_namaste/m10_namaste_detail_02.jpg',
+      '/images/watches/m10_namaste/purple/m10_namaste_purple.jpg',
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_01.jpg',
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_02.jpg',
     ],
     tags: ['Zen Design', 'Rose Gold', '100M Water Resistant'],
     description:
@@ -313,9 +313,9 @@ export const products: Product[] = [
     gender: 'women',
     price: 200,
     images: [
-      '/images/watches/frost_full_moon/frost_full_moon_red.jpg',
-      '/images/watches/frost_full_moon/frost_full_moon_detail_01.jpg',
-      '/images/watches/frost_full_moon/frost_full_moon_detail_02.jpg',
+      '/images/watches/frost_full_moon/red/frost_full_moon_red.jpg',
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_01.jpg',
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_02.jpg',
     ],
     tags: ['Mother of Pearl', 'Swarovski Stones', '100M Water Resistant'],
     description:
@@ -338,9 +338,9 @@ export const products: Product[] = [
     price: 175,
     originalPrice: 205,
     images: [
-      '/images/watches/freedom/freedom_yellow.jpg',
-      '/images/watches/freedom/freedom_detail_01.jpg',
-      '/images/watches/freedom/freedom_detail_02.jpg',
+      '/images/watches/freedom/yellow/freedom_yellow.jpg',
+      '/images/watches/freedom/detail/freedom_detail_01.jpg',
+      '/images/watches/freedom/detail/freedom_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -363,9 +363,9 @@ export const products: Product[] = [
     price: 140,
     originalPrice: 195,
     images: [
-      '/images/watches/titans_snap_ladies/titans_snap_ladies_blue.jpg',
-      '/images/watches/titans_snap_ladies/titans_snap_ladies_detail_01.jpg',
-      '/images/watches/titans_snap_ladies/titans_snap_ladies_white.jpg',
+      '/images/watches/titans_snap_ladies/blue/titans_snap_ladies_blue.jpg',
+      '/images/watches/titans_snap_ladies/detail/titans_snap_ladies_detail_01.jpg',
+      '/images/watches/titans_snap_ladies/white/titans_snap_ladies_white.jpg',
     ],
     tags: ['Quartz', 'Stainless Steel', '100M Water Resistant'],
     description:
@@ -390,9 +390,9 @@ export const products: Product[] = [
     gender: 'unisex',
     price: 195,
     images: [
-      '/images/watches/mulco_breathe/mulco_breathe_white.jpg',
-      '/images/watches/mulco_breathe/mulco_breathe_detail_01.jpg',
-      '/images/watches/mulco_breathe/mulco_breathe_detail_02.jpg',
+      '/images/watches/mulco_breathe/white/mulco_breathe_white.jpg',
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_01.jpg',
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_02.jpg',
     ],
     tags: ['Mother of Pearl', 'Embossed Dial', '100M Water Resistant'],
     description:
@@ -415,9 +415,9 @@ export const products: Product[] = [
     price: 160,
     originalPrice: 210,
     images: [
-      '/images/watches/era_50/era_50_black.jpg',
-      '/images/watches/era_50/era_50_detail_01.jpg',
-      '/images/watches/era_50/era_50_detail_02.jpg',
+      '/images/watches/era_50/black/era_50_black.jpg',
+      '/images/watches/era_50/detail/era_50_detail_01.jpg',
+      '/images/watches/era_50/detail/era_50_detail_02.jpg',
     ],
     tags: ['Luminous Markers', 'Stainless Steel', '100M Water Resistant'],
     description:
@@ -440,9 +440,9 @@ export const products: Product[] = [
     price: 175,
     originalPrice: 205,
     images: [
-      '/images/watches/pride/pride_white.jpg',
-      '/images/watches/pride/pride_detail_01.jpg',
-      '/images/watches/pride/pride_detail_02.jpg',
+      '/images/watches/pride/white/pride_white.jpg',
+      '/images/watches/pride/detail/pride_detail_01.jpg',
+      '/images/watches/pride/detail/pride_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Luminous', '100M Water Resistant'],
     description:
@@ -467,9 +467,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 215,
     images: [
-      '/images/watches/buzo_tentacles/buzo_tentacles_blue.jpg',
-      '/images/watches/buzo_tentacles/buzo_tentacles_detail_01.jpg',
-      '/images/watches/buzo_tentacles/buzo_tentacles_white.jpg',
+      '/images/watches/buzo_tentacles/blue/buzo_tentacles_blue.jpg',
+      '/images/watches/buzo_tentacles/detail/buzo_tentacles_detail_01.jpg',
+      '/images/watches/buzo_tentacles/white/buzo_tentacles_white.jpg',
     ],
     tags: ['Quartz Multifunctional', 'IP Black Steel', '100M Water Resistant'],
     description:
@@ -492,9 +492,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 245,
     images: [
-      '/images/watches/buzo_atlantis/buzo_atlantis_black_and_pink.jpg',
-      '/images/watches/buzo_atlantis/buzo_atlantis_detail_01.jpg',
-      '/images/watches/buzo_atlantis/buzo_atlantis_ochre.jpg',
+      '/images/watches/buzo_atlantis/black_and_pink/buzo_atlantis_black_and_pink.jpg',
+      '/images/watches/buzo_atlantis/detail/buzo_atlantis_detail_01.jpg',
+      '/images/watches/buzo_atlantis/ochre/buzo_atlantis_ochre.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Silicone Band', '100M Water Resistant'],
     description:
@@ -517,9 +517,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 220,
     images: [
-      '/images/watches/buzo_dive_silicone/buzo_dive_silicone_black_and_rose_gold.jpg',
-      '/images/watches/buzo_dive_silicone/buzo_dive_silicone_blue.jpg',
-      '/images/watches/buzo_dive_silicone/buzo_dive_silicone_detail_07.jpg',
+      '/images/watches/buzo_dive_silicone/black_and_rose_gold/buzo_dive_silicone_black_and_rose_gold.jpg',
+      '/images/watches/buzo_dive_silicone/blue/buzo_dive_silicone_blue.jpg',
+      '/images/watches/buzo_dive_silicone/detail/buzo_dive_silicone_detail_07.jpg',
     ],
     tags: ['Chronograph', 'Black Steel', '100M Water Resistant'],
     description:
@@ -541,9 +541,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 245,
     images: [
-      '/images/watches/buzo_dive_stainless/buzo_dive_stainless_gold_and_white.jpg',
-      '/images/watches/buzo_dive_stainless/buzo_dive_stainless_silver_and_black.jpg',
-      '/images/watches/buzo_dive_stainless/buzo_dive_stainless_detail_03.jpg',
+      '/images/watches/buzo_dive_stainless/gold_and_white/buzo_dive_stainless_gold_and_white.jpg',
+      '/images/watches/buzo_dive_stainless/silver_and_black/buzo_dive_stainless_silver_and_black.jpg',
+      '/images/watches/buzo_dive_stainless/detail/buzo_dive_stainless_detail_03.jpg',
     ],
     tags: ['Chronograph', 'Steel Bracelet', '100M Water Resistant'],
     description:
@@ -566,9 +566,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 205,
     images: [
-      '/images/watches/cobra/cobra_yellow.jpg',
-      '/images/watches/cobra/cobra_blue.jpg',
-      '/images/watches/cobra/cobra_black_and_red.jpg',
+      '/images/watches/cobra/yellow/cobra_yellow.jpg',
+      '/images/watches/cobra/blue/cobra_blue.jpg',
+      '/images/watches/cobra/black_and_red/cobra_black_and_red.jpg',
     ],
     tags: ['Miyota Quartz', 'Ion-Plated Steel', '100M Water Resistant'],
     description:
@@ -591,9 +591,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 215,
     images: [
-      '/images/watches/kripton_royale_gents/kripton_royale_gents_black_and_pink.jpg',
-      '/images/watches/kripton_royale_gents/kripton_royale_gents_detail_01.jpg',
-      '/images/watches/kripton_royale_gents/kripton_royale_gents_detail_02.jpg',
+      '/images/watches/kripton_royale_gents/black_and_pink/kripton_royale_gents_black_and_pink.jpg',
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_01.jpg',
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Bold Luxury', '100M Water Resistant'],
     description:
@@ -616,9 +616,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 255,
     images: [
-      '/images/watches/kripton_square/kripton_square_white.jpg',
-      '/images/watches/kripton_square/kripton_square_detail_01.jpg',
-      '/images/watches/kripton_square/kripton_square_detail_02.jpg',
+      '/images/watches/kripton_square/white/kripton_square_white.jpg',
+      '/images/watches/kripton_square/detail/kripton_square_detail_01.jpg',
+      '/images/watches/kripton_square/detail/kripton_square_detail_02.jpg',
     ],
     tags: ['Square Case', 'Quartz Analog', '100M Water Resistant'],
     description:
@@ -642,9 +642,9 @@ export const products: Product[] = [
     price: 180,
     originalPrice: 275,
     images: [
-      '/images/watches/kripton_viper/kripton_viper_neon_green.jpg',
-      '/images/watches/kripton_viper/kripton_viper_detail_01.jpg',
-      '/images/watches/kripton_viper/kripton_viper_detail_02.jpg',
+      '/images/watches/kripton_viper/neon_green/kripton_viper_neon_green.jpg',
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_01.jpg',
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_02.jpg',
     ],
     tags: ['Quartz Multifunctional', 'Date Window', '100M Water Resistant'],
     description:
@@ -666,9 +666,9 @@ export const products: Product[] = [
     gender: 'men',
     price: 205,
     images: [
-      '/images/watches/evol_reloaded/evol_reloaded_white.jpg',
-      '/images/watches/evol_reloaded/evol_reloaded_detail_01.jpg',
-      '/images/watches/evol_reloaded/evol_reloaded_detail_02.jpg',
+      '/images/watches/evol_reloaded/white/evol_reloaded_white.jpg',
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_01.jpg',
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_02.jpg',
     ],
     tags: ['Radial Sunray Dial', 'IP Black Steel', '100M Water Resistant'],
     description:
