@@ -1,0 +1,23 @@
+import Hero from '../components/home/Hero';
+import TrustBar from '../components/home/TrustBar';
+import CollectionsGrid from '../components/home/CollectionsGrid';
+import ProductSpotlight from '../components/home/ProductSpotlight';
+import SocialProof from '../components/home/SocialProof';
+import AccessoriesSection from '../components/home/AccessoriesSection';
+import NewsletterSection from '../components/home/NewsletterSection';
+import FaqPreview from '../components/home/FaqPreview';
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      <TrustBar />
+      <CollectionsGrid />
+      <ProductSpotlight />
+      <AccessoriesSection />
+      <SocialProof />
+      <NewsletterSection />
+      <FaqPreview />
+    </>
+  );
+}
