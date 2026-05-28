@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="50" fill="#0A0A0A"/>
+  <!-- Four-leaf clover: four overlapping circles offset from center -->
+  <circle cx="50" cy="36" r="14" fill="#E07B1A"/>
+  <circle cx="64" cy="50" r="14" fill="#E07B1A"/>
+  <circle cx="50" cy="64" r="14" fill="#E07B1A"/>
+  <circle cx="36" cy="50" r="14" fill="#E07B1A"/>
+  <!-- Center fill to connect leaves -->
+  <circle cx="50" cy="50" r="8"  fill="#E07B1A"/>
+</svg>
