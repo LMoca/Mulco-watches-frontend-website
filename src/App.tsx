@@ -10,6 +10,7 @@ import OurStory from './pages/OurStory';
 import FAQ from './pages/FAQ';
 import Support from './pages/Support';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/support" element={<Support />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </main>
         <Footer />

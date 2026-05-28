@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, ChevronRight, Lock, Shield, RotateCcw, Truck } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
@@ -7,6 +7,7 @@ import { getRelatedProducts } from '../data/products';
 export default function Cart() {
   const { t } = useLanguage();
   const { items, removeItem, updateQuantity, totalPrice } = useCart();
+  const navigate = useNavigate();
 
   const relatedProducts = getRelatedProducts(items[0]?.id ?? '', 4);
 
@@ -234,7 +235,10 @@ export default function Cart() {
                 <p className="text-[10px] font-sans text-brand-muted text-center">{t('cart.shippingNote')}</p>
 
                 {/* CTA */}
-                <button className="w-full py-4 bg-brand-gold text-brand-black text-[11px] font-sans font-bold tracking-[0.22em] uppercase flex items-center justify-center gap-2.5 hover:bg-brand-white transition-colors duration-200">
+                <button
+                  onClick={() => navigate('/checkout')}
+                  className="w-full py-4 bg-brand-gold text-brand-black text-[11px] font-sans font-bold tracking-[0.22em] uppercase flex items-center justify-center gap-2.5 hover:bg-brand-white transition-colors duration-200"
+                >
                   {t('cart.checkout')}
                   <ArrowRight size={12} />
                 </button>
