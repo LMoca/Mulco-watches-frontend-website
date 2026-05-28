@@ -4,10 +4,12 @@ import { Search, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import MobileNav from './MobileNav';
+import SearchModal from './SearchModal';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [activeCollection, setActiveCollection] = useState<string>('women');
   const megaTimeout = useRef<ReturnType<typeof setTimeout>>();
@@ -141,6 +143,7 @@ export default function Navbar() {
             {/* Right side */}
             <div className="flex items-center gap-4">
               <button
+                onClick={() => setSearchOpen(true)}
                 aria-label={t('nav.search')}
                 className="text-brand-white hover:text-brand-gold transition-colors duration-200"
               >
@@ -180,6 +183,7 @@ export default function Navbar() {
       </nav>
 
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
