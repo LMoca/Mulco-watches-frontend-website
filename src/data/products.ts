@@ -9,6 +9,7 @@ export interface Product {
   images: string[];
   tags: string[];
   colors?: Array<{ name: string; image: string }>;
+  perspectiveImages?: string[];
   description: string;
   specs: {
     // Watch-specific
@@ -54,6 +55,14 @@ export const products: Product[] = [
       { name: 'Red', image: '/images/watches/blue_marine_fusion/red/blue_marine_fusion_red.jpg' },
       { name: 'White', image: '/images/watches/blue_marine_fusion/white/blue_marine_fusion_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/blue_marine_fusion/detail/blue_marine_fusion_detail_01.jpg',
+      '/images/watches/blue_marine_fusion/detail/blue_marine_fusion_detail_02.jpg',
+      '/images/watches/blue_marine_fusion/detail/blue_marine_fusion_detail_03.jpg',
+      '/images/watches/blue_marine_fusion/detail/blue_marine_fusion_detail_04.jpg',
+      '/images/watches/blue_marine_fusion/detail/blue_marine_fusion_detail_05.jpg',
+      '/images/watches/blue_marine_fusion/detail/blue_marine_fusion_detail_06.jpg',
+    ],
     description:
       'Experience the perfect fusion of luxury and sport. Crafted with stainless steel, adorned with sparkling Swarovski crystals, and paired with a pure silicone band. Available in 6 colors.',
     specs: {
@@ -90,6 +99,14 @@ export const products: Product[] = [
       { name: 'White', image: '/images/watches/blue_marine_infinity/white/blue_marine_infinity_white.jpg' },
       { name: 'White & Gold', image: '/images/watches/blue_marine_infinity/white_and_gold/blue_marine_infinity_white_and_gold.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/blue_marine_infinity/detail/blue_marine_infinity_detail_01.jpg',
+      '/images/watches/blue_marine_infinity/detail/blue_marine_infinity_detail_02.jpg',
+      '/images/watches/blue_marine_infinity/detail/blue_marine_infinity_detail_03.jpg',
+      '/images/watches/blue_marine_infinity/detail/blue_marine_infinity_detail_04.jpg',
+      '/images/watches/blue_marine_infinity/detail/blue_marine_infinity_detail_05.jpg',
+      '/images/watches/blue_marine_infinity/detail/blue_marine_infinity_detail_06.jpg',
+    ],
     description:
       'Designed with luxury in mind, featuring a mother-of-pearl sundial display, stainless steel case, and pure silicone band. Available in 9 stunning colors.',
     specs: {
@@ -122,6 +139,14 @@ export const products: Product[] = [
       { name: 'Orange', image: '/images/watches/blue_marine_medusa/orange/blue_marine_medusa_orange.jpg' },
       { name: 'White', image: '/images/watches/blue_marine_medusa/white/blue_marine_medusa_white.jpg' },
       { name: 'Yellow', image: '/images/watches/blue_marine_medusa/yellow/blue_marine_medusa_yellow.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_01.jpg',
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_02.jpg',
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_03.jpg',
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_04.jpg',
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_05.jpg',
+      '/images/watches/blue_marine_medusa/detail/blue_marine_medusa_detail_06.jpg',
     ],
     description:
       'Draws inspiration from rare, electrifying jellyfish that glow in the deep ocean. A bold statement of femininity and oceanic elegance. Available in 6 colors.',
@@ -159,6 +184,14 @@ export const products: Product[] = [
       { name: 'Red', image: '/images/watches/enchanted_maple/red/enchanted_maple_red.jpg' },
       { name: 'White', image: '/images/watches/enchanted_maple/white/enchanted_maple_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/enchanted_maple/detail/enchanted_maple_detail_01.jpg',
+      '/images/watches/enchanted_maple/detail/enchanted_maple_detail_02.jpg',
+      '/images/watches/enchanted_maple/detail/enchanted_maple_detail_03.jpg',
+      '/images/watches/enchanted_maple/detail/enchanted_maple_detail_04.jpg',
+      '/images/watches/enchanted_maple/detail/enchanted_maple_detail_05.jpg',
+      '/images/watches/enchanted_maple/detail/enchanted_maple_detail_06.jpg',
+    ],
     description:
       'Inspired by the vibrant colors of the season and Maple trees, with rose gold details and silicone band. Water-resistant up to 100 meters. Available in 9 colors.',
     specs: {
@@ -191,6 +224,14 @@ export const products: Product[] = [
       { name: 'Pink', image: '/images/watches/enchanted_quartz/pink/enchanted_quartz_pink.jpg' },
       { name: 'Turquoise', image: '/images/watches/enchanted_quartz/turquoise/enchanted_quartz_turquoise.jpg' },
       { name: 'White', image: '/images/watches/enchanted_quartz/white/enchanted_quartz_white.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_01.jpg',
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_02.jpg',
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_03.jpg',
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_04.jpg',
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_05.jpg',
+      '/images/watches/enchanted_quartz/detail/enchanted_quartz_detail_06.jpg',
     ],
     description:
       'Features a mother-of-pearl display with rose gold accents and comes in six color variants. Backed by a two-year manufacturer warranty.',
@@ -226,6 +267,14 @@ export const products: Product[] = [
       { name: 'Violet', image: '/images/watches/kripton_lady/violet/kripton_lady_violet.jpg' },
       { name: 'White', image: '/images/watches/kripton_lady/white/kripton_lady_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_01.jpg',
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_02.jpg',
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_03.jpg',
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_04.jpg',
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_05.jpg',
+      '/images/watches/kripton_lady/detail/kripton_lady_detail_06.jpg',
+    ],
     description:
       'A luxury women\'s timepiece featuring a pearl finish sundial and rose gold accents, combining elegance with sport-ready durability. Available in 7 colors.',
     specs: {
@@ -258,6 +307,14 @@ export const products: Product[] = [
       { name: 'Pink', image: '/images/watches/kripton_royale_lady/pink/kripton_royale_lady_pink.jpg' },
       { name: 'White', image: '/images/watches/kripton_royale_lady/white/kripton_royale_lady_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_01.jpg',
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_02.jpg',
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_03.jpg',
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_04.jpg',
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_05.png',
+      '/images/watches/kripton_royale_lady/detail/kripton_royale_lady_detail_06.jpg',
+    ],
     description:
       'An elegant timepiece featuring a textured dial with rose gold accents, inspired by aristocratic sophistication and timeless elegance. Available in 6 colors.',
     specs: {
@@ -289,6 +346,14 @@ export const products: Product[] = [
       { name: 'Blue', image: '/images/watches/dreamcatcher/blue/dreamcatcher_blue.jpg' },
       { name: 'Pink', image: '/images/watches/dreamcatcher/pink/dreamcatcher_pink.jpg' },
       { name: 'White', image: '/images/watches/dreamcatcher/white/dreamcatcher_white.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_01.jpg',
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_02.jpg',
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_03.jpg',
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_04.jpg',
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_05.jpg',
+      '/images/watches/dreamcatcher/detail/dreamcatcher_detail_06.jpg',
     ],
     description:
       'A watch that holds time like a dream suspended in silence. Subtle, mysterious, woven with intention. Available in 5 colors.',
@@ -325,6 +390,14 @@ export const products: Product[] = [
       { name: 'White', image: '/images/watches/la_fleur_gardenia/white/la_fleur_gardenia_white.jpg' },
       { name: 'White & Rose Gold', image: '/images/watches/la_fleur_gardenia/white_and_rose_gold/la_fleur_gardenia_white_and_rose_gold.png' },
     ],
+    perspectiveImages: [
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_01.jpg',
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_02.jpg',
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_03.jpg',
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_04.jpg',
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_05.jpg',
+      '/images/watches/la_fleur_gardenia/detail/la_fleur_gardenia_detail_06.jpg',
+    ],
     description:
       'Inspired by the elegance of the Gardenia flower, combining refined beauty with subtle sophistication — capturing the timeless grace and delicate allure of nature. Available in 7 colors.',
     specs: {
@@ -358,6 +431,14 @@ export const products: Product[] = [
       { name: 'Turquoise', image: '/images/watches/lady_d/turquoise/lady_d_turquoise.jpg' },
       { name: 'White', image: '/images/watches/lady_d/white/lady_d_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/lady_d/detail/lady_d_detail_01.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_02.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_03.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_04.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_05.jpg',
+      '/images/watches/lady_d/detail/lady_d_detail_06.jpg',
+    ],
     description:
       'A sophisticated timepiece with tweed, embroidery, pearl, and rose gold accents in heavy-duty silicone — suitable for everyday wear with a touch of couture. Available in 6 colors.',
     specs: {
@@ -389,6 +470,14 @@ export const products: Product[] = [
       { name: 'Purple', image: '/images/watches/m10_namaste/purple/m10_namaste_purple.jpg' },
       { name: 'Turquoise', image: '/images/watches/m10_namaste/turquoise/m10_namaste_turquoise.jpg' },
       { name: 'White', image: '/images/watches/m10_namaste/white/m10_namaste_white.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_01.jpg',
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_02.jpg',
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_03.jpg',
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_04.jpg',
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_05.jpg',
+      '/images/watches/m10_namaste/detail/m10_namaste_detail_06.jpg',
     ],
     description:
       'Inspired to maintain your spirit and mind in a Zen mental state. The M10 Namaste features rose gold accents and a silicone band for daily wear. Available in 6 colors.',
@@ -422,6 +511,14 @@ export const products: Product[] = [
       { name: 'White', image: '/images/watches/frost_full_moon/white/frost_full_moon_white.jpg' },
       { name: 'Yellow', image: '/images/watches/frost_full_moon/yellow/frost_full_moon_yellow.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_01.jpg',
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_02.jpg',
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_03.jpg',
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_04.jpg',
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_05.jpg',
+      '/images/watches/frost_full_moon/detail/frost_full_moon_detail_06.jpg',
+    ],
     description:
       'Features mother-of-pearl accents, Swarovski stones, and rose gold detailing. The Frost Full Moon is a luminous statement for every occasion. Available in 6 colors.',
     specs: {
@@ -454,6 +551,14 @@ export const products: Product[] = [
       { name: 'Pink', image: '/images/watches/freedom/pink/freedom_pink.jpg' },
       { name: 'White', image: '/images/watches/freedom/white/freedom_white.jpg' },
       { name: 'Yellow', image: '/images/watches/freedom/yellow/freedom_yellow.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/freedom/detail/freedom_detail_01.jpg',
+      '/images/watches/freedom/detail/freedom_detail_02.jpg',
+      '/images/watches/freedom/detail/freedom_detail_03.jpg',
+      '/images/watches/freedom/detail/freedom_detail_04.jpg',
+      '/images/watches/freedom/detail/freedom_detail_05.jpg',
+      '/images/watches/freedom/detail/freedom_detail_06.jpg',
     ],
     description:
       'A bold silicone timepiece with multifunction capabilities and durable construction. Available in 6 colors.',
@@ -490,6 +595,14 @@ export const products: Product[] = [
       { name: 'Red', image: '/images/watches/titans_snap_ladies/red/titans_snap_ladies_red.jpg' },
       { name: 'White', image: '/images/watches/titans_snap_ladies/white/titans_snap_ladies_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/titans_snap_ladies/detail/titans_snap_ladies_detail_01.jpg',
+      '/images/watches/titans_snap_ladies/detail/titans_snap_ladies_detail_02.jpg',
+      '/images/watches/titans_snap_ladies/detail/titans_snap_ladies_detail_03.jpg',
+      '/images/watches/titans_snap_ladies/detail/titans_snap_ladies_detail_04.jpg',
+      '/images/watches/titans_snap_ladies/detail/titans_snap_ladies_detail_05.jpg',
+      '/images/watches/titans_snap_ladies/detail/titans_snap_ladies_detail_06.jpg',
+    ],
     description:
       'Luxury and function in one. Stainless steel case, silicone band, anti-scratch coating, quartz movement, and 10 ATM water resistance. Available in 8 colors.',
     specs: {
@@ -525,6 +638,14 @@ export const products: Product[] = [
       { name: 'Plum', image: '/images/watches/mulco_breathe/plum/mulco_breathe_plum.jpg' },
       { name: 'White', image: '/images/watches/mulco_breathe/white/mulco_breathe_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_01.jpg',
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_02.jpg',
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_03.jpg',
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_04.jpg',
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_05.jpg',
+      '/images/watches/mulco_breathe/detail/mulco_breathe_detail_06.jpg',
+    ],
     description:
       'A timepiece featuring mother-of-pearl finishes and an embossed sundial design that encourages mindful living. Available for women and men in 6 colors.',
     specs: {
@@ -558,6 +679,14 @@ export const products: Product[] = [
       { name: 'Red', image: '/images/watches/era_50/red/era_50_red.jpg' },
       { name: 'White', image: '/images/watches/era_50/white/era_50_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/era_50/detail/era_50_detail_01.jpg',
+      '/images/watches/era_50/detail/era_50_detail_02.jpg',
+      '/images/watches/era_50/detail/era_50_detail_03.jpg',
+      '/images/watches/era_50/detail/era_50_detail_04.jpg',
+      '/images/watches/era_50/detail/era_50_detail_05.png',
+      '/images/watches/era_50/detail/era_50_detail_06.jpg',
+    ],
     description:
       'Durable, waterproof watch ready for adventure with luminous markers and stainless steel construction. Available in 6 colors.',
     specs: {
@@ -587,6 +716,14 @@ export const products: Product[] = [
       { name: 'Black', image: '/images/watches/pride/black/pride_black.jpg' },
       { name: 'Rose Gold', image: '/images/watches/pride/rose_gold/pride_rose_gold.jpg' },
       { name: 'White', image: '/images/watches/pride/white/pride_white.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/pride/detail/pride_detail_01.jpg',
+      '/images/watches/pride/detail/pride_detail_02.jpg',
+      '/images/watches/pride/detail/pride_detail_03.jpg',
+      '/images/watches/pride/detail/pride_detail_04.jpg',
+      '/images/watches/pride/detail/pride_detail_05.jpg',
+      '/images/watches/pride/detail/pride_detail_06.jpg',
     ],
     description:
       'A vibrant timepiece celebrating self-acceptance, featuring the "I DECIDE" design on the dial with luminous elements. Available in white, black, and rose gold.',
@@ -622,6 +759,14 @@ export const products: Product[] = [
       { name: 'Blue', image: '/images/watches/buzo_tentacles/blue/buzo_tentacles_blue.jpg' },
       { name: 'White', image: '/images/watches/buzo_tentacles/white/buzo_tentacles_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/buzo_tentacles/detail/buzo_tentacles_detail_01.jpg',
+      '/images/watches/buzo_tentacles/detail/buzo_tentacles_detail_02.jpg',
+      '/images/watches/buzo_tentacles/detail/buzo_tentacles_detail_03.jpg',
+      '/images/watches/buzo_tentacles/detail/buzo_tentacles_detail_04.jpg',
+      '/images/watches/buzo_tentacles/detail/buzo_tentacles_detail_05.jpg',
+      '/images/watches/buzo_tentacles/detail/buzo_tentacles_detail_06.jpg',
+    ],
     description:
       'Inspired by octopus camouflage, combining sleek design with adaptive innovation. IP black stainless steel case, 51mm. Available in 5 colorways.',
     specs: {
@@ -653,6 +798,14 @@ export const products: Product[] = [
       { name: 'Black & Pink', image: '/images/watches/buzo_atlantis/black_and_pink/buzo_atlantis_black_and_pink.jpg' },
       { name: 'Ochre', image: '/images/watches/buzo_atlantis/ochre/buzo_atlantis_ochre.jpg' },
       { name: 'White', image: '/images/watches/buzo_atlantis/white/buzo_atlantis_white.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/buzo_atlantis/detail/buzo_atlantis_detail_01.jpg',
+      '/images/watches/buzo_atlantis/detail/buzo_atlantis_detail_02.jpg',
+      '/images/watches/buzo_atlantis/detail/buzo_atlantis_detail_03.jpg',
+      '/images/watches/buzo_atlantis/detail/buzo_atlantis_detail_04.jpg',
+      '/images/watches/buzo_atlantis/detail/buzo_atlantis_detail_05.jpg',
+      '/images/watches/buzo_atlantis/detail/buzo_atlantis_detail_06.jpg',
     ],
     description:
       'Inspired by the mythical city of Atlantis — merging timeless design with the mysterious depths of the lost city. Bold 46mm case. Available in 5 colorways.',
@@ -690,6 +843,14 @@ export const products: Product[] = [
       { name: 'Red', image: '/images/watches/buzo_dive_silicone/red/buzo_dive_silicone_red.jpg' },
       { name: 'White', image: '/images/watches/buzo_dive_silicone/white/buzo_dive_silicone_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/buzo_dive_silicone/detail/buzo_dive_silicone_detail_01.jpg',
+      '/images/watches/buzo_dive_silicone/detail/buzo_dive_silicone_detail_02.jpg',
+      '/images/watches/buzo_dive_silicone/detail/buzo_dive_silicone_detail_03.jpg',
+      '/images/watches/buzo_dive_silicone/detail/buzo_dive_silicone_detail_04.jpg',
+      '/images/watches/buzo_dive_silicone/detail/buzo_dive_silicone_detail_05.jpg',
+      '/images/watches/buzo_dive_silicone/detail/buzo_dive_silicone_detail_06.jpg',
+    ],
     description:
       'Perfect for water adventures with an elegant and adventurous style. Chronograph movement, flame fusion crystal. Available in 9 colors.',
     specs: {
@@ -721,6 +882,14 @@ export const products: Product[] = [
       { name: 'Gold & White', image: '/images/watches/buzo_dive_stainless/gold_and_white/buzo_dive_stainless_gold_and_white.jpg' },
       { name: 'Silver', image: '/images/watches/buzo_dive_stainless/silver/buzo_dive_stainless_silver.jpg' },
       { name: 'Silver & Black', image: '/images/watches/buzo_dive_stainless/silver_and_black/buzo_dive_stainless_silver_and_black.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/buzo_dive_stainless/detail/buzo_dive_stainless_detail_01.jpg',
+      '/images/watches/buzo_dive_stainless/detail/buzo_dive_stainless_detail_02.jpg',
+      '/images/watches/buzo_dive_stainless/detail/buzo_dive_stainless_detail_03.jpg',
+      '/images/watches/buzo_dive_stainless/detail/buzo_dive_stainless_detail_04.png',
+      '/images/watches/buzo_dive_stainless/detail/buzo_dive_stainless_detail_05.png',
+      '/images/watches/buzo_dive_stainless/detail/buzo_dive_stainless_detail_06.jpg',
     ],
     description:
       'Sport functionality with premium construction. Chronograph movement and stainless steel bracelet with removable links. Available in 6 finishes.',
@@ -755,6 +924,14 @@ export const products: Product[] = [
       { name: 'Blue', image: '/images/watches/cobra/blue/cobra_blue.jpg' },
       { name: 'Yellow', image: '/images/watches/cobra/yellow/cobra_yellow.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/cobra/detail/cobra_detail_01.jpg',
+      '/images/watches/cobra/detail/cobra_detail_02.jpg',
+      '/images/watches/cobra/detail/cobra_detail_03.jpg',
+      '/images/watches/cobra/detail/cobra_detail_04.jpg',
+      '/images/watches/cobra/detail/cobra_detail_05.jpg',
+      '/images/watches/cobra/detail/cobra_detail_06.jpg',
+    ],
     description:
       'Exudes bravery, heroism, and persistence. Sporty steel case through a 48-hour ionization process, delivering a tasteful yet commanding aesthetic. Available in 6 colorways.',
     specs: {
@@ -788,6 +965,14 @@ export const products: Product[] = [
       { name: 'Blue', image: '/images/watches/kripton_royale_gents/blue/kripton_royale_gents_blue.jpg' },
       { name: 'White', image: '/images/watches/kripton_royale_gents/white/kripton_royale_gents_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_01.jpg',
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_02.jpg',
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_03.jpg',
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_04.jpg',
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_05.jpg',
+      '/images/watches/kripton_royale_gents/detail/kripton_royale_gents_detail_06.jpg',
+    ],
     description:
       'Blends bold luxury with timeless style, offering a striking design that exudes confidence and sophistication with every glance. Available in 6 colors.',
     specs: {
@@ -819,6 +1004,14 @@ export const products: Product[] = [
       { name: 'Black & Rose Gold', image: '/images/watches/kripton_square/black_and_rose_gold/kripton_square_black_and_rose_gold.jpg' },
       { name: 'Brown', image: '/images/watches/kripton_square/brown/kripton_square_brown.jpg' },
       { name: 'White', image: '/images/watches/kripton_square/white/kripton_square_white.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/kripton_square/detail/kripton_square_detail_01.jpg',
+      '/images/watches/kripton_square/detail/kripton_square_detail_02.jpg',
+      '/images/watches/kripton_square/detail/kripton_square_detail_03.jpg',
+      '/images/watches/kripton_square/detail/kripton_square_detail_04.jpg',
+      '/images/watches/kripton_square/detail/kripton_square_detail_05.jpg',
+      '/images/watches/kripton_square/detail/kripton_square_detail_06.jpg',
     ],
     description:
       'Inspired by 1850s style, the Kripton Square features a distinctive square case with precious metal accents and a classic aesthetic built for the modern gentleman. Available in 5 colors.',
@@ -856,6 +1049,14 @@ export const products: Product[] = [
       { name: 'Red', image: '/images/watches/kripton_viper/red/kripton_viper_red.jpg' },
       { name: 'White', image: '/images/watches/kripton_viper/white/kripton_viper_white.jpg' },
     ],
+    perspectiveImages: [
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_01.jpg',
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_02.jpg',
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_03.jpg',
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_04.jpg',
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_05.jpg',
+      '/images/watches/kripton_viper/detail/kripton_viper_detail_06.jpg',
+    ],
     description:
       'Features a semicircular date window and curved case designed for comfort. High quality, water-resistant construction with a bold sporty profile. Available in 8 colors.',
     specs: {
@@ -887,6 +1088,14 @@ export const products: Product[] = [
       { name: 'Silver', image: '/images/watches/evol_reloaded/silver/evol_reloaded_silver.jpg' },
       { name: 'White', image: '/images/watches/evol_reloaded/white/evol_reloaded_white.jpg' },
       { name: 'Yellow', image: '/images/watches/evol_reloaded/yellow/evol_reloaded_yellow.jpg' },
+    ],
+    perspectiveImages: [
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_01.jpg',
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_02.jpg',
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_03.jpg',
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_04.jpg',
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_05.jpg',
+      '/images/watches/evol_reloaded/detail/evol_reloaded_detail_06.jpg',
     ],
     description:
       'A sleek 46mm watch featuring a radial sunray texture display and stainless steel with IP black construction. Built for the man who demands both style and endurance. Available in 6 colors.',

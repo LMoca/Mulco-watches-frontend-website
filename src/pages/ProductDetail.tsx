@@ -52,6 +52,7 @@ export default function ProductDetail() {
   const related = id ? getRelatedProducts(id) : [];
 
   const [activeImage, setActiveImage] = useState(0);
+  const [colorGalleryIndex, setColorGalleryIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>('description');
@@ -59,6 +60,10 @@ export default function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState<{ name: string; image: string } | null>(
     () => product?.colors?.[0] ?? null
   );
+
+  const colorGallery = selectedColor
+    ? [selectedColor.image, ...(product?.perspectiveImages ?? [])]
+    : null;
 
   if (!product) {
     return (
@@ -115,7 +120,7 @@ export default function ProductDetail() {
               onClick={() => setZoomed(!zoomed)}
             >
               <img
-                src={selectedColor ? selectedColor.image : product.images[activeImage]}
+                src={colorGallery ? colorGallery[colorGalleryIndex] : product.images[activeImage]}
                 alt={selectedColor ? `${product.name} in ${selectedColor.name}` : product.name}
                 className={`w-full h-full object-cover will-change-transform transition-transform duration-500 ease-out ${zoomed ? 'scale-150' : 'scale-100'}`}
               />
@@ -132,12 +137,27 @@ export default function ProductDetail() {
             </div>
 
             {/* Thumbnails */}
-            {product.images.length > 1 && (
+            {colorGallery ? (
+              <div className="flex gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {colorGallery.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { setColorGalleryIndex(i); setZoomed(false); }}
+                    aria-label={i === 0 ? 'Main color image' : `Perspective ${i}`}
+                    className={`flex-shrink-0 w-20 h-20 overflow-hidden border-2 transition-all duration-200 ${
+                      colorGalleryIndex === i ? 'border-brand-gold' : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            ) : product.images.length > 1 ? (
               <div className="flex gap-2.5">
                 {product.images.map((img, i) => (
                   <button
                     key={i}
-                    onClick={() => { setActiveImage(i); setSelectedColor(null); setZoomed(false); }}
+                    onClick={() => { setActiveImage(i); setZoomed(false); }}
                     aria-label={`View image ${i + 1}`}
                     className={`flex-shrink-0 w-20 h-20 overflow-hidden border-2 transition-all duration-200 ${
                       activeImage === i ? 'border-brand-gold' : 'border-transparent opacity-60 hover:opacity-100'
@@ -147,7 +167,7 @@ export default function ProductDetail() {
                   </button>
                 ))}
               </div>
-            )}
+            ) : null}
           </div>
 
           {/* ── Product Info ── */}
@@ -182,7 +202,7 @@ export default function ProductDetail() {
                   {product.colors.map((c) => (
                     <button
                       key={c.name}
-                      onClick={() => { setSelectedColor(c); setZoomed(false); }}
+                      onClick={() => { setSelectedColor(c); setColorGalleryIndex(0); setZoomed(false); }}
                       title={c.name}
                       aria-label={`Select ${c.name}`}
                       className="relative w-11 h-11 overflow-hidden transition-all duration-200"

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ChevronRight, ShoppingBag, CheckCircle, SlidersHorizontal, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -155,13 +155,19 @@ export default function Collections() {
   const [sort, setSort] = useState<SortKey>('featured');
   const [filterOpen, setFilterOpen] = useState(false);
 
+  useEffect(() => {
+    setGenderFilter(resolvedSlug === 'women' ? 'women' : resolvedSlug === 'men' ? 'men' : 'all');
+    setSort('featured');
+  }, [resolvedSlug]);
+
   const filtered = useMemo(() => {
     const watches = products.filter((p) => p.category === 'watches');
+    const activeGender = resolvedSlug === 'women' ? 'women' : resolvedSlug === 'men' ? 'men' : genderFilter;
     let list = resolvedSlug === 'new-arrivals'
       ? watches.filter((p) => p.isNew)
-      : genderFilter === 'all'
+      : activeGender === 'all'
       ? watches
-      : watches.filter((p) => p.gender === genderFilter || p.gender === 'unisex');
+      : watches.filter((p) => p.gender === activeGender || p.gender === 'unisex');
 
     switch (sort) {
       case 'price-asc': return [...list].sort((a, b) => a.price - b.price);
