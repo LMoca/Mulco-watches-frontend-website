@@ -18,28 +18,28 @@ export default function Hero() {
       />
 
       {/* Layered overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-black/88 via-brand-black/55 to-brand-black/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/75 via-transparent to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-b from-brand-black/30 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-brand-black/50" />
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/75 to-brand-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/80 via-transparent to-transparent" />
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto w-full">
         <p
-          className="text-xs uppercase tracking-[0.38em] text-brand-gold mb-5 animate-fade-in-up"
+          className="text-xs uppercase tracking-[0.38em] text-brand-gold mb-5 animate-fade-in-up drop-shadow-[0_1px_8px_rgba(0,0,0,1)]"
           style={{ animationDelay: '0ms' }}
         >
           Swiss Luxury Timepieces · Since 1958
         </p>
 
         <h1
-          className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-white leading-[1.05] mb-6 animate-fade-in-up drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)]"
+          className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] text-white leading-[1.05] mb-6 animate-fade-in-up drop-shadow-[0_2px_24px_rgba(0,0,0,1)]"
           style={{ animationDelay: '80ms' }}
         >
           <span className="block">{t('hero.headline')}</span>
         </h1>
 
         <p
-          className="text-[#D4D4CC] text-base sm:text-lg max-w-sm mb-10 animate-fade-in-up leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)]"
+          className="text-white/90 text-base sm:text-lg max-w-sm mb-10 animate-fade-in-up leading-relaxed drop-shadow-[0_1px_10px_rgba(0,0,0,1)]"
           style={{ animationDelay: '180ms' }}
         >
           {t('hero.subtext')}
