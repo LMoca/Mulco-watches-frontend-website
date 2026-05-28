@@ -30,9 +30,9 @@ const collections = [
     hoverImage: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_mujer_1.jpg?v=1764274994',
   },
   {
-    key: 'limited',
-    label: 'nav.limitedEditions',
-    desc: 'Rare. Coveted. Yours.',
+    key: 'all',
+    label: 'nav.collections',
+    desc: 'Every collection, every story.',
     href: '/collections',
     image: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_2.jpg?v=1764274994',
     hoverImage: 'https://mulco.com/cdn/shop/files/Banners_mega_menu_hombre_1.jpg?v=1764274994',

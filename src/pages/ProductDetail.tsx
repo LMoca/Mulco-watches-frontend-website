@@ -170,7 +170,17 @@ export default function ProductDetail() {
             </div>
 
             {/* Price */}
-            <p className="font-serif text-4xl text-brand-gold">${product.price}</p>
+            <div className="flex items-baseline gap-4">
+              <p className="font-serif text-4xl text-brand-gold">${product.price}</p>
+              {product.originalPrice && (
+                <span className="font-serif text-2xl text-brand-muted line-through">${product.originalPrice}</span>
+              )}
+              {product.originalPrice && (
+                <span className="text-[10px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-rose text-brand-white px-2 py-1">
+                  Save ${product.originalPrice - product.price}
+                </span>
+              )}
+            </div>
 
             {/* Quantity */}
             <div className="flex items-center gap-4">

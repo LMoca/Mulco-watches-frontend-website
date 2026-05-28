@@ -4,21 +4,24 @@ import { useLanguage } from '../../context/LanguageContext';
 const reviews = [
   {
     id: 1,
-    text: 'I get numerous compliments on my Cobra. I simply love it.',
+    text: 'I get countless compliments on my Blue Marine Medusa. The quality is outstanding for the price — it feels and looks far more expensive than it is.',
     author: 'Maria R.',
     location: 'Miami, FL',
+    stars: 5,
   },
   {
     id: 2,
-    text: 'It arrived on time, looks exactly like the photo. Packaged beautifully. Included a bonus gift.',
+    text: 'Arrived right on time, packaged beautifully. Looks exactly like the photos — even better in person. The Buzo Dive is built like a tank.',
     author: 'James K.',
     location: 'New York, NY',
+    stars: 5,
   },
   {
     id: 3,
-    text: 'This is my third watch from Mulco — each one more exclusive than the last.',
+    text: 'This is my third Mulco — each one more exclusive than the last. The COBRA is my favorite. Heads turn everywhere I wear it.',
     author: 'Sofia L.',
     location: 'San Juan, PR',
+    stars: 5,
   },
 ];
 
@@ -92,6 +95,24 @@ function ReviewCard({
         transition: `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
       }}
     >
+      {/* Star rating */}
+      <div className="flex gap-0.5 mb-5" aria-label={`${review.stars} out of 5 stars`}>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <svg
+            key={i}
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill={i < review.stars ? '#C9A84C' : 'none'}
+            stroke="#C9A84C"
+            strokeWidth="1"
+            aria-hidden="true"
+          >
+            <polygon points="7,1 8.8,5.4 13.5,5.4 9.8,8.5 11.2,13 7,10.3 2.8,13 4.2,8.5 0.5,5.4 5.2,5.4" />
+          </svg>
+        ))}
+      </div>
+
       {/* Decorative quotation mark */}
       <span
         className="absolute top-4 right-6 font-serif text-7xl text-brand-gold/15 select-none leading-none group-hover:text-brand-gold/25 transition-colors duration-300"

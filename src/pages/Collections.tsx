@@ -65,6 +65,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             New
           </span>
         )}
+        {!product.isNew && product.originalPrice && (
+          <span className="absolute top-3 left-3 text-[9px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-rose text-brand-white px-2 py-1 animate-fade-in">
+            Sale
+          </span>
+        )}
         {/* Slide-up CTA */}
         <div
           className="absolute inset-x-0 bottom-0 p-4"
@@ -89,7 +94,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         </Link>
         <p className="text-[10px] font-sans text-brand-muted mt-1.5">{product.tags.join(' · ')}</p>
         <div className="flex items-center justify-between mt-3">
-          <span className="font-serif text-brand-gold text-lg">${product.price}</span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-serif text-brand-gold text-lg">${product.price}</span>
+            {product.originalPrice && (
+              <span className="font-serif text-brand-muted text-sm line-through">${product.originalPrice}</span>
+            )}
+          </div>
           <button
             onClick={handleAdd}
             aria-label={`Add ${product.name} to cart`}
