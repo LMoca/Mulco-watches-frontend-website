@@ -19,7 +19,11 @@ import Lookbook from './pages/Lookbook';
 import FindRetailer from './pages/FindRetailer';
 import WarrantyRegistration from './pages/WarrantyRegistration';
 import WatchCare from './pages/WatchCare';
+import CampaignFilms from './pages/CampaignFilms';
+import NotFound from './pages/NotFound';
 import CookieBanner from './components/CookieBanner';
+import WhatsAppWidget from './components/WhatsAppWidget';
+import CartDrawer from './components/CartDrawer';
 
 function App() {
   return (
@@ -48,10 +52,14 @@ function App() {
             <Route path="/find-a-retailer" element={<FindRetailer />} />
             <Route path="/warranty-registration" element={<WarrantyRegistration />} />
             <Route path="/watch-care" element={<WatchCare />} />
+            <Route path="/campaign-films" element={<CampaignFilms />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
+        <CartDrawer />
         <CookieBanner />
+        <WhatsAppWidget />
       </div>
     </BrowserRouter>
   );

@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Trash2, Minus, Plus, ShoppingBag, ArrowRight, ChevronRight, Lock, Shield, RotateCcw, Truck } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { getRelatedProducts } from '../data/products';
 
 export default function Cart() {
   const { t } = useLanguage();
   const { items, removeItem, updateQuantity, totalPrice } = useCart();
+  const { formatPrice, currency } = useCurrency();
   const navigate = useNavigate();
   const [pendingRemove, setPendingRemove] = useState<string | null>(null);
 
@@ -141,8 +143,11 @@ export default function Cart() {
                         {item.variant && (
                           <p className="text-[11px] font-sans text-brand-muted mt-1">{item.variant}</p>
                         )}
+                        {item.engraving && (
+                          <p className="text-[11px] font-sans text-brand-gold/70 mt-1 italic">Engraving: "{item.engraving}"</p>
+                        )}
                       </div>
-                      <p className="font-serif text-lg text-brand-gold md:hidden">${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-serif text-lg text-brand-gold md:hidden">{formatPrice(item.price * item.quantity)}</p>
 
                       {/* Mobile qty + remove */}
                       <div className="flex items-center gap-4 md:hidden">
@@ -190,8 +195,8 @@ export default function Cart() {
 
                     {/* Desktop line total */}
                     <div className="hidden md:flex flex-col items-end justify-center gap-1">
-                      <span className="font-serif text-2xl text-brand-gold">${(item.price * item.quantity).toFixed(2)}</span>
-                      <span className="text-[10px] font-sans text-brand-muted">${item.price.toFixed(2)} each</span>
+                      <span className="font-serif text-2xl text-brand-gold">{formatPrice(item.price * item.quantity)}</span>
+                      <span className="text-[10px] font-sans text-brand-muted">{formatPrice(item.price)} each</span>
                     </div>
                   </div>
                 );
@@ -233,7 +238,7 @@ export default function Cart() {
                         <p className="font-sans text-xs text-brand-white truncate">{item.name}</p>
                         <p className="font-sans text-[10px] text-brand-muted">× {item.quantity}</p>
                       </div>
-                      <span className="font-sans text-xs text-brand-white flex-shrink-0">${(item.price * item.quantity).toFixed(2)}</span>
+                      <span className="font-sans text-xs text-brand-white flex-shrink-0">{formatPrice(item.price * item.quantity)}</span>
                     </div>
                   ))}
                 </div>
@@ -245,7 +250,7 @@ export default function Cart() {
                 <div className="space-y-2.5">
                   <div className="flex justify-between">
                     <span className="font-sans text-sm text-brand-muted">{t('cart.subtotal')}</span>
-                    <span className="font-sans text-sm text-brand-white">${totalPrice.toFixed(2)}</span>
+                    <span className="font-sans text-sm text-brand-white">{formatPrice(totalPrice)}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="font-sans text-sm text-brand-muted">Shipping</span>
@@ -256,7 +261,7 @@ export default function Cart() {
                 {/* Grand total */}
                 <div className="border-t border-brand-gold/15 pt-5 flex justify-between items-end">
                   <span className="font-sans text-xs tracking-[0.2em] uppercase text-brand-muted">Total</span>
-                  <span className="font-serif text-3xl text-brand-gold">${totalPrice.toFixed(2)}</span>
+                  <span className="font-serif text-3xl text-brand-gold">{formatPrice(totalPrice)}</span>
                 </div>
 
                 <p className="text-[10px] font-sans text-brand-muted text-center">{t('cart.shippingNote')}</p>
@@ -275,6 +280,11 @@ export default function Cart() {
                   <Lock size={10} />
                   <span className="text-[10px] font-sans tracking-wide">256-bit SSL secure checkout</span>
                 </div>
+                {currency !== 'USD' && (
+                  <p className="text-[10px] font-sans text-brand-muted text-center leading-relaxed">
+                    Prices shown in {currency}. All transactions are charged in USD.
+                  </p>
+                )}
 
                 {/* Mini trust icons */}
                 <div className="grid grid-cols-3 gap-3 pt-1 border-t border-brand-gold/12">
@@ -340,7 +350,7 @@ export default function Cart() {
                   <div className="mt-3 space-y-1">
                     <p className="text-[9px] font-sans tracking-[0.22em] uppercase text-brand-gold">{product.collection}</p>
                     <p className="font-serif text-base text-brand-white group-hover:text-brand-gold transition-colors duration-200 leading-tight">{product.name}</p>
-                    <p className="font-serif text-sm text-brand-muted">${product.price.toFixed(2)}</p>
+                    <p className="font-serif text-sm text-brand-muted">{formatPrice(product.price)}</p>
                   </div>
                 </Link>
               ))}

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Search, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
+import { useCurrency, CURRENCIES, type Currency } from '../context/CurrencyContext';
 import MobileNav from './MobileNav';
 import SearchModal from './SearchModal';
 
@@ -12,9 +13,12 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
   const [activeCollection, setActiveCollection] = useState<string>('women');
+  const [currencyOpen, setCurrencyOpen] = useState(false);
   const megaTimeout = useRef<ReturnType<typeof setTimeout>>();
+  const currencyRef = useRef<HTMLDivElement>(null);
   const { t, language, setLanguage } = useLanguage();
-  const { totalItems } = useCart();
+  const { totalItems, openDrawer } = useCart();
+  const { currency, setCurrency } = useCurrency();
   const location = useLocation();
 
   useEffect(() => {
@@ -28,6 +32,16 @@ export default function Navbar() {
     setMegaOpen(false);
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+  useEffect(() => {
+    function handleOutside(e: MouseEvent) {
+      if (currencyRef.current && !currencyRef.current.contains(e.target as Node)) {
+        setCurrencyOpen(false);
+      }
+    }
+    if (currencyOpen) document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, [currencyOpen]);
 
   function handleMegaEnter() {
     clearTimeout(megaTimeout.current);
@@ -163,8 +177,42 @@ export default function Navbar() {
                 {language === 'en' ? 'ES' : 'EN'}
               </button>
 
-              <Link
-                to="/cart"
+              {/* Currency selector */}
+              <div ref={currencyRef} className="relative hidden sm:block">
+                <button
+                  onClick={() => setCurrencyOpen(!currencyOpen)}
+                  className="flex items-center gap-0.5 text-xs uppercase tracking-widest text-brand-muted hover:text-brand-gold transition-colors duration-200"
+                  aria-label="Select currency"
+                >
+                  {currency}
+                  <ChevronDown
+                    size={10}
+                    className={`transition-transform duration-200 ${currencyOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {currencyOpen && (
+                  <div
+                    style={{ backgroundColor: '#0A0A0A' }}
+                    className="absolute right-0 top-full mt-2 w-28 border border-brand-gold/15 shadow-lg z-50 py-1"
+                  >
+                    {(Object.keys(CURRENCIES) as Currency[]).map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => { setCurrency(c); setCurrencyOpen(false); }}
+                        className={`w-full text-left px-3 py-2 text-[11px] font-sans uppercase tracking-widest transition-colors flex items-center justify-between ${
+                          c === currency ? 'text-brand-gold' : 'text-brand-muted hover:text-brand-white'
+                        }`}
+                      >
+                        <span>{c}</span>
+                        <span className="opacity-50">{CURRENCIES[c].symbol}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button
+                onClick={openDrawer}
                 aria-label={t('nav.cart')}
                 className="relative text-brand-white hover:text-brand-gold transition-colors duration-200"
               >
@@ -174,7 +222,7 @@ export default function Navbar() {
                     {totalItems}
                   </span>
                 )}
-              </Link>
+              </button>
 
               <button
                 aria-label="Menu"

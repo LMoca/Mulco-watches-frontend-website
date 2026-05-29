@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
+import { useCurrency } from '../context/CurrencyContext';
 
 interface Chapter {
   id: string;
@@ -81,12 +82,12 @@ const chapters: Chapter[] = [
 ];
 
 const featuredGrid = [
-  { name: 'Kripton Lady',        href: '/product/kripton-lady',        img: '/images/watches/kripton_lady/white/kripton_lady_white.jpg',                   price: '$215' },
-  { name: 'Buzo Atlantis',       href: '/product/buzo-atlantis',       img: '/images/watches/buzo_atlantis/black_and_blue/buzo_atlantis_black_and_blue.jpg', price: '$245' },
-  { name: 'Blue Marine Medusa',  href: '/product/blue-marine-medusa',  img: '/images/watches/blue_marine_medusa/beige/blue_marine_medusa_beige.jpg',         price: '$196' },
-  { name: 'Evol Reloaded',       href: '/product/evol-reloaded',       img: '/images/watches/evol_reloaded/black/evol_reloaded_black.jpg',                  price: '$215' },
-  { name: 'Frost Full Moon',     href: '/product/frost-full-moon',     img: '/images/watches/frost_full_moon/white/frost_full_moon_white.jpg',               price: '$195' },
-  { name: 'Kripton Viper',       href: '/product/kripton-viper',       img: '/images/watches/kripton_viper/black/kripton_viper_black.jpg',                  price: '$210' },
+  { name: 'Kripton Lady',        href: '/product/kripton-lady',        img: '/images/watches/kripton_lady/white/kripton_lady_white.jpg',                   price: 215 },
+  { name: 'Buzo Atlantis',       href: '/product/buzo-atlantis',       img: '/images/watches/buzo_atlantis/black_and_blue/buzo_atlantis_black_and_blue.jpg', price: 245 },
+  { name: 'Blue Marine Medusa',  href: '/product/blue-marine-medusa',  img: '/images/watches/blue_marine_medusa/beige/blue_marine_medusa_beige.jpg',         price: 196 },
+  { name: 'Evol Reloaded',       href: '/product/evol-reloaded',       img: '/images/watches/evol_reloaded/black/evol_reloaded_black.jpg',                  price: 215 },
+  { name: 'Frost Full Moon',     href: '/product/frost-full-moon',     img: '/images/watches/frost_full_moon/white/frost_full_moon_white.jpg',               price: 195 },
+  { name: 'Kripton Viper',       href: '/product/kripton-viper',       img: '/images/watches/kripton_viper/black/kripton_viper_black.jpg',                  price: 210 },
 ];
 
 function FadeSection({ children, delay = 0, className = '' }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -203,6 +204,7 @@ function ChapterSection({ chapter }: { chapter: Chapter }) {
 }
 
 export default function Lookbook() {
+  const { formatPrice } = useCurrency();
   return (
     <div className="min-h-screen bg-brand-black">
 
@@ -289,7 +291,7 @@ export default function Lookbook() {
                     className="absolute inset-x-0 bottom-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-350"
                   >
                     <p className="font-serif text-base text-brand-white">{item.name}</p>
-                    <p className="font-serif text-brand-gold text-sm mt-0.5">{item.price}</p>
+                    <p className="font-serif text-brand-gold text-sm mt-0.5">{formatPrice(item.price)}</p>
                   </div>
                 </Link>
               </FadeSection>

@@ -173,7 +173,7 @@ export default function CollectionsGrid() {
         />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
         {collections.map((item, i) => (
           <CollectionCard key={item.key} item={item} index={i} parentInView={inView} />
         ))}

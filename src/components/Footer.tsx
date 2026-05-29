@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Twitter } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import PaymentIcons from './PaymentIcons';
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -63,6 +64,9 @@ export default function Footer() {
               <Link to="/watch-care" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 Watch Care Guide
               </Link>
+              <Link to="/campaign-films" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
+                Campaign Films
+              </Link>
               <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
                 {t('footer.repairs')}
               </Link>
@@ -102,15 +106,20 @@ export default function Footer() {
           <p className="text-[9px] font-sans tracking-[0.35em] uppercase text-brand-muted text-center mb-6">As Seen In</p>
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
             {[
-              { name: 'E! Entertainment',  note: 'Grammy Awards Sponsor' },
-              { name: 'Fratello Watches',  note: 'Featured Review'       },
-              { name: 'The Grammy Awards', note: 'Official Sponsor'      },
-            ].map(({ name, note }, i, arr) => (
+              { name: 'E! Entertainment',  note: 'Grammy Awards Sponsor', href: 'https://www.youtube.com/watch?v=Yp-FUcrB92M' },
+              { name: 'Fratello Watches',  note: 'Featured Review',       href: 'https://www.fratellowatches.com/watchbrands/mulco/' },
+              { name: 'The Grammy Awards', note: 'Official Sponsor',      href: 'https://www.youtube.com/watch?v=Yp-FUcrB92M' },
+            ].map(({ name, note, href }, i, arr) => (
               <div key={name} className="flex items-center gap-6 md:gap-10">
-                <div className="text-center">
-                  <p className="font-serif text-base text-brand-white/70 tracking-wide leading-none">{name}</p>
-                  <p className="text-[9px] font-sans tracking-[0.2em] uppercase text-brand-gold/50 mt-1">{note}</p>
-                </div>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-center group"
+                >
+                  <p className="font-serif text-base text-brand-white/70 tracking-wide leading-none group-hover:text-brand-gold transition-colors duration-200">{name}</p>
+                  <p className="text-[9px] font-sans tracking-[0.2em] uppercase text-brand-gold/50 mt-1 group-hover:text-brand-gold/80 transition-colors duration-200">{note}</p>
+                </a>
                 {i < arr.length - 1 && (
                   <span className="hidden sm:block w-px h-6 bg-brand-gold/15" />
                 )}
@@ -148,6 +157,11 @@ export default function Footer() {
           >
             <Twitter size={20} />
           </a>
+        </div>
+
+        {/* Payment icons */}
+        <div className="flex justify-center mb-8">
+          <PaymentIcons />
         </div>
 
         {/* Bottom bar */}

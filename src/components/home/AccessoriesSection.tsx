@@ -10,14 +10,14 @@ const categories = [
     label: 'Jewelry',
     desc: 'Crafted to complement.',
     href: '/accessories/jewelry',
-    image: '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg',
+    image: '/images/jewelry/havana_gold_chain_necklace/havana_gold_chain_necklace_01.jpg',
   },
   {
     key: 'straps',
     label: 'Straps',
     desc: 'Change the look. Keep the precision.',
     href: '/accessories/straps',
-    image: '/images/ui/Banners_mega_menu_hombre_2.jpg',
+    image: '/images/straps/silicone_strap_yellow/silicone_strap_yellow_01.jpg',
   },
 ];
 

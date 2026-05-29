@@ -8,6 +8,7 @@ export interface CartItem {
   image: string;
   variant?: string;
   quantity: number;
+  engraving?: string;
 }
 
 interface CartContextType {
@@ -18,6 +19,9 @@ interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
+  drawerOpen: boolean;
+  openDrawer: () => void;
+  closeDrawer: () => void;
 }
 
 const STORAGE_KEY = 'mulco-cart';
@@ -39,6 +43,9 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(loadCart);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const openDrawer = useCallback(() => setDrawerOpen(true), []);
+  const closeDrawer = useCallback(() => setDrawerOpen(false), []);
 
   const addItem = useCallback((item: Omit<CartItem, 'quantity'> & { quantity?: number }) => {
     const qty = item.quantity ?? 1;
@@ -60,6 +67,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       saveCart(updated);
       return updated;
     });
+    setDrawerOpen(true);
   }, []);
 
   const removeItem = useCallback((id: string, variant?: string) => {
@@ -93,7 +101,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, addItem, removeItem, updateQuantity, clearCart, totalItems, totalPrice }}
+      value={{ items, addItem, removeItem, updateQuantity, clearCart, totalItems, totalPrice, drawerOpen, openDrawer, closeDrawer }}
     >
       {children}
     </CartContext.Provider>

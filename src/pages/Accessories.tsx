@@ -3,8 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import { ChevronRight, ArrowRight, ShoppingBag, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { useInView } from '../hooks/useInView';
 import { getProductsByCategory, type Product } from '../data/products';
+import QuickViewModal from '../components/QuickViewModal';
 
 function FadeSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const { ref, inView } = useInView(0.08);
@@ -42,8 +44,9 @@ const ALL_CATEGORIES = [
   { slug: 'straps',  label: 'Straps',  image: '/images/ui/Banners_mega_menu_hombre_2.jpg', desc: 'Interchangeable bands' },
 ];
 
-function ProductCard({ product, index }: { product: Product; index: number }) {
+function ProductCard({ product, index, onQuickView }: { product: Product; index: number; onQuickView: (p: Product) => void }) {
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
   const [added, setAdded] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -82,6 +85,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             New
           </span>
         )}
+        {product.stock !== undefined && product.stock <= 5 && (
+          <span className="absolute bottom-14 left-3 text-[9px] font-sans font-semibold tracking-[0.18em] uppercase bg-brand-black/80 text-brand-gold border border-brand-gold/40 px-2 py-1">
+            Only {product.stock} left
+          </span>
+        )}
         <div
           className="absolute inset-x-0 bottom-0 p-4"
           style={{
@@ -89,9 +97,22 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1)',
           }}
         >
-          <span className="block text-center text-[10px] font-sans font-semibold tracking-widest uppercase bg-brand-black/85 backdrop-blur-sm text-brand-white py-2.5">
-            View Details
-          </span>
+          <div className="flex gap-2">
+            <button
+              onClick={(e) => { e.preventDefault(); onQuickView(product); }}
+              className="flex-1 text-center text-[10px] font-sans font-semibold tracking-widest uppercase bg-brand-black/85 backdrop-blur-sm text-brand-white py-2.5 hover:bg-brand-gold hover:text-brand-black transition-colors duration-200"
+            >
+              Quick View
+            </button>
+            <Link
+              to={`/product/${product.id}`}
+              className="px-3 py-2.5 bg-brand-black/85 backdrop-blur-sm text-brand-muted hover:text-brand-gold transition-colors duration-200 flex items-center"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="View details"
+            >
+              <span className="text-[10px] font-sans tracking-widest uppercase">→</span>
+            </Link>
+          </div>
         </div>
       </Link>
 
@@ -106,9 +127,9 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <p className="text-[10px] font-sans text-brand-muted mt-1.5 flex-1">{product.tags.join(' · ')}</p>
         <div className="flex items-center justify-between mt-3">
           <div className="flex flex-col leading-tight">
-            <span className="font-serif text-brand-gold text-lg">${product.price}</span>
+            <span className="font-serif text-brand-gold text-lg">{formatPrice(product.price)}</span>
             {product.originalPrice && (
-              <span className="font-serif text-brand-muted text-sm line-through">${product.originalPrice}</span>
+              <span className="font-serif text-brand-muted text-sm line-through">{formatPrice(product.originalPrice)}</span>
             )}
           </div>
           <button
@@ -133,6 +154,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 export default function Accessories() {
   const { category } = useParams<{ category?: string }>();
   const { t } = useLanguage();
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
   const cat = category ? CATEGORIES[category as keyof typeof CATEGORIES] : null;
   const catProducts = cat ? getProductsByCategory(category as 'jewelry' | 'straps') : [];
@@ -234,7 +256,7 @@ export default function Accessories() {
         {/* Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
           {catProducts.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
+            <ProductCard key={product.id} product={product} index={i} onQuickView={setQuickViewProduct} />
           ))}
         </div>
 
@@ -267,6 +289,8 @@ export default function Accessories() {
           </div>
         </div>
       </div>
+
+      <QuickViewModal product={quickViewProduct} onClose={() => setQuickViewProduct(null)} />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, X, ArrowRight } from 'lucide-react';
 import { products } from '../data/products';
+import { useCurrency } from '../context/CurrencyContext';
 
 interface Props {
   open: boolean;
@@ -26,6 +27,7 @@ function highlight(text: string, query: string): React.ReactNode {
 export default function SearchModal({ open, onClose }: Props) {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
 
   /* Focus input when modal opens */
@@ -193,7 +195,7 @@ export default function SearchModal({ open, onClose }: Props) {
 
                       {/* Price + arrow */}
                       <div className="flex-shrink-0 flex items-center gap-3">
-                        <span className="font-serif text-base text-brand-gold">${p.price}</span>
+                        <span className="font-serif text-base text-brand-gold">{formatPrice(p.price)}</span>
                         <ArrowRight size={13} className="text-brand-muted group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all duration-200" />
                       </div>
                     </button>

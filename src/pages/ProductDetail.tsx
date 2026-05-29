@@ -3,9 +3,11 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { ChevronRight, ShoppingBag, CheckCircle, Minus, Plus, ArrowLeft, ZoomIn, Star, PenLine } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { useInView } from '../hooks/useInView';
-import { getProductById, getRelatedProducts } from '../data/products';
+import { getProductById, getRelatedProducts, products } from '../data/products';
 import { getSeedReviews, type Review } from '../data/reviews';
+import { useRecentlyViewed } from '../hooks/useRecentlyViewed';
 
 type Tab = 'description' | 'specifications' | 'warranty';
 
@@ -245,6 +247,7 @@ function ReviewsSection({ productId }: { productId: string }) {
 
 /* ── Related product mini-card ── */
 function RelatedCard({ id, name, collection, price, image }: { id: string; name: string; collection: string; price: number; image: string }) {
+  const { formatPrice } = useCurrency();
   const [hovered, setHovered] = useState(false);
   return (
     <Link
@@ -270,7 +273,7 @@ function RelatedCard({ id, name, collection, price, image }: { id: string; name:
       <div className="p-3 transition-colors duration-300" style={{ background: hovered ? 'rgba(255,255,255,0.025)' : 'rgba(255,255,255,0.01)' }}>
         <p className="text-[9px] font-sans text-brand-gold tracking-widest uppercase">{collection}</p>
         <p className="font-serif text-sm text-brand-white group-hover:text-brand-gold transition-colors duration-200 leading-tight mt-0.5">{name}</p>
-        <p className="font-serif text-brand-gold text-sm mt-1">${price}</p>
+        <p className="font-serif text-brand-gold text-sm mt-1">{formatPrice(price)}</p>
       </div>
     </Link>
   );
@@ -280,11 +283,14 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const { t } = useLanguage();
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   const { ref, inView } = useInView(0.05);
 
   const product = id ? getProductById(id) : undefined;
   const related = id ? getRelatedProducts(id) : [];
+  const recentIds = useRecentlyViewed(id ?? '');
+  const recentProducts = recentIds.map((rid) => products.find((p) => p.id === rid)).filter(Boolean) as typeof products;
 
   const [activeImage, setActiveImage] = useState(0);
   const [colorGalleryIndex, setColorGalleryIndex] = useState(0);
@@ -292,6 +298,8 @@ export default function ProductDetail() {
   const [added, setAdded] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>('description');
   const [zoomed, setZoomed] = useState(false);
+  const [engravingEnabled, setEngravingEnabled] = useState(false);
+  const [engravingText, setEngravingText] = useState('');
   const [selectedColor, setSelectedColor] = useState<{ name: string; image: string } | null>(
     () => product?.colors?.[0] ?? null
   );
@@ -311,8 +319,12 @@ export default function ProductDetail() {
     );
   }
 
+  const ENGRAVING_FEE = 15;
+
   function handleAdd() {
-    addItem({ id: product!.id, name: product!.name, collection: product!.collection, price: product!.price, image: product!.images[0], quantity });
+    const engraving = engravingEnabled && engravingText.trim() ? engravingText.trim() : undefined;
+    const price = product!.price + (engraving ? ENGRAVING_FEE : 0);
+    addItem({ id: product!.id, name: product!.name, collection: product!.collection, price, image: product!.images[0], quantity, engraving });
     setAdded(true);
     setTimeout(() => setAdded(false), 2500);
   }
@@ -461,16 +473,23 @@ export default function ProductDetail() {
 
             {/* Price */}
             <div className="flex items-baseline gap-4">
-              <p className="font-serif text-4xl text-brand-gold">${product.price}</p>
+              <p className="font-serif text-4xl text-brand-gold">{formatPrice(product.price)}</p>
               {product.originalPrice && (
-                <span className="font-serif text-2xl text-brand-muted line-through">${product.originalPrice}</span>
+                <span className="font-serif text-2xl text-brand-muted line-through">{formatPrice(product.originalPrice)}</span>
               )}
               {product.originalPrice && (
                 <span className="text-[10px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-rose text-brand-white px-2 py-1">
-                  Save ${product.originalPrice - product.price}
+                  Save {formatPrice(product.originalPrice - product.price)}
                 </span>
               )}
             </div>
+
+            {/* Low-stock indicator */}
+            {product.stock !== undefined && product.stock <= 5 && (
+              <p className="text-[11px] font-sans font-semibold tracking-[0.2em] uppercase text-brand-gold border-l-2 border-brand-gold pl-3">
+                Only {product.stock} left in stock — order soon
+              </p>
+            )}
 
             {/* Quantity */}
             <div className="flex items-center gap-4">
@@ -493,6 +512,36 @@ export default function ProductDetail() {
                 </button>
               </div>
             </div>
+
+            {/* Engraving — watches only */}
+            {product.category === 'watches' && (
+              <div className="border border-brand-gold/15 p-4 space-y-3">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    checked={engravingEnabled}
+                    onChange={(e) => { setEngravingEnabled(e.target.checked); if (!e.target.checked) setEngravingText(''); }}
+                    className="w-4 h-4 accent-[#C9A84C] cursor-pointer"
+                  />
+                  <span className="text-[11px] font-sans tracking-[0.2em] uppercase text-brand-white group-hover:text-brand-gold transition-colors">
+                    Add Personal Engraving
+                  </span>
+                  <span className="text-[10px] font-sans text-brand-gold ml-auto">+${ENGRAVING_FEE}</span>
+                </label>
+                {engravingEnabled && (
+                  <div>
+                    <input
+                      type="text"
+                      value={engravingText}
+                      onChange={(e) => setEngravingText(e.target.value.slice(0, 20))}
+                      placeholder="Up to 20 characters"
+                      className="w-full bg-white/[0.03] border border-brand-gold/20 focus:border-brand-gold text-brand-white placeholder:text-brand-muted text-sm font-sans px-3 py-2.5 outline-none transition-colors duration-200"
+                    />
+                    <p className="text-[10px] font-sans text-brand-muted mt-1.5 text-right">{engravingText.length}/20</p>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Add to cart CTA */}
             <button
@@ -608,6 +657,18 @@ export default function ProductDetail() {
             </div>
             <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch]">
               {related.map((p) => (
+                <RelatedCard key={p.id} id={p.id} name={p.name} collection={p.collection} price={p.price} image={p.images[0]} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Recently Viewed ── */}
+        {recentProducts.length > 0 && (
+          <div className="mt-16 border-t border-brand-gold/12 pt-12">
+            <h2 className="font-serif text-2xl text-brand-white mb-6">Recently Viewed</h2>
+            <div className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch]">
+              {recentProducts.map((p) => (
                 <RelatedCard key={p.id} id={p.id} name={p.name} collection={p.collection} price={p.price} image={p.images[0]} />
               ))}
             </div>

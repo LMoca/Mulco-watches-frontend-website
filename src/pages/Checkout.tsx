@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ChevronRight, Lock, CheckCircle, ArrowRight, ArrowLeft, CreditCard, Tag, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
+import PaymentIcons from '../components/PaymentIcons';
 
 type Step = 'information' | 'payment' | 'confirmation';
 
@@ -139,6 +141,7 @@ function OrderSummary({
 }) {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
+  const { formatPrice, currency } = useCurrency();
 
   function handleApply() {
     const promo = PROMO_CODES[code.trim().toUpperCase()];
@@ -180,7 +183,7 @@ function OrderSummary({
                 <p className="font-sans text-xs text-brand-white leading-snug truncate">{item.name}</p>
                 <p className="font-sans text-[10px] text-brand-gold mt-0.5">{item.collection}</p>
               </div>
-              <span className="font-sans text-sm text-brand-white flex-shrink-0">${(item.price * item.quantity).toFixed(2)}</span>
+              <span className="font-sans text-sm text-brand-white flex-shrink-0">{formatPrice(item.price * item.quantity)}</span>
             </div>
           ))}
         </div>
@@ -232,12 +235,12 @@ function OrderSummary({
         <div className="space-y-2">
           <div className="flex justify-between text-sm font-sans">
             <span className="text-brand-muted">Subtotal</span>
-            <span className="text-brand-white">${totalPrice.toFixed(2)}</span>
+            <span className="text-brand-white">{formatPrice(totalPrice)}</span>
           </div>
           {discount && (
             <div className="flex justify-between text-sm font-sans">
               <span className="text-brand-gold">Discount ({discount.code})</span>
-              <span className="text-brand-gold">−${discount.amount.toFixed(2)}</span>
+              <span className="text-brand-gold">−{formatPrice(discount.amount)}</span>
             </div>
           )}
           <div className="flex justify-between text-sm font-sans">
@@ -246,14 +249,22 @@ function OrderSummary({
           </div>
           <div className="flex justify-between font-serif text-xl pt-3 border-t border-brand-gold/12 mt-1">
             <span className="text-brand-white">Total</span>
-            <span className="text-brand-gold">${finalPrice.toFixed(2)}</span>
+            <span className="text-brand-gold">{formatPrice(finalPrice)}</span>
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-1.5 text-brand-muted pt-1">
-          <Lock size={10} />
-          <span className="text-[10px] font-sans tracking-wide">256-bit SSL secure checkout</span>
+        <div className="flex flex-col items-center gap-3 pt-1">
+          <div className="flex items-center gap-1.5 text-brand-muted">
+            <Lock size={10} />
+            <span className="text-[10px] font-sans tracking-wide">256-bit SSL secure checkout</span>
+          </div>
+          <PaymentIcons />
         </div>
+        {currency !== 'USD' && (
+          <p className="text-[10px] font-sans text-brand-muted text-center leading-relaxed pt-1">
+            Prices shown in {currency}. Your card is charged in USD.
+          </p>
+        )}
       </div>
     </div>
   );
@@ -504,10 +515,7 @@ function PaymentStep({
       <div>
         <div className="flex items-center justify-between mb-5">
           <h2 className="font-serif text-xl text-brand-white">Payment Details</h2>
-          <div className="flex gap-1.5 items-center">
-            <CreditCard size={14} className="text-brand-gold" />
-            <span className="text-[10px] font-sans text-brand-muted">Visa · MC · Amex · Discover</span>
-          </div>
+          <PaymentIcons />
         </div>
 
         <div className="space-y-4">
@@ -589,6 +597,7 @@ function ConfirmationStep({
   discount: Discount | null;
 }) {
   const finalPrice = Math.max(0, subtotal - (discount?.amount ?? 0));
+  const { formatPrice } = useCurrency();
 
   return (
     <div className="space-y-10">
@@ -611,7 +620,7 @@ function ConfirmationStep({
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-0 divide-x divide-brand-gold/10">
           {[
             { label: 'Order Number', value: orderNumber },
-            { label: 'Order Total',  value: `$${finalPrice.toFixed(2)}` },
+            { label: 'Order Total',  value: formatPrice(finalPrice) },
             { label: 'Est. Delivery', value: '5 – 7 Business Days' },
           ].map(({ label, value }) => (
             <div key={label} className="p-5">
@@ -624,7 +633,7 @@ function ConfirmationStep({
           <div className="px-5 py-3 flex items-center gap-2">
             <Tag size={11} className="text-brand-gold" />
             <span className="text-[10px] font-sans text-brand-gold tracking-widest uppercase">{discount.code}</span>
-            <span className="text-[10px] font-sans text-brand-muted">applied — saved ${discount.amount.toFixed(2)}</span>
+            <span className="text-[10px] font-sans text-brand-muted">applied — saved {formatPrice(discount.amount)}</span>
           </div>
         )}
         <div className="p-5">

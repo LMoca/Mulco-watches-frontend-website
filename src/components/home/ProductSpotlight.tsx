@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, ShoppingBag, CheckCircle, ArrowRight } from 'lucide-react';
 import { useInView } from '../../hooks/useInView';
 import { useCart } from '../../context/CartContext';
+import { useCurrency } from '../../context/CurrencyContext';
 
 interface Watch {
   id: string;
@@ -11,6 +12,7 @@ interface Watch {
   price: string;
   priceNumber: number;
   originalPrice?: string;
+  originalPriceNumber?: number;
   image: string;
   imageAlt: string;
   tags: string[];
@@ -74,6 +76,7 @@ const womenWatches: Watch[] = [
     price: '$140',
     priceNumber: 140,
     originalPrice: '$195',
+    originalPriceNumber: 195,
     image: '/images/watches/titans_snap_ladies/blue/titans_snap_ladies_blue.jpg',
     imageAlt: 'MULCO Titans Snap Ladies watch',
     tags: ['Quartz', '100M WR'],
@@ -135,6 +138,7 @@ const menWatches: Watch[] = [
 
 function WatchCard({ watch }: { watch: Watch }) {
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
   const [added, setAdded] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -194,9 +198,9 @@ function WatchCard({ watch }: { watch: Watch }) {
         </p>
         <div className="flex items-center justify-between mt-3">
           <div className="flex flex-col leading-tight">
-            <span className="font-serif text-brand-gold text-base">{watch.price}</span>
-            {watch.originalPrice && (
-              <span className="font-serif text-brand-muted text-xs line-through">{watch.originalPrice}</span>
+            <span className="font-serif text-brand-gold text-base">{formatPrice(watch.priceNumber)}</span>
+            {watch.originalPriceNumber && (
+              <span className="font-serif text-brand-muted text-xs line-through">{formatPrice(watch.originalPriceNumber)}</span>
             )}
           </div>
           <button
@@ -251,7 +255,10 @@ function WatchCarousel({ watches, label, viewAllHref, delay, inView }: {
       }}
     >
       <div className="flex items-center justify-between mb-5">
-        <h3 className="font-serif text-2xl text-brand-white">{label}</h3>
+        <div className="flex items-center gap-3">
+          <div className="w-5 h-px bg-brand-gold" />
+          <h3 className="font-serif text-2xl text-brand-white">{label}</h3>
+        </div>
         <div className="flex items-center gap-4">
           <div className="hidden sm:flex gap-1.5">
             <button

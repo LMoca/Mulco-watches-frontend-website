@@ -28,6 +28,7 @@ export interface Product {
   isNew?: boolean;
   isFeatured?: boolean;
   isSoldOut?: boolean;
+  stock?: number;
 }
 
 export const products: Product[] = [
@@ -74,6 +75,7 @@ export const products: Product[] = [
       crystalType: 'Mineral Anti-Scratch',
     },
     isFeatured: true,
+    stock: 3,
   },
   {
     id: 'blue-marine-infinity',
@@ -367,6 +369,7 @@ export const products: Product[] = [
     },
     isNew: true,
     isFeatured: true,
+    stock: 2,
   },
   {
     id: 'la-fleur-gardenia',
@@ -778,6 +781,7 @@ export const products: Product[] = [
       crystalType: 'Mineral Anti-Scratch',
     },
     isFeatured: true,
+    stock: 4,
   },
   {
     id: 'buzo-atlantis',
@@ -984,6 +988,7 @@ export const products: Product[] = [
       crystalType: 'Mineral Anti-Scratch',
     },
     isNew: true,
+    stock: 3,
   },
   {
     id: 'kripton-square',
@@ -1235,6 +1240,7 @@ export const products: Product[] = [
       finish: 'Rhodium Plated or Rose Gold',
       closure: 'Butterfly Clasp',
     },
+    stock: 4,
   },
 
   // ── JEWELRY — UNISEX ──────────────────────────────────────────────────────

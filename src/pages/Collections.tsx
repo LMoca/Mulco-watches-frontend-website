@@ -3,8 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import { ChevronRight, ShoppingBag, CheckCircle, SlidersHorizontal, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { useInView } from '../hooks/useInView';
 import { products, type Product } from '../data/products';
+import QuickViewModal from '../components/QuickViewModal';
 
 const heroBanners: Record<string, string> = {
   women: '/images/ui/Banners_mega_menu_mujer_1.jpg',
@@ -28,8 +30,9 @@ const WATCH_COLLECTIONS = [
   'Kripton', 'La Fleur', 'Lady D', 'M10', 'Pride', 'Titans',
 ];
 
-function ProductCard({ product, index }: { product: Product; index: number }) {
+function ProductCard({ product, index, onQuickView }: { product: Product; index: number; onQuickView: (p: Product) => void }) {
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
   const [added, setAdded] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -76,6 +79,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             Sale
           </span>
         )}
+        {product.stock !== undefined && product.stock <= 5 && (
+          <span className="absolute bottom-14 left-3 text-[9px] font-sans font-semibold tracking-[0.18em] uppercase bg-brand-black/80 text-brand-gold border border-brand-gold/40 px-2 py-1">
+            Only {product.stock} left
+          </span>
+        )}
         {/* Slide-up CTA */}
         <div
           className="absolute inset-x-0 bottom-0 p-4"
@@ -84,9 +92,22 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1)',
           }}
         >
-          <span className="block text-center text-[10px] font-sans font-semibold tracking-widest uppercase bg-brand-black/85 backdrop-blur-sm text-brand-white py-2.5">
-            View Details
-          </span>
+          <div className="flex gap-2">
+            <button
+              onClick={(e) => { e.preventDefault(); onQuickView(product); }}
+              className="flex-1 text-center text-[10px] font-sans font-semibold tracking-widest uppercase bg-brand-black/85 backdrop-blur-sm text-brand-white py-2.5 hover:bg-brand-gold hover:text-brand-black transition-colors duration-200"
+            >
+              Quick View
+            </button>
+            <Link
+              to={`/product/${product.id}`}
+              className="px-3 py-2.5 bg-brand-black/85 backdrop-blur-sm text-brand-muted hover:text-brand-gold transition-colors duration-200 flex items-center"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="View details"
+            >
+              <span className="text-[10px] font-sans tracking-widest uppercase">→</span>
+            </Link>
+          </div>
         </div>
       </Link>
 
@@ -101,9 +122,9 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
         <p className="text-[10px] font-sans text-brand-muted mt-1.5">{product.tags.join(' · ')}</p>
         <div className="flex items-center justify-between mt-3">
           <div className="flex flex-col leading-tight">
-            <span className="font-serif text-brand-gold text-lg">${product.price}</span>
+            <span className="font-serif text-brand-gold text-lg">{formatPrice(product.price)}</span>
             {product.originalPrice && (
-              <span className="font-serif text-brand-muted text-sm line-through">${product.originalPrice}</span>
+              <span className="font-serif text-brand-muted text-sm line-through">{formatPrice(product.originalPrice)}</span>
             )}
           </div>
           <button
@@ -161,6 +182,7 @@ export default function Collections() {
   const [collectionFilter, setCollectionFilter] = useState<string>('all');
   const [sort, setSort] = useState<SortKey>('featured');
   const [filterOpen, setFilterOpen] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
   useEffect(() => {
     setGenderFilter(resolvedSlug === 'women' ? 'women' : resolvedSlug === 'men' ? 'men' : 'all');
@@ -296,7 +318,7 @@ export default function Collections() {
         {filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} />
+              <ProductCard key={p.id} product={p} index={i} onQuickView={setQuickViewProduct} />
             ))}
           </div>
         ) : (
@@ -308,6 +330,8 @@ export default function Collections() {
           </div>
         )}
       </div>
+
+      <QuickViewModal product={quickViewProduct} onClose={() => setQuickViewProduct(null)} />
     </div>
   );
 }

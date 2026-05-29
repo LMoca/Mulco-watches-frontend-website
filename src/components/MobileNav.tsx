@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { X, Instagram, Facebook, Twitter } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useCurrency, CURRENCIES, type Currency } from '../context/CurrencyContext';
 
 interface MobileNavProps {
   open: boolean;
@@ -17,6 +18,7 @@ const NAV_ITEMS = [
 
 export default function MobileNav({ open, onClose }: MobileNavProps) {
   const { t, language, setLanguage } = useLanguage();
+  const { currency, setCurrency } = useCurrency();
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -100,12 +102,24 @@ export default function MobileNav({ open, onClose }: MobileNavProps) {
 
         {/* Footer */}
         <div className="px-6 py-5 border-t border-brand-gold/20 flex items-center justify-between gap-4">
-          <button
-            onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
-            className="text-xs uppercase tracking-[0.25em] text-brand-muted hover:text-brand-gold transition-colors duration-200"
-          >
-            {language === 'en' ? 'Español' : 'English'}
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
+              className="text-xs uppercase tracking-[0.25em] text-brand-muted hover:text-brand-gold transition-colors duration-200"
+            >
+              {language === 'en' ? 'Español' : 'English'}
+            </button>
+            <span className="text-brand-gold/20 text-xs">·</span>
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value as Currency)}
+              className="bg-transparent text-xs uppercase tracking-[0.25em] text-brand-muted hover:text-brand-gold transition-colors duration-200 outline-none cursor-pointer"
+            >
+              {(Object.keys(CURRENCIES) as Currency[]).map((c) => (
+                <option key={c} value={c} className="bg-brand-black text-brand-white">{c}</option>
+              ))}
+            </select>
+          </div>
           <div className="flex items-center gap-5">
             <a href="https://www.instagram.com/mulcowatches" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-brand-muted hover:text-brand-gold transition-colors duration-200">
               <Instagram size={17} />

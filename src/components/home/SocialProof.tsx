@@ -25,13 +25,21 @@ const reviews = [
   },
 ];
 
+function StarFilled() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="#C9A84C" aria-hidden="true">
+      <polygon points="7,1 8.8,5.4 13.5,5.4 9.8,8.5 11.2,13 7,10.3 2.8,13 4.2,8.5 0.5,5.4 5.2,5.4" />
+    </svg>
+  );
+}
+
 export default function SocialProof() {
   const { ref: titleRef, inView: titleInView } = useInView(0.2);
   const { ref: gridRef, inView: gridInView } = useInView(0.1);
   const { t } = useLanguage();
 
   return (
-    <section className="bg-brand-black py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section className="bg-brand-navy py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div
@@ -43,10 +51,23 @@ export default function SocialProof() {
             transition: 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)',
           }}
         >
+          <span className="text-[10px] font-sans font-semibold tracking-[0.3em] uppercase text-brand-gold">
+            Customer Stories
+          </span>
           <h2 className="font-serif text-4xl md:text-5xl text-brand-white mt-3">
             {t('reviews.title')}
           </h2>
           <div className="w-10 h-px bg-brand-gold mx-auto mt-4" />
+
+          {/* Aggregate rating */}
+          <div className="flex items-center justify-center gap-3 mt-8">
+            <div className="flex gap-0.5" aria-label="4.9 out of 5 stars">
+              {Array.from({ length: 5 }).map((_, i) => <StarFilled key={i} />)}
+            </div>
+            <span className="font-serif text-lg text-brand-white">4.9</span>
+            <span className="text-brand-gold/30 text-sm">·</span>
+            <span className="font-sans text-xs text-brand-muted tracking-wide">800+ Verified Reviews</span>
+          </div>
         </div>
 
         {/* Cards — desktop 3-col, mobile horizontal scroll */}

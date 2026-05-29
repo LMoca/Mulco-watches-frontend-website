@@ -89,7 +89,7 @@ export default function VideoSection() {
   const [featured, ...secondary] = VIDEOS;
 
   return (
-    <section className="bg-brand-black py-20 px-6 md:px-12 lg:px-20">
+    <section className="bg-brand-black border-t border-brand-gold/8 py-20 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}

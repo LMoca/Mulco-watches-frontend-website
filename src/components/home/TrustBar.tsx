@@ -24,6 +24,9 @@ export default function TrustBar() {
         transition: 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)',
       }}
     >
+      {/* Top gold accent */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent mb-8" />
+
       {/* Desktop */}
       <div className="hidden md:grid grid-cols-5 max-w-6xl mx-auto px-8">
         {trustItems.map((item, i) => (
@@ -31,8 +34,8 @@ export default function TrustBar() {
             {i > 0 && (
               <div className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-10 bg-brand-gold/15" />
             )}
-            <item.icon size={22} className="text-brand-gold flex-shrink-0" />
-            <span className="text-xs uppercase tracking-wider text-brand-muted text-center leading-snug">
+            <item.icon size={26} className="text-brand-gold flex-shrink-0" strokeWidth={1.5} />
+            <span className="text-[11px] uppercase tracking-[0.18em] text-brand-white/70 text-center leading-snug font-sans">
               {t(item.key)}
             </span>
           </div>
@@ -46,13 +49,16 @@ export default function TrustBar() {
             key={item.key}
             className="flex-shrink-0 snap-start flex flex-col items-center gap-2 min-w-[120px]"
           >
-            <item.icon size={20} className="text-brand-gold" />
-            <span className="text-[11px] uppercase tracking-wider text-brand-muted text-center leading-tight">
+            <item.icon size={22} className="text-brand-gold" strokeWidth={1.5} />
+            <span className="text-[11px] uppercase tracking-[0.15em] text-brand-white/70 text-center leading-tight font-sans">
               {t(item.key)}
             </span>
           </div>
         ))}
       </div>
+
+      {/* Bottom gold accent */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent mt-8" />
     </section>
   );
 }
