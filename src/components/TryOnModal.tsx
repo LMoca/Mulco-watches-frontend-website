@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import { Download, CheckCircle } from 'lucide-react';
 import type { HandLandmarkerResult } from '@mediapipe/tasks-vision';
 import type { Product } from '../data/products';
 import { useFocusTrap } from '../hooks/useFocusTrap';
@@ -54,6 +55,8 @@ export default function TryOnModal({ product, onClose }: Props) {
   const [selectedColor, setSelectedColor] = useState<{ name: string; image: string } | null>(null);
   const [fitBox, setFitBox] = useState<{ width: number; height: number } | null>(null);
   const [retryKey, setRetryKey] = useState(0);
+  const [cutoutError, setCutoutError] = useState(false);
+  const [captured, setCaptured] = useState(false);
 
   useFocusTrap(panelRef, open);
 
@@ -149,15 +152,20 @@ export default function TryOnModal({ product, onClose }: Props) {
   useEffect(() => {
     if (!open || !selectedColor || !product) return;
     const token = ++cutoutTokenRef.current;
+    setCutoutError(false);
 
-    getWatchCutout(selectedColor.image).then((bitmap) => {
-      if (token !== cutoutTokenRef.current || !sceneRef.current) return;
-      const { watch } = sceneRef.current;
-      updateDialTexture(watch, bitmap);
-      applyCaseMaterialColor(watch, product.specs.caseMaterial);
-      watch.strapMaterial.color.copy(sampleAverageColor(bitmap));
-      watch.strapMaterial.needsUpdate = true;
-    });
+    getWatchCutout(selectedColor.image)
+      .then((bitmap) => {
+        if (token !== cutoutTokenRef.current || !sceneRef.current) return;
+        const { watch } = sceneRef.current;
+        updateDialTexture(watch, bitmap);
+        applyCaseMaterialColor(watch, product.specs.caseMaterial);
+        watch.strapMaterial.color.copy(sampleAverageColor(bitmap));
+        watch.strapMaterial.needsUpdate = true;
+      })
+      .catch(() => {
+        if (token === cutoutTokenRef.current) setCutoutError(true);
+      });
   }, [open, selectedColor, product]);
 
   const handleFrame = useCallback((result: HandLandmarkerResult, video: HTMLVideoElement) => {
@@ -198,6 +206,49 @@ export default function TryOnModal({ product, onClose }: Props) {
     sceneRef.current.watch.group.visible = false;
     sceneRef.current.renderer.render(sceneRef.current.scene, sceneRef.current.camera);
   }, [status]);
+
+  const handleCapture = useCallback(() => {
+    const video = videoRef.current;
+    const s = sceneRef.current;
+    if (!video || !s || !video.videoWidth || !video.videoHeight) return;
+
+    // WebGL canvases don't preserve their drawing buffer by default, so re-render
+    // synchronously right before reading pixels — otherwise the buffer may already
+    // have been cleared for compositing by the time this click handler runs.
+    s.renderer.render(s.scene, s.camera);
+
+    const w = video.videoWidth;
+    const h = video.videoHeight;
+    const captureCanvas = document.createElement('canvas');
+    captureCanvas.width = w;
+    captureCanvas.height = h;
+    const ctx = captureCanvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.save();
+    if (mirror) {
+      ctx.translate(w, 0);
+      ctx.scale(-1, 1);
+    }
+    ctx.drawImage(video, 0, 0, w, h);
+    ctx.drawImage(s.renderer.domElement, 0, 0, w, h);
+    ctx.restore();
+
+    captureCanvas.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${product?.id ?? 'watch'}-try-on.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+
+    setCaptured(true);
+    setTimeout(() => setCaptured(false), 1200);
+  }, [mirror, product]);
 
   if (!open || !product) return null;
 
@@ -244,6 +295,22 @@ export default function TryOnModal({ product, onClose }: Props) {
         ×
       </button>
 
+      {fitBox && status !== 'permission-denied' && status !== 'no-camera' && status !== 'unsupported-error' && (
+        <button
+          onClick={handleCapture}
+          aria-label="Save photo"
+          title="Save photo"
+          className="absolute bottom-8 right-6 w-12 h-12 flex items-center justify-center border border-brand-gold/40 hover:border-brand-gold bg-black/40 transition-colors duration-300"
+          style={{ zIndex: 901 }}
+        >
+          {captured ? (
+            <CheckCircle size={18} strokeWidth={1.5} className="text-brand-gold" />
+          ) : (
+            <Download size={18} strokeWidth={1.5} className="text-brand-gold" />
+          )}
+        </button>
+      )}
+
       {message && (
         <div
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4 text-center px-8"
@@ -263,8 +330,22 @@ export default function TryOnModal({ product, onClose }: Props) {
         </div>
       )}
 
+      {cutoutError && (
+        <div
+          className="absolute top-20 left-1/2 -translate-x-1/2 px-4 py-2 text-center"
+          style={{ zIndex: 901, background: 'rgba(0,0,0,0.6)' }}
+        >
+          <p className="font-sans text-[11px] tracking-[0.1em] uppercase text-brand-white/90">
+            Couldn’t load this watch’s image — try a different color.
+          </p>
+        </div>
+      )}
+
       {product.colors && product.colors.length > 0 && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 px-4" style={{ zIndex: 901 }}>
+        <div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-wrap justify-center gap-2 px-4 max-w-[65vw]"
+          style={{ zIndex: 901 }}
+        >
           {product.colors.map((c) => (
             <button
               key={c.name}
