@@ -4,12 +4,15 @@ import type { HandLandmarkerResult } from '@mediapipe/tasks-vision';
 import type { Product } from '../data/products';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { useHandTracking, type HandTrackingStatus } from '../hooks/useHandTracking';
+import { computeWristTransform, getWatchCutout, DEFAULT_FOV_Y_RADIANS } from '../utils/watchOverlay';
 import {
-  computeWristTransform,
-  getWatchCutout,
-  DEFAULT_FOV_Y_RADIANS,
-  WATCH_IMAGE_WIDTH_M,
-} from '../utils/watchOverlay';
+  buildWatchModel,
+  disposeWatchModel,
+  updateDialTexture,
+  applyCaseMaterialColor,
+  sampleAverageColor,
+  type WatchModel,
+} from '../utils/watchModel';
 
 interface Props {
   product: Product | null;
@@ -20,7 +23,7 @@ interface Scene3D {
   renderer: THREE.WebGLRenderer;
   camera: THREE.PerspectiveCamera;
   scene: THREE.Scene;
-  mesh: THREE.Mesh;
+  watch: WatchModel;
 }
 
 const STATUS_MESSAGE: Partial<Record<HandTrackingStatus, string>> = {
@@ -32,6 +35,12 @@ const STATUS_MESSAGE: Partial<Record<HandTrackingStatus, string>> = {
   'hand-lost': 'Point your camera at your wrist',
 };
 
+// Exponential smoothing factors applied to the raw per-frame tracking result before
+// it's applied to the model — MediaPipe's landmarks are noticeably jittery frame to
+// frame, especially the depth-derived position. Lower = smoother but laggier.
+const POSITION_SMOOTHING = 0.25;
+const ROTATION_SMOOTHING = 0.25;
+
 export default function TryOnModal({ product, onClose }: Props) {
   const open = product !== null;
   const panelRef = useRef<HTMLDivElement>(null);
@@ -39,6 +48,8 @@ export default function TryOnModal({ product, onClose }: Props) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const sceneRef = useRef<Scene3D | null>(null);
   const cutoutTokenRef = useRef(0);
+  const smoothedPosition = useRef<THREE.Vector3 | null>(null);
+  const smoothedQuaternion = useRef<THREE.Quaternion | null>(null);
 
   const [selectedColor, setSelectedColor] = useState<{ name: string; image: string } | null>(null);
   const [fitBox, setFitBox] = useState<{ width: number; height: number } | null>(null);
@@ -65,34 +76,32 @@ export default function TryOnModal({ product, onClose }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, onClose]);
 
-  // Build the three.js scene once the canvas exists, dispose it on close.
+  // Build the three.js scene + procedural watch model once the canvas exists, dispose on close.
   useEffect(() => {
     if (!open || !canvasRef.current) return;
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, alpha: true, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    const camera = new THREE.PerspectiveCamera(
-      (DEFAULT_FOV_Y_RADIANS * 180) / Math.PI,
-      1,
-      0.01,
-      10
-    );
+    const camera = new THREE.PerspectiveCamera((DEFAULT_FOV_Y_RADIANS * 180) / Math.PI, 1, 0.01, 10);
     const scene = new THREE.Scene();
 
-    const geometry = new THREE.PlaneGeometry(WATCH_IMAGE_WIDTH_M, WATCH_IMAGE_WIDTH_M);
-    const material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, side: THREE.DoubleSide });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.visible = false;
-    scene.add(mesh);
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x3a3a3a, 1.1));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.3);
+    keyLight.position.set(0.4, 0.6, 1);
+    scene.add(keyLight);
 
-    sceneRef.current = { renderer, camera, scene, mesh };
+    const watch = buildWatchModel();
+    watch.group.visible = false;
+    scene.add(watch.group);
+
+    sceneRef.current = { renderer, camera, scene, watch };
+    smoothedPosition.current = null;
+    smoothedQuaternion.current = null;
 
     return () => {
+      disposeWatchModel(watch);
       renderer.dispose();
-      geometry.dispose();
-      material.dispose();
-      material.map?.dispose();
       sceneRef.current = null;
     };
   }, [open]);
@@ -135,28 +144,21 @@ export default function TryOnModal({ product, onClose }: Props) {
     sceneRef.current.renderer.setSize(fitBox.width, fitBox.height, false);
   }, [fitBox]);
 
-  // Load the background-removed cutout for the selected color and apply it to the mesh.
+  // Load the background-removed cutout for the selected color and apply it to the dial +
+  // case + band, so the model reflects the color/material actually chosen on the product page.
   useEffect(() => {
-    if (!open || !selectedColor) return;
+    if (!open || !selectedColor || !product) return;
     const token = ++cutoutTokenRef.current;
 
     getWatchCutout(selectedColor.image).then((bitmap) => {
       if (token !== cutoutTokenRef.current || !sceneRef.current) return;
-      const { mesh } = sceneRef.current;
-      const material = mesh.material as THREE.MeshBasicMaterial;
-
-      material.map?.dispose();
-      const texture = new THREE.CanvasTexture(bitmap);
-      texture.colorSpace = THREE.SRGBColorSpace;
-      material.map = texture;
-      material.opacity = 1;
-      material.needsUpdate = true;
-
-      const aspect = bitmap.width / bitmap.height;
-      mesh.geometry.dispose();
-      mesh.geometry = new THREE.PlaneGeometry(WATCH_IMAGE_WIDTH_M, WATCH_IMAGE_WIDTH_M / aspect);
+      const { watch } = sceneRef.current;
+      updateDialTexture(watch, bitmap);
+      applyCaseMaterialColor(watch, product.specs.caseMaterial);
+      watch.strapMaterial.color.copy(sampleAverageColor(bitmap));
+      watch.strapMaterial.needsUpdate = true;
     });
-  }, [open, selectedColor]);
+  }, [open, selectedColor, product]);
 
   const handleFrame = useCallback((result: HandLandmarkerResult, video: HTMLVideoElement) => {
     const s = sceneRef.current;
@@ -170,11 +172,18 @@ export default function TryOnModal({ product, onClose }: Props) {
     );
 
     if (transform) {
-      s.mesh.position.copy(transform.position);
-      s.mesh.quaternion.copy(transform.quaternion);
-      s.mesh.visible = true;
+      if (!smoothedPosition.current || !smoothedQuaternion.current) {
+        smoothedPosition.current = transform.position.clone();
+        smoothedQuaternion.current = transform.quaternion.clone();
+      } else {
+        smoothedPosition.current.lerp(transform.position, POSITION_SMOOTHING);
+        smoothedQuaternion.current.slerp(transform.quaternion, ROTATION_SMOOTHING);
+      }
+      s.watch.group.position.copy(smoothedPosition.current);
+      s.watch.group.quaternion.copy(smoothedQuaternion.current);
+      s.watch.group.visible = true;
     } else {
-      s.mesh.visible = false;
+      s.watch.group.visible = false;
     }
     s.renderer.render(s.scene, s.camera);
   }, []);
@@ -182,11 +191,11 @@ export default function TryOnModal({ product, onClose }: Props) {
   const { status, facingMode } = useHandTracking(open, videoRef, handleFrame, retryKey);
   const mirror = facingMode === 'user';
 
-  // Keep the last frame rendered (mesh hidden) while the hand is temporarily lost, so the
-  // scene doesn't freeze on a stale watch position.
+  // Hide the model while the hand is temporarily lost, so the scene doesn't freeze on a
+  // stale position, but keep the smoothed transform intact so tracking resumes smoothly.
   useEffect(() => {
     if (status !== 'hand-lost' || !sceneRef.current) return;
-    sceneRef.current.mesh.visible = false;
+    sceneRef.current.watch.group.visible = false;
     sceneRef.current.renderer.render(sceneRef.current.scene, sceneRef.current.camera);
   }, [status]);
 
@@ -255,10 +264,7 @@ export default function TryOnModal({ product, onClose }: Props) {
       )}
 
       {product.colors && product.colors.length > 0 && (
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 px-4"
-          style={{ zIndex: 901 }}
-        >
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 px-4" style={{ zIndex: 901 }}>
           {product.colors.map((c) => (
             <button
               key={c.name}

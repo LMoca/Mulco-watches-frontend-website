@@ -127,19 +127,10 @@ const PINKY_MCP = 17;
 
 /** Assumed real-world width across the index/pinky knuckles, in meters — no per-user calibration in MVP. */
 export const REAL_HAND_WIDTH_M = 0.08;
-/** Physical width the cropped square product photo (case + visible strap) is assumed to represent, in meters — same constant for every product rather than parsing per-SKU case-diameter specs, since photo framing (how much strap is visible) isn't consistent enough across the catalog to derive this reliably. */
-export const WATCH_IMAGE_WIDTH_M = 0.09;
-/** Distance to shift the watch plane along the forearm axis, away from the raw wrist landmark toward where a watch actually sits. */
+/** Distance to shift the watch anchor along the forearm axis, away from the raw wrist landmark toward where a watch actually sits — this becomes the origin the 3D watch model (watchModel.ts) is built around. */
 export const WRIST_OFFSET_M = 0.035;
 /** No device camera intrinsics are available from getUserMedia, so a fixed vertical FOV is assumed — the single largest source of scale error across devices. */
 export const DEFAULT_FOV_Y_RADIANS = (50 * Math.PI) / 180;
-/**
- * Corrective rotation applied on top of the raw hand-basis quaternion, to align the
- * flat product photo's "up" direction with the computed wrist basis. Placeholder —
- * must be tuned empirically against a real camera before the orientation will look
- * correct; see plan's "Known limitations".
- */
-export const CALIBRATION_QUAT = new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI / 2, 0, 0));
 
 export interface WristTransform {
   position: THREE.Vector3;
@@ -179,8 +170,12 @@ export function computeWristTransform(
   if (normal.lengthSq() === 0) return null;
   forward = new THREE.Vector3().crossVectors(normal, right).normalize();
 
+  // The 3D watch model (watchModel.ts) is built in this exact local frame — local +X
+  // along `right`, +Y along `forward`, +Z along `normal` — so the raw basis quaternion
+  // maps it directly onto the tracked wrist with no extra calibration offset needed
+  // (unlike a flat photo, a rotationally-built case has no "up" to misalign).
   const basis = new THREE.Matrix4().makeBasis(right, forward, normal);
-  const quaternion = new THREE.Quaternion().setFromRotationMatrix(basis).multiply(CALIBRATION_QUAT);
+  const quaternion = new THREE.Quaternion().setFromRotationMatrix(basis);
 
   const pxWidth = Math.hypot(
     (landmarks[PINKY_MCP].x - landmarks[INDEX_MCP].x) * videoWidth,
