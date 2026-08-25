@@ -8,8 +8,8 @@ function WhatsAppIcon() {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       aria-hidden="true"
     >
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
@@ -30,17 +30,17 @@ export default function WhatsAppWidget() {
       <div
         style={{
           opacity: hovered ? 1 : 0,
-          transform: hovered ? 'translateX(0)' : 'translateX(6px)',
-          transition: 'opacity 0.2s ease, transform 0.2s ease',
+          transform: hovered ? 'translateX(0)' : 'translateX(8px)',
+          transition: 'opacity 0.35s ease, transform 0.35s ease',
           pointerEvents: 'none',
         }}
-        className="bg-brand-black border border-brand-gold/15 px-3 py-1.5 shadow-lg whitespace-nowrap"
+        className="bg-brand-black border border-brand-gold/25 px-4 py-2.5 whitespace-nowrap"
       >
-        <p className="text-[10px] font-sans tracking-[0.15em] uppercase text-brand-white">Chat with us</p>
-        <p className="text-[9px] font-sans text-brand-muted mt-0.5">Mon – Fri, 9 AM – 5 PM ET</p>
+        <p className="font-sans text-[12px] tracking-[0.1em] text-brand-white">Chat with us</p>
+        <p className="font-sans text-[10px] text-brand-muted mt-0.5">Mon – Fri, 9 AM – 5 PM ET</p>
       </div>
 
-      {/* Button */}
+      {/* Button — gold-bordered circle, transparent fill */}
       <a
         href={WA_LINK}
         target="_blank"
@@ -50,19 +50,17 @@ export default function WhatsAppWidget() {
         onMouseLeave={() => setHovered(false)}
         style={{
           pointerEvents: 'auto',
-          width: '52px',
-          height: '52px',
+          width: '56px',
+          height: '56px',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
-          backgroundColor: hovered ? '#1ebe57' : '#25D366',
-          transform: hovered ? 'scale(1.08)' : 'scale(1)',
-          transition: 'background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
-          boxShadow: hovered
-            ? '0 6px 24px rgba(37,211,102,0.45)'
-            : '0 4px 16px rgba(37,211,102,0.30)',
+          color: hovered ? '#C9A84C' : 'rgba(201,168,76,0.6)',
+          backgroundColor: 'transparent',
+          border: `1px solid ${hovered ? '#C9A84C' : 'rgba(201,168,76,0.4)'}`,
+          transform: hovered ? 'scale(1.06)' : 'scale(1)',
+          transition: 'transform 0.4s ease, color 0.4s ease, border-color 0.4s ease',
         }}
       >
         <WhatsAppIcon />

@@ -1,18 +1,26 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ChevronRight, ShoppingBag, CheckCircle, SlidersHorizontal, X } from 'lucide-react';
+import { ChevronRight, X, Heart } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
+import { useAccount } from '../context/AccountContext';
 import { useInView } from '../hooks/useInView';
 import { products, type Product } from '../data/products';
 import QuickViewModal from '../components/QuickViewModal';
+import Eyebrow from '../components/Eyebrow';
 
 const heroBanners: Record<string, string> = {
   women: '/images/ui/Banners_mega_menu_mujer_1.jpg',
   men: '/images/ui/Banners_mega_menu_hombre_1.jpg',
   'new-arrivals': '/images/ui/Banners_Mega_menu_1_version_quartz_verde.jpg',
   all: '/images/ui/Banners_mega_menu_hombre_2.jpg',
+};
+
+const heroEyebrows: Record<string, string> = {
+  women: 'FOR HER',
+  men: 'FOR HIM',
+  'new-arrivals': 'JUST ARRIVED',
+  all: 'THE COLLECTION',
 };
 
 const collectionDescriptions: Record<string, string> = {
@@ -31,29 +39,22 @@ const WATCH_COLLECTIONS = [
 ];
 
 function ProductCard({ product, index, onQuickView }: { product: Product; index: number; onQuickView: (p: Product) => void }) {
-  const { addItem } = useCart();
   const { formatPrice } = useCurrency();
-  const [added, setAdded] = useState(false);
+  const { isWishlisted, toggleWishlist } = useAccount();
   const [hovered, setHovered] = useState(false);
-
-  function handleAdd(e: React.MouseEvent) {
-    e.preventDefault();
-    addItem({ id: product.id, name: product.name, collection: product.collection, price: product.price, image: product.images[0] });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2200);
-  }
+  const wishlisted = isWishlisted(product.id);
 
   return (
     <div
-      className="group overflow-hidden gpu"
+      className="overflow-hidden gpu"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        opacity: 1,
         animation: `fade-in-up 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 60}ms both`,
       }}
     >
-      <Link to={`/product/${product.id}`} className="block relative overflow-hidden aspect-square">
+      {/* Image — 4:5 aspect, full clickable area */}
+      <Link to={`/product/${product.id}`} className="relative block overflow-hidden aspect-[4/5]">
         <img
           src={product.images[0]}
           alt={product.name}
@@ -61,86 +62,76 @@ function ProductCard({ product, index, onQuickView }: { product: Product; index:
           decoding="async"
           className="w-full h-full object-cover will-change-transform"
           style={{
-            transform: hovered ? 'scale(1.06)' : 'scale(1)',
-            transition: 'transform 0.75s cubic-bezier(0.22,1,0.36,1)',
+            transform: hovered ? 'scale(1.04)' : 'scale(1)',
+            transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)',
           }}
         />
-        <div
-          className="absolute inset-0 transition-all duration-400"
-          style={{ background: hovered ? 'rgba(10,10,10,0.18)' : 'rgba(10,10,10,0)' }}
-        />
-        {product.isNew && (
-          <span className="absolute top-3 left-3 text-[9px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-gold text-brand-black px-2 py-1 animate-fade-in">
-            New
-          </span>
-        )}
-        {!product.isNew && product.originalPrice && (
-          <span className="absolute top-3 left-3 text-[9px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-rose text-brand-white px-2 py-1 animate-fade-in">
-            Sale
-          </span>
-        )}
-        {product.stock !== undefined && product.stock <= 5 && (
-          <span className="absolute bottom-14 left-3 text-[9px] font-sans font-semibold tracking-[0.18em] uppercase bg-brand-black/80 text-brand-gold border border-brand-gold/40 px-2 py-1">
-            Only {product.stock} left
-          </span>
-        )}
-        {/* Slide-up CTA */}
-        <div
-          className="absolute inset-x-0 bottom-0 p-4"
-          style={{
-            transform: hovered ? 'translateY(0)' : 'translateY(100%)',
-            transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1)',
-          }}
-        >
-          <div className="flex gap-2">
-            <button
-              onClick={(e) => { e.preventDefault(); onQuickView(product); }}
-              className="flex-1 text-center text-[10px] font-sans font-semibold tracking-widest uppercase bg-brand-black/85 backdrop-blur-sm text-brand-white py-2.5 hover:bg-brand-gold hover:text-brand-black transition-colors duration-200"
-            >
-              Quick View
-            </button>
-            <Link
-              to={`/product/${product.id}`}
-              className="px-3 py-2.5 bg-brand-black/85 backdrop-blur-sm text-brand-muted hover:text-brand-gold transition-colors duration-200 flex items-center"
-              onClick={(e) => e.stopPropagation()}
-              aria-label="View details"
-            >
-              <span className="text-[10px] font-sans tracking-widest uppercase">→</span>
-            </Link>
-          </div>
+        {/* Badges — text only, top-left */}
+        <div className="absolute top-3 left-3 flex flex-col items-start gap-1.5">
+          {product.isNew && (
+            <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-gold">NEW</span>
+          )}
+          {product.stock !== undefined && product.stock <= 5 && (
+            <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-rose/70">LIMITED</span>
+          )}
         </div>
+
+        {/* Wishlist heart — top-right */}
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product.id); }}
+          aria-label={wishlisted ? 'Remove from wishlist' : 'Save to wishlist'}
+          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-brand-black/50 backdrop-blur-sm hover:bg-brand-black/70 transition-colors duration-200"
+          style={{ opacity: hovered || wishlisted ? 1 : 0, transition: 'opacity 0.3s ease' }}
+        >
+          <Heart
+            size={14}
+            className="transition-colors duration-200"
+            style={{ color: wishlisted ? '#C9A84C' : '#F5F5F0' }}
+            fill={wishlisted ? '#C9A84C' : 'none'}
+          />
+        </button>
       </Link>
 
-      <div
-        className="p-4 transition-colors duration-300"
-        style={{ background: hovered ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.015)' }}
-      >
-        <p className="text-[10px] font-sans text-brand-gold tracking-widest uppercase">{product.collection}</p>
-        <Link to={`/product/${product.id}`} className="font-serif text-lg text-brand-white hover:text-brand-gold transition-colors duration-200 leading-tight mt-0.5 block">
-          {product.name}
-        </Link>
-        <p className="text-[10px] font-sans text-brand-muted mt-1.5">{product.tags.join(' · ')}</p>
-        <div className="flex items-center justify-between mt-3">
-          <div className="flex flex-col leading-tight">
-            <span className="font-serif text-brand-gold text-lg">{formatPrice(product.price)}</span>
-            {product.originalPrice && (
-              <span className="font-serif text-brand-muted text-sm line-through">{formatPrice(product.originalPrice)}</span>
-            )}
-          </div>
-          <button
-            onClick={handleAdd}
-            aria-label={`Add ${product.name} to cart`}
-            className="flex items-center gap-1.5 text-[10px] font-sans font-medium tracking-widest uppercase px-3 py-2 border transition-all duration-200 ease-out active:scale-95"
+      {/* Info below image */}
+      <div className="pt-4">
+        {/* Product name with animated gold underline on hover */}
+        <Link to={`/product/${product.id}`} className="relative inline-block">
+          <h3 className="font-serif text-[1.375rem] text-brand-white leading-tight">
+            {product.name}
+          </h3>
+          <span
+            className="absolute bottom-0 left-0 w-full h-px bg-brand-gold origin-left"
             style={{
-              borderColor: added ? 'rgba(201,168,76,0.9)' : 'rgba(201,168,76,0.4)',
-              backgroundColor: added ? 'rgba(201,168,76,0.12)' : 'transparent',
-              color: '#C9A84C',
+              transform: hovered ? 'scaleX(1)' : 'scaleX(0)',
+              transition: 'transform 0.4s cubic-bezier(0.22,1,0.36,1)',
             }}
-          >
-            {added ? <CheckCircle size={11} /> : <ShoppingBag size={11} />}
-            {added ? 'Added' : 'Add'}
-          </button>
-        </div>
+          />
+        </Link>
+
+        {/* Collection · price — single muted line */}
+        <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted mt-2">
+          {product.collection}
+          {' · '}
+          <span style={product.originalPrice ? { textDecoration: 'underline', textDecorationColor: '#C9A84C', textUnderlineOffset: '3px' } : undefined}>
+            {formatPrice(product.price)}
+          </span>
+          {product.originalPrice && (
+            <span className="ml-2 line-through">{formatPrice(product.originalPrice)}</span>
+          )}
+        </p>
+
+        {/* Quick View — quiet, appears on hover only */}
+        <button
+          onClick={(e) => { e.stopPropagation(); onQuickView(product); }}
+          className="mt-2 font-sans text-[10px] uppercase tracking-[0.2em] text-brand-muted hover:text-brand-gold transition-colors duration-300"
+          style={{
+            opacity: hovered ? 1 : 0,
+            transition: 'opacity 0.3s ease',
+            pointerEvents: hovered ? 'auto' : 'none',
+          }}
+        >
+          Quick View
+        </button>
       </div>
     </div>
   );
@@ -151,21 +142,23 @@ function CollectionsHero({ slug }: { slug: string }) {
   const banner = heroBanners[slug] ?? heroBanners.all;
   const title = slug === 'women' ? "Women's" : slug === 'men' ? "Men's" : slug === 'new-arrivals' ? 'New Arrivals' : 'All Collections';
   const desc = collectionDescriptions[slug] ?? collectionDescriptions.all;
+  const eyebrow = heroEyebrows[slug] ?? 'THE COLLECTION';
 
   return (
-    <div ref={ref as React.RefObject<HTMLDivElement>} className="relative h-64 md:h-80 overflow-hidden">
+    <div ref={ref as React.RefObject<HTMLDivElement>} className="relative h-[60vh] overflow-hidden">
       <img src={banner} alt={title} className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-r from-brand-black/80 via-brand-black/40 to-transparent" />
       <div
-        className="absolute inset-0 flex flex-col justify-end p-8 md:p-14"
+        className="absolute inset-0 flex flex-col justify-end px-6 md:px-14 lg:px-24 pb-12 md:pb-16"
         style={{
           opacity: inView ? 1 : 0,
           transform: inView ? 'translateY(0)' : 'translateY(24px)',
           transition: 'opacity 0.75s cubic-bezier(0.22,1,0.36,1), transform 0.75s cubic-bezier(0.22,1,0.36,1)',
         }}
       >
-        <h1 className="font-serif text-4xl md:text-5xl text-brand-white">{title}</h1>
-        <p className="text-brand-muted text-sm font-sans mt-2 max-w-md">{desc}</p>
+        <Eyebrow text={eyebrow} className="mb-4" />
+        <h1 className="font-serif text-[4rem] md:text-[5rem] lg:text-[6rem] text-brand-white leading-[0.95] tracking-[-0.02em]">{title}</h1>
+        <p className="font-sans text-brand-muted text-[14px] leading-[1.7] mt-4 max-w-[60ch]">{desc}</p>
       </div>
     </div>
   );
@@ -217,7 +210,7 @@ export default function Collections() {
     <div className="min-h-screen bg-brand-black pt-[72px]">
       <CollectionsHero slug={resolvedSlug} />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-10 pb-24">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 py-10 pb-32">
         {/* Breadcrumb */}
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[11px] font-sans text-brand-muted mb-8">
           <Link to="/" className="hover:text-brand-gold transition-colors">Home</Link>
@@ -233,90 +226,96 @@ export default function Collections() {
           )}
         </nav>
 
-        {/* Filter bar */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-brand-gold/12">
-          {resolvedSlug === 'all' && (
-            <div className="flex gap-1 bg-brand-gold/[0.04] border border-brand-gold/15 p-1">
-              {(['all', 'women', 'men'] as const).map((g) => (
-                <button
-                  key={g}
-                  onClick={() => setGenderFilter(g)}
-                  className={`px-4 py-1.5 text-xs font-sans font-medium tracking-widest uppercase transition-all duration-200 ${
-                    genderFilter === g ? 'bg-brand-gold text-brand-black' : 'text-brand-muted hover:text-brand-white'
-                  }`}
-                >
-                  {g === 'all' ? t('filter.all') : g === 'women' ? t('nav.women') : t('nav.men')}
-                </button>
-              ))}
-            </div>
-          )}
+        {/* Sticky filter strip */}
+        <div className="sticky top-[72px] z-10 bg-brand-black -mx-6 md:-mx-14 lg:-mx-24 px-6 md:px-14 lg:px-24 py-4 border-b border-brand-gold/8 mb-10">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            {/* Gender filter pills */}
+            {resolvedSlug === 'all' && (
+              <div className="flex gap-2">
+                {(['all', 'women', 'men'] as const).map((g) => (
+                  <button
+                    key={g}
+                    onClick={() => setGenderFilter(g)}
+                    className={`px-4 py-1.5 text-[10px] font-sans tracking-[0.18em] uppercase transition-all duration-200 border ${
+                      genderFilter === g
+                        ? 'bg-brand-gold text-brand-black border-brand-gold'
+                        : 'text-brand-gold/60 border-brand-gold/30 hover:border-brand-gold/60 hover:text-brand-gold'
+                    }`}
+                  >
+                    {g === 'all' ? t('filter.all') : g === 'women' ? t('nav.women') : t('nav.men')}
+                  </button>
+                ))}
+              </div>
+            )}
 
-          <div className="flex items-center gap-3 ml-auto">
-            <span className="text-xs text-brand-muted font-sans">{filtered.length} pieces</span>
-            <div className="relative">
-              <button
-                onClick={() => setFilterOpen(!filterOpen)}
-                className="flex items-center gap-2 text-xs font-sans tracking-widest uppercase text-brand-white border border-brand-gold/20 px-4 py-2 hover:border-brand-gold transition-colors duration-200"
-              >
-                <SlidersHorizontal size={12} />
-                {t('filter.sortBy')}
-              </button>
-              {filterOpen && (
-                <>
-                  <div className="fixed inset-0 z-10" onClick={() => setFilterOpen(false)} />
-                  <div className="absolute right-0 top-full mt-1 z-20 bg-brand-black border border-brand-gold/20 min-w-[190px] py-1">
-                    {([
-                      ['featured', t('filter.featured')],
-                      ['price-asc', t('filter.priceLowHigh')],
-                      ['price-desc', t('filter.priceHighLow')],
-                      ['newest', t('filter.newest')],
-                    ] as [SortKey, string][]).map(([key, label]) => (
-                      <button
-                        key={key}
-                        onClick={() => { setSort(key); setFilterOpen(false); }}
-                        className={`block w-full text-left px-4 py-2.5 text-xs font-sans tracking-wide transition-colors duration-150 ${
-                          sort === key ? 'text-brand-gold' : 'text-brand-muted hover:text-brand-white'
-                        }`}
-                      >
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                </>
+            {/* Count + sort */}
+            <div className="flex items-center gap-5 ml-auto">
+              <span className="text-[11px] font-sans uppercase tracking-[0.15em] text-brand-muted">{filtered.length} pieces</span>
+              <div className="relative">
+                {/* Text-only sort trigger with ↓ character */}
+                <button
+                  onClick={() => setFilterOpen(!filterOpen)}
+                  className="flex items-center gap-1 text-[11px] font-sans tracking-[0.2em] uppercase text-brand-muted hover:text-brand-gold transition-colors duration-300"
+                >
+                  {t('filter.sortBy')} <span aria-hidden="true">↓</span>
+                </button>
+                {filterOpen && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setFilterOpen(false)} />
+                    <div className="absolute right-0 top-full mt-2 z-20 bg-brand-black border border-brand-gold/15 min-w-[200px] py-1">
+                      {([
+                        ['featured', t('filter.featured')],
+                        ['price-asc', t('filter.priceLowHigh')],
+                        ['price-desc', t('filter.priceHighLow')],
+                        ['newest', t('filter.newest')],
+                      ] as [SortKey, string][]).map(([key, label]) => (
+                        <button
+                          key={key}
+                          onClick={() => { setSort(key); setFilterOpen(false); }}
+                          className={`block w-full text-left px-5 py-2.5 text-[11px] font-sans tracking-[0.1em] uppercase transition-colors duration-150 ${
+                            sort === key ? 'text-brand-gold' : 'text-brand-muted hover:text-brand-white'
+                          }`}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+              {sort !== 'featured' && (
+                <button onClick={() => setSort('featured')} aria-label="Clear sort" className="text-brand-muted hover:text-brand-gold transition-colors">
+                  <X size={13} />
+                </button>
               )}
             </div>
-            {sort !== 'featured' && (
-              <button onClick={() => setSort('featured')} aria-label="Clear sort" className="text-brand-muted hover:text-brand-gold transition-colors">
-                <X size={14} />
-              </button>
-            )}
           </div>
+
+          {/* Collection name filter pills */}
+          {resolvedSlug !== 'new-arrivals' && (
+            <div className="mt-3 -mx-1">
+              <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+                {['all', ...WATCH_COLLECTIONS].map((col) => (
+                  <button
+                    key={col}
+                    onClick={() => setCollectionFilter(col)}
+                    className={`flex-shrink-0 px-3.5 py-1 text-[10px] font-sans tracking-[0.18em] uppercase transition-all duration-200 border ${
+                      collectionFilter === col
+                        ? 'bg-brand-gold text-brand-black border-brand-gold'
+                        : 'text-brand-gold/60 border-brand-gold/30 hover:border-brand-gold/60 hover:text-brand-gold'
+                    }`}
+                  >
+                    {col === 'all' ? 'All' : col}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Collection name filter strip */}
-        {resolvedSlug !== 'new-arrivals' && (
-          <div className="mb-8 -mx-1">
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none" style={{ scrollbarWidth: 'none' }}>
-              {['all', ...WATCH_COLLECTIONS].map((col) => (
-                <button
-                  key={col}
-                  onClick={() => setCollectionFilter(col)}
-                  className={`flex-shrink-0 px-4 py-1.5 text-[10px] font-sans font-medium tracking-[0.18em] uppercase transition-all duration-200 border ${
-                    collectionFilter === col
-                      ? 'bg-brand-gold text-brand-black border-brand-gold'
-                      : 'text-brand-muted border-brand-gold/20 hover:border-brand-gold/50 hover:text-brand-white'
-                  }`}
-                >
-                  {col === 'all' ? 'All' : col}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Grid */}
+        {/* Product grid */}
         {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 lg:gap-14">
             {filtered.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} onQuickView={setQuickViewProduct} />
             ))}

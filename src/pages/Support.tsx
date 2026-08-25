@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, MapPin, Phone, Mail, Clock, ArrowRight, CheckCircle } from 'lucide-react';
+import { ChevronRight, ArrowRight, CheckCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useInView } from '../hooks/useInView';
 import { sanitizeInput } from '../utils/sanitize';
@@ -22,8 +22,8 @@ function FadeSection({ children, delay = 0 }: { children: React.ReactNode; delay
       ref={ref as React.RefObject<HTMLDivElement>}
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(24px)',
-        transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
+        transform: inView ? 'translateY(0)' : 'translateY(40px)',
+        transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.9s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
       }}
     >
       {children}
@@ -46,7 +46,7 @@ export default function Support() {
   }
 
   const inputBase =
-    'w-full bg-brand-gold/[0.04] border border-brand-gold/18 focus:border-brand-gold text-brand-white placeholder:text-brand-muted text-sm font-sans px-4 py-3.5 outline-none transition-colors duration-200 rounded-none';
+    'w-full bg-transparent border-0 border-b border-brand-gold/20 focus:border-brand-gold text-brand-white placeholder:text-brand-muted/50 text-sm font-sans px-0 py-3 outline-none transition-colors duration-[400ms]';
 
   return (
     <div className="min-h-screen bg-brand-black">
@@ -100,37 +100,37 @@ export default function Support() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.name')}</label>
+                      <label htmlFor="sup-name" className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.name')}</label>
                       <input
+                        id="sup-name"
                         type="text"
                         required
                         value={form.name}
                         onChange={(e) => handleChange('name', e.target.value)}
                         placeholder="Jane Smith"
-                        aria-label={t('contact.name')}
                         className={inputBase}
                       />
                     </div>
                     <div>
-                      <label className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.email')}</label>
+                      <label htmlFor="sup-email" className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.email')}</label>
                       <input
+                        id="sup-email"
                         type="email"
                         required
                         value={form.email}
                         onChange={(e) => handleChange('email', e.target.value)}
                         placeholder="jane@example.com"
-                        aria-label={t('contact.email')}
                         className={inputBase}
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.subject')}</label>
+                    <label htmlFor="sup-subject" className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.subject')}</label>
                     <select
+                      id="sup-subject"
                       required
                       value={form.subject}
                       onChange={(e) => handleChange('subject', e.target.value)}
-                      aria-label={t('contact.subject')}
                       className={`${inputBase} appearance-none cursor-pointer`}
                     >
                       <option value="" disabled>Select a topic...</option>
@@ -140,14 +140,14 @@ export default function Support() {
                     </select>
                   </div>
                   <div>
-                    <label className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.message')}</label>
+                    <label htmlFor="sup-message" className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-2 block">{t('contact.message')}</label>
                     <textarea
+                      id="sup-message"
                       required
                       rows={6}
                       value={form.message}
                       onChange={(e) => handleChange('message', e.target.value)}
                       placeholder="How can we help you today?"
-                      aria-label={t('contact.message')}
                       className={`${inputBase} resize-none`}
                     />
                   </div>
@@ -163,39 +163,34 @@ export default function Support() {
           </FadeSection>
 
           {/* Store info */}
-          <aside className="lg:sticky lg:top-28 space-y-6">
+          <aside className="lg:sticky lg:top-28 space-y-10">
             <FadeSection delay={100}>
-              <div className="border border-brand-gold/15 bg-brand-gold/[0.02]">
-                <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-gold to-transparent" />
-                <div className="p-7 space-y-6">
-                  <div>
-                    <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-brand-gold mb-2">Miami Service Center</p>
-                    <h3 className="font-serif text-xl text-brand-white">Aventura Flagship</h3>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      { icon: <MapPin size={14} />, lines: ['19790 W Dixie Hwy, Suite 201', 'Aventura, FL 33180'] },
-                      { icon: <Phone size={14} />, lines: ['+1 (305) 936-9200'] },
-                      { icon: <Mail size={14} />, lines: ['support@mulco.com', 'service@mulco.com'] },
-                      { icon: <Clock size={14} />, lines: ['Mon – Sat · 10 AM – 6 PM EST', 'Sunday · Closed'] },
-                    ].map(({ icon, lines }, i) => (
-                      <div key={i} className="flex items-start gap-3">
-                        <span className="text-brand-gold mt-0.5 flex-shrink-0">{icon}</span>
-                        <div>
-                          {lines.map((l) => <p key={l} className="font-sans text-sm text-brand-muted leading-snug">{l}</p>)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <div className="space-y-5">
+                <div>
+                  <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-gold mb-1">Authorized Service</p>
+                  <h3 className="font-serif text-2xl text-brand-white">Aventura Flagship</h3>
+                  <div className="w-6 h-px bg-brand-gold mt-3" />
+                </div>
+                <div className="space-y-3 border-t border-brand-gold/12 pt-5">
+                  {[
+                    ['19790 W Dixie Hwy, Suite 201', 'Aventura, FL 33180'],
+                    ['+1 (305) 936-9200'],
+                    ['support@mulco.com', 'service@mulco.com'],
+                    ['Mon – Sat · 10 AM – 6 PM EST', 'Sunday · Closed'],
+                  ].map((lines, i) => (
+                    <div key={i} className="border-b border-brand-gold/8 pb-3 last:border-0">
+                      {lines.map((l) => <p key={l} className="font-sans text-[14px] text-brand-muted leading-snug">{l}</p>)}
+                    </div>
+                  ))}
                 </div>
               </div>
             </FadeSection>
 
             {/* Quick links */}
             <FadeSection delay={150}>
-              <div className="border border-brand-gold/15 bg-brand-gold/[0.02] p-7">
-                <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-brand-gold mb-5">Quick Links</p>
-                <div className="space-y-0 divide-y divide-brand-gold/[0.08]">
+              <div>
+                <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-gold mb-4">Quick Links</p>
+                <div className="divide-y divide-brand-gold/10">
                   {[
                     { label: 'Warranty Policy', to: '/faq' },
                     { label: 'Repair Process', to: '/faq' },
@@ -205,10 +200,10 @@ export default function Support() {
                     <Link
                       key={label}
                       to={to}
-                      className="flex items-center justify-between py-3 text-sm font-sans text-brand-muted hover:text-brand-gold transition-colors duration-150 group"
+                      className="flex items-center justify-between py-3 font-sans text-[13px] text-brand-muted hover:text-brand-gold transition-colors duration-[400ms] group"
                     >
                       {label}
-                      <ChevronRight size={12} className="text-brand-muted group-hover:text-brand-gold group-hover:translate-x-0.5 transition-all duration-150" />
+                      <ChevronRight size={11} className="text-brand-muted group-hover:text-brand-gold transition-colors duration-[400ms]" />
                     </Link>
                   ))}
                 </div>

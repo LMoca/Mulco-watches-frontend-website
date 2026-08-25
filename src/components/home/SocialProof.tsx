@@ -1,10 +1,10 @@
 import { useInView } from '../../hooks/useInView';
-import { useLanguage } from '../../context/LanguageContext';
+import Eyebrow from '../Eyebrow';
 
 const reviews = [
   {
     id: 1,
-    text: 'I get countless compliments on my Blue Marine Medusa. The quality is outstanding for the price — it feels and looks far more expensive than it is.',
+    text: 'I get countless compliments on my Blue Marine Medusa. The quality is outstanding — it feels and looks far more expensive than it is.',
     author: 'Maria R.',
     location: 'Miami, FL',
     stars: 5,
@@ -33,125 +33,88 @@ function StarFilled() {
   );
 }
 
-export default function SocialProof() {
-  const { ref: titleRef, inView: titleInView } = useInView(0.2);
-  const { ref: gridRef, inView: gridInView } = useInView(0.1);
-  const { t } = useLanguage();
+function QuoteBlock({ review, index }: { review: typeof reviews[number]; index: number }) {
+  const { ref, inView } = useInView(0.15);
 
-  return (
-    <section className="bg-brand-navy py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* Heading */}
-        <div
-          ref={titleRef as React.RefObject<HTMLDivElement>}
-          className="text-center mb-16"
-          style={{
-            opacity: titleInView ? 1 : 0,
-            transform: titleInView ? 'translateY(0)' : 'translateY(22px)',
-            transition: 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)',
-          }}
-        >
-          <span className="text-[10px] font-sans font-semibold tracking-[0.3em] uppercase text-brand-gold">
-            Customer Stories
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-brand-white mt-3">
-            {t('reviews.title')}
-          </h2>
-          <div className="w-10 h-px bg-brand-gold mx-auto mt-4" />
-
-          {/* Aggregate rating */}
-          <div className="flex items-center justify-center gap-3 mt-8">
-            <div className="flex gap-0.5" aria-label="4.9 out of 5 stars">
-              {Array.from({ length: 5 }).map((_, i) => <StarFilled key={i} />)}
-            </div>
-            <span className="font-serif text-lg text-brand-white">4.9</span>
-            <span className="text-brand-gold/30 text-sm">·</span>
-            <span className="font-sans text-xs text-brand-muted tracking-wide">800+ Verified Reviews</span>
-          </div>
-        </div>
-
-        {/* Cards — desktop 3-col, mobile horizontal scroll */}
-        <div
-          ref={gridRef as React.RefObject<HTMLDivElement>}
-          className="hidden md:grid md:grid-cols-3 gap-6"
-        >
-          {reviews.map((review, index) => (
-            <ReviewCard
-              key={review.id}
-              review={review}
-              inView={gridInView}
-              delay={index * 150}
-            />
-          ))}
-        </div>
-
-        {/* Mobile horizontal scroll */}
-        <div className="md:hidden flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth [-webkit-overflow-scrolling:touch]">
-          {reviews.map((review) => (
-            <div key={review.id} className="snap-start flex-shrink-0 w-[85vw] max-w-sm">
-              <ReviewCard review={review} inView={true} delay={0} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ReviewCard({
-  review,
-  inView,
-  delay,
-}: {
-  review: (typeof reviews)[number];
-  inView: boolean;
-  delay: number;
-}) {
   return (
     <div
-      className="relative bg-brand-gold/[0.02] border border-brand-gold/12 p-8 rounded-sm hover:border-brand-gold/30 hover:bg-brand-gold/[0.04] transition-all duration-350 group"
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="relative py-16 md:py-20 border-t border-brand-gold/12"
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0) scale(1)' : 'translateY(28px) scale(0.98)',
-        transition: `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
+        transform: inView ? 'translateY(0)' : 'translateY(40px)',
+        transition: `opacity 1s cubic-bezier(0.16,1,0.3,1) ${index * 100}ms, transform 1s cubic-bezier(0.16,1,0.3,1) ${index * 100}ms`,
       }}
     >
-      {/* Star rating */}
-      <div className="flex gap-0.5 mb-5" aria-label={`${review.stars} out of 5 stars`}>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <svg
-            key={i}
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill={i < review.stars ? '#C9A84C' : 'none'}
-            stroke="#C9A84C"
-            strokeWidth="1"
-            aria-hidden="true"
-          >
-            <polygon points="7,1 8.8,5.4 13.5,5.4 9.8,8.5 11.2,13 7,10.3 2.8,13 4.2,8.5 0.5,5.4 5.2,5.4" />
-          </svg>
-        ))}
-      </div>
-
       {/* Decorative quotation mark */}
       <span
-        className="absolute top-4 right-6 font-serif text-7xl text-brand-gold/15 select-none leading-none group-hover:text-brand-gold/25 transition-colors duration-300"
+        className="absolute top-8 left-0 font-serif leading-none select-none pointer-events-none text-brand-gold"
+        style={{ fontSize: '200px', opacity: 0.06 }}
         aria-hidden="true"
       >
         "
       </span>
 
-      {/* Review text */}
-      <blockquote className="relative font-sans text-brand-white/80 text-base leading-relaxed mb-8">
-        "{review.text}"
-      </blockquote>
-
-      {/* Attribution */}
-      <div className="border-t border-brand-gold/12 pt-4">
-        <p className="font-sans text-sm font-medium text-brand-white">{review.author}</p>
-        <p className="font-sans text-xs text-brand-muted mt-0.5 tracking-wide">{review.location}</p>
+      <div className="relative max-w-3xl">
+        <blockquote className="font-serif italic text-[1.5rem] md:text-[2rem] text-brand-white/90 leading-[1.4] mb-6">
+          "{review.text}"
+        </blockquote>
+        <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted">
+          {review.author} · {review.location}
+        </p>
       </div>
     </div>
+  );
+}
+
+export default function SocialProof() {
+  const { ref: titleRef, inView: titleInView } = useInView(0.2);
+
+  return (
+    <section className="bg-brand-navy py-28 md:py-40 lg:py-52 px-6 md:px-14 lg:px-24 overflow-hidden">
+      <div className="max-w-[1440px] mx-auto">
+
+        {/* Aggregate rating strip — at top */}
+        <div
+          className="flex items-center gap-3 mb-14 md:mb-20"
+          ref={titleRef as React.RefObject<HTMLDivElement>}
+          style={{
+            opacity: titleInView ? 1 : 0,
+            transform: titleInView ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)',
+          }}
+        >
+          <div className="flex gap-0.5" aria-label="4.9 out of 5 stars">
+            {Array.from({ length: 5 }).map((_, i) => <StarFilled key={i} />)}
+          </div>
+          <span className="font-serif text-brand-white/80">4.9</span>
+          <span className="text-brand-gold/30 text-sm">·</span>
+          <span className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted">800+ Verified Reviews</span>
+        </div>
+
+        {/* Section heading */}
+        <div
+          style={{
+            opacity: titleInView ? 1 : 0,
+            transform: titleInView ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s',
+          }}
+        >
+          <Eyebrow text="Customer Stories" />
+          <h2 className="font-serif text-[2.5rem] md:text-[3.5rem] lg:text-[5rem] text-brand-white mt-3 leading-[0.95] tracking-[-0.02em] mb-4">
+            Voices of the Bold
+          </h2>
+          <div className="w-10 h-px bg-brand-gold" />
+        </div>
+
+        {/* Sequential full-width quotes */}
+        <div className="mt-4">
+          {reviews.map((review, index) => (
+            <QuoteBlock key={review.id} review={review} index={index} />
+          ))}
+        </div>
+
+      </div>
+    </section>
   );
 }

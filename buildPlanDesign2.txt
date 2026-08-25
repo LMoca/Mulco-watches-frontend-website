@@ -1,0 +1,482 @@
+# MULCO Watches — Premium Redesign System Prompt (Existing Build)
+
+You are redesigning an already-built MULCO Watches website (React/Vite/TypeScript on Tailwind CSS) to elevate it visually and experientially toward the level of premium watch brands like Hublot, Bell & Ross, Olivia Burton, and TAG Heuer — while staying honest to MULCO's fashion-luxury position at the $195–$255 price tier.
+
+The current build is feature-complete. Routes, data, cart logic, currency switching, language support, search, checkout, engraving, and reviews are all working. This is a visual and experiential redesign, not a rebuild. Preserve all existing functionality. Modify the visual layer, component composition, spacing, typography, motion, and interaction patterns.
+
+Some currently implemented features (promo codes, currency switcher, sale badges, star ratings, WhatsApp widget) are real business mechanics that cannot simply be deleted in pursuit of "pure luxury aesthetic." The redesign refines and quiets these rather than removing them.
+
+---
+
+## PHASE 1 — Typography & Color Discipline
+
+The single highest-impact change. Most of the perceived "premium" gap closes here.
+
+**Display headlines (hero, statement sections):**
+- Cormorant Garamond, 120–200px desktop, 64–96px mobile
+- Letter-spacing -0.02em, line-height 0.95
+- Single words or short phrases only — these are visual elements, not paragraphs
+
+**Section headlines:**
+- Cormorant Garamond 56–80px desktop, 36–48px mobile
+- One per section maximum
+
+**Eyebrow labels (NEW component, used everywhere):**
+- DM Sans, ALL CAPS, 11–12px, letter-spacing 0.2em
+- Gold (#C9A84C) at 80% opacity
+- Optional 32px gold rule beside the text
+- Used above all major section headlines: "THE COLLECTION," "SINCE 1958," "WORN BY THE BOLD"
+
+**Body copy:**
+- DM Sans 15–16px desktop, 14px mobile
+- Line-height 1.7
+- Color #F5F5F0 at 80% opacity
+- Smaller and tighter than feels comfortable
+
+**Product names:**
+- Cormorant Garamond 40–48px on product detail pages
+- 20–24px on cards
+- Never in DM Sans
+
+**Prices:**
+- DM Sans 16px regular, muted color (#888880)
+- No currency-symbol emphasis, no "From $" framing
+- Sale prices: original price in muted strikethrough at 13px, current price in normal weight — do NOT use red, do NOT make the sale price larger than the original
+- "Save $X" badges replaced with a thin gold underline beneath the current price only
+
+**Color palette (existing palette, tighter discipline):**
+- #0A0A0A is the canvas — 80%+ of any viewport
+- #1A1A2E navy — sectional contrast, 10% accent maximum
+- #C9A84C champagne gold — borders, hover underlines, eyebrow labels, accents only. Never as primary button fill except on the single hero CTA and Add to Cart
+- #B76E79 rose gold — women's collection accents only
+- #F5F5F0 warm white — primary text
+- Pure white (#FFFFFF) is banned anywhere on the site — it reads cheap on dark backgrounds
+
+---
+
+## PHASE 2 — Spacing, Rhythm & Layout
+
+Most current sections need 1.5–2x more vertical space. This alone makes the site feel calmer and more considered.
+
+**Vertical section padding:**
+- Desktop: 160–240px top/bottom per section
+- Mobile: 96–128px
+- Most current sites use 64–96px — increase across the board
+
+**Horizontal containers:**
+- Max-width 1440px, with content typically constrained to 1200px
+- Generous side margins on desktop (8% of viewport minimum)
+
+**Section asymmetry:**
+- Featured product layouts should use 7/5 or 8/4 splits, not 6/6
+- The image always gets the larger column
+- Vertically center text against the image, never top-align
+
+**Product grid density (Collections page):**
+- 3 columns desktop, 2 tablet, 1 mobile
+- 48–64px gaps between cards on desktop
+- Less density, more impact per card
+
+**Mobile spacing:**
+- Resist compression — preserve generous vertical rhythm
+- Mobile is where most users will encounter the site; it must feel uncompressed
+
+---
+
+## PHASE 3 — Homepage Redesign
+
+Address each existing section in order. The goal is restraint, not removal.
+
+### Hero
+- Keep the full-screen background image with gradient overlays
+- Reduce headline-subtext-CTA spacing — let the headline dominate
+- Headline: Cormorant Garamond at 96–140px, single phrase ("Time, Reimagined." or "Worn by the Bold.")
+- Subtext: DM Sans 14px ALL CAPS, 0.15em letter-spacing, muted
+- Primary CTA "Explore Collections": gold 1px border, transparent fill, 56px tall, DM Sans 13px ALL CAPS 0.15em letter-spacing — gold fill on hover with text inversion (not the current animated dash)
+- Secondary CTA "Our Story": text-only with thin gold underline animating in from left on hover; arrow becomes a hairline character (→), not a styled icon
+- Add a NEW vertical wordmark component: "MULCO" rendered vertically along the left edge in 11px ALL CAPS, 0.4em letter-spacing, gold at 60% opacity — sticky within the hero section
+- Add a subtle ambient float animation: hero background translates Y between 0 and -8px over 6 seconds, infinite — almost imperceptible
+
+### Trust Bar
+- Do not remove. It serves a real conversion function and the existing four pillars are correct.
+- Refine: drop the gradient gold accent lines. Replace with single 1px gold hairlines at 20% opacity, top and bottom.
+- Pillar text in DM Sans 11px ALL CAPS, 0.2em letter-spacing, muted color — not bold, not large
+- Icons in gold at 40% opacity, hairline weight only (1px stroke)
+- Vertical dividers between pillars in gold at 15% opacity
+
+### Collections Grid
+- Reduce from six tiles to four: Women's, Men's, New Arrivals, Accessories (Blue Marine and Buzo move into Featured Spotlight section instead)
+- Each tile: tall 4:5 aspect ratio (not square)
+- Collection name overlaid bottom-left in Cormorant Garamond 40px
+- Eyebrow label above name: "FOR HER" / "FOR HIM" / "JUST ARRIVED" / "BEYOND THE WATCH"
+- Hover: image scales to 1.04 over 600ms; thin gold underline appears beneath the collection name; no overlay color shift
+
+### Product Spotlight
+- Restructure the split layout: instead of Women's left / Men's right at equal weight, alternate between full-width featured products
+- Each featured product is its own full-viewport section (60vh minimum)
+- 7/5 asymmetric split: image larger, text column tighter
+- Inside text column: eyebrow label (collection name), product name (Cormorant 48px), one-sentence editorial description (NOT specs), price in muted small text, single gold-underlined "Discover" text link
+- KEEP the Add to Cart capability but render it as a secondary action below "Discover" — thin gold border, no fill, smaller than "Discover"
+- Section 1: Blue Marine Medusa (image left)
+- Section 2: Buzo Tentacles (image right)
+- Section 3: Enchanted Quartz (image left)
+- Section 4: Kripton Royale Gents (image right)
+
+### Accessories Section
+- Reduce visual prominence — this is supplementary, not headline
+- Keep the two-panel Jewelry/Straps split
+- Treat the panels as horizontal strips at 50vh instead of square cards
+- Category label overlaid in Cormorant 36px, eyebrow label above
+- Hover: image scales 1.04, gold underline reveals beneath category name
+
+### Social Proof
+- KEEP star ratings and the aggregate "4.9 / 800+ Verified Reviews" strip — these are real conversion mechanics for a $195–$255 price point and removing them would hurt sales
+- Refine the visual treatment:
+  - Stars rendered at 14px in gold, not large
+  - Aggregate rating strip moved to a thin row at the top of the section, not bottom
+  - Quote text rendered in Cormorant Garamond italic 24–32px, not DM Sans
+  - Add a decorative quotation mark behind each quote: Cormorant 200px, gold at 6% opacity
+  - Display quotes sequentially with vertical pacing — one per scroll, full-width — rather than as a 3-card row
+  - Reviewer name and location in DM Sans 11px ALL CAPS 0.2em letter-spacing below quote
+- Section heading: "Voices of the Bold" in eyebrow label format, 56px Cormorant headline below
+
+### Instagram Section
+- Keep but refine — currently likely too prominent
+- Move to a thin 6-image horizontal row near the footer area, not a full grid section in the middle of the page
+- Captions removed; only images and the @mulco handle visible
+- "Follow us on Instagram" link in DM Sans 12px ALL CAPS below the row
+
+### Newsletter Section
+- KEEP the "Get 10% Off" promo — it's a real lead-gen mechanic and dropping it costs subscribers
+- Quiet the visual treatment:
+  - "Get 10% Off" badge: render as eyebrow label in gold ALL CAPS, not a styled badge
+  - Headline "Join Our Newsletter!" → change to "Join the community." (lowercase, no exclamation)
+  - Single-row input: borderless except for a 1px gold bottom rule on the input
+  - Submit button: text-only, "Subscribe →" with thin gold underline on hover — no fill
+  - Legal asterisk footnote in DM Sans 10px muted — keep but make smaller
+
+---
+
+## PHASE 4 — Product Detail Page
+
+The most commercially important page after the homepage. Currently dense — needs the most restraint.
+
+### Layout
+- Two-column above the fold, vertically generous (80vh minimum)
+- Image gallery takes 55–60% on left
+- Buying column takes 40–45% on right
+
+### Image Gallery
+- Keep click-to-zoom (1.5x) but refine the zoom indicator — replace icon with subtle "+" character in gold at 40% opacity
+- Replace horizontal thumbnail scroll strip with a vertical thumbnail stack on the left side of the gallery (between viewport edge and main image)
+- Each thumbnail labeled with a tiny tag in DM Sans 10px ALL CAPS: "FRONT," "PROFILE," "DETAIL," "WRIST"
+- Active thumbnail: 1px gold ring at 4px offset
+
+### Buying Column
+- Collection badge → render as eyebrow label (DM Sans 11px ALL CAPS gold)
+- Product name in Cormorant 40–48px
+- Gold divider line below name — single 1px line, 64px wide, not full width
+- Feature tags ("Swarovski Crystals," "100M Water Resistant"): render as plain DM Sans 11px ALL CAPS muted text in a row, separated by middle-dot characters (·) — not as pills or chips
+- Color picker: keep circular swatches at 32px, but selected state shows 1px gold ring at 4px offset (not scale)
+- Price: muted small DM Sans, no emphasis. "Save $X" badge replaced with strikethrough original price beside current price
+- Low-stock indicator: keep, but render as DM Sans 11px ALL CAPS in muted rust color (not gold) — single line, no border callout
+- Engraving option: this is a premium feature that should be HIGHLIGHTED, not buried
+  - Render as a small standalone block above the Add to Cart button
+  - Eyebrow label "PERSONALIZATION"
+  - Checkbox styled as custom gold square with check mark on activation
+  - Text input has gold bottom-rule only when active
+  - Character counter in DM Sans 10px muted
+  - "+$15" rendered as quiet muted text, no badge
+- Add to Cart button:
+  - Rename to "Add to Collection" (the brand voice)
+  - Gold fill, dark text, 56px tall, full column width
+  - DM Sans 13px ALL CAPS 0.15em letter-spacing
+  - Success animation: button text transitions to "Added to Collection" with thin gold check icon, 800ms hold, then reverts
+- Trust notes below Add to Cart: render as small muted text in a single line separated by middle dots, not as iconed items
+
+### Tabbed Details
+- Replace tab UI with sequentially revealed sections on scroll — no tabs
+- Each section gets its own full-width band with generous vertical padding
+- Section 1: Description — editorial paragraph, large serif quote-style display
+- Section 2: Specifications — render as a two-column key-value list, not a table; thin gold hairlines between rows
+- Section 3: Warranty — single paragraph + link to full warranty page
+
+### Customer Reviews
+- KEEP — same business reasoning as homepage social proof
+- Refine visual treatment to match homepage quotes
+- Aggregate rating + star breakdown bar chart: keep, but render bars in gold at 30% opacity with thin gold outlines
+- "Write a Review" form: keep functionality, restyle inputs to borderless with gold bottom rules only
+- Star rating picker: stars in gold at 18px, with hover state at 100% opacity, default at 30%
+
+### Related Products
+- Keep horizontal scroll row, but reduce from 4 cards to 3
+- Card design matches Collections page cards
+- Section header in eyebrow label format: "YOU MAY ALSO CONSIDER"
+
+### Recently Viewed
+- Keep functionality
+- Move to BELOW Related Products, separated by generous vertical padding
+- Section header eyebrow label: "RECENTLY VIEWED"
+- Card design matches Related Products
+
+---
+
+## PHASE 5 — Collections Pages & Quick View
+
+### Collection Hero
+- Single full-bleed campaign image at 60vh
+- Collection name overlaid bottom-left in Cormorant 96px+
+- Eyebrow label above (FOR HER / FOR HIM / etc.)
+- One paragraph of collection-defining copy at 14px DM Sans, max 60 characters wide
+
+### Filter Panel
+- Make sticky on scroll, becoming a slim horizontal strip at top of viewport
+- Filter pills: thin 1px gold borders, no fills, gold text at 60% opacity
+- Active filter: gold fill, dark text
+- Sort: text-only dropdown, no chevron icon — use a thin "↓" character at 11px instead
+
+### Product Cards
+- Image fills card top with 4:5 aspect ratio
+- Product name in Cormorant 22px below image
+- Collection name in DM Sans 11px ALL CAPS muted, separator middle dot, then price in same style
+- Remove "Quick View / →" hover button row — instead, the entire card is clickable, with hover animating: image scales 1.04, thin gold underline appears beneath product name
+- KEEP Quick View functionality, but trigger it via a separate small "QUICK VIEW" link below the price on hover — quieter than the current overlay button row
+- New badge: render as small DM Sans 10px ALL CAPS "NEW" in gold, top-right corner — no background fill
+- Low-stock badge: render as small DM Sans 10px ALL CAPS "LIMITED" in muted rust, top-right corner
+
+### Quick View Modal
+- Keep all functionality
+- Restyle: replace card-style modal with a full-height side panel that slides in from the right (similar to Cart Drawer)
+- Width: 480px desktop, 100vw mobile
+- Background: solid #0A0A0A, no card edges or shadows
+- Backdrop: black at 70% opacity with backdrop-blur(8px)
+- Close button: subtle "×" character in top-right, gold at 60% opacity, no border or background
+- Internal layout matches Product Detail buying column
+- "View Full Details" link styled as thin gold-underlined text link at bottom
+
+---
+
+## PHASE 6 — Cart Drawer & Checkout
+
+### Cart Drawer
+- Keep all functionality (slide-in, backdrop blur, auto-open on add, ESC to close)
+- Restyle to match Quick View Modal aesthetic
+- Width: 440px desktop, 100vw mobile
+- Item rows: product image at left (80px square), info at right
+- Variant + engraving text rendered as italicized DM Sans 12px muted
+- Quantity controls: minus, number, plus separated by hairline gold dividers — no buttons, no boxes
+- Remove button: subtle "×" character in gold at 40% opacity, hover to 100%
+- Subtotal: DM Sans 18px, gold accent color, right-aligned
+- Checkout button: gold fill, dark text, 56px tall, full width
+- "View Full Cart" link: text-only with thin gold underline
+
+### Cart Page (Full)
+- Match drawer aesthetic at full page scale
+- Remove the inline "Are you sure? Yes / No" confirmation — replace with subtle undo notification at bottom of page after item removal (slides up, 4-second auto-dismiss, "Item removed. Undo?" with gold underline on Undo)
+- Promo code input: borderless with gold bottom-rule, "APPLY" button text-only with gold underline
+- KEEP promo codes (MULCO10, BOLD15, WELCOME20, SPRING25) — these are real
+- Quiet the success state: instead of a badge, "Promo applied" appears as small italicized muted text below the input
+- Currency disclaimer: small muted text, single line, italicized
+
+### Checkout Steps
+- Step progress bar: replace gold-filled blocks with thin numbered indicators — each step is a 32px circle with gold border, completed steps fill with gold, current step has gold text on dark, pending steps have muted border
+- All form inputs: borderless with gold bottom-rule only, gold focus ring
+- Field labels: DM Sans 11px ALL CAPS 0.2em letter-spacing, muted color, positioned above input
+- Payment trust icons (Visa, MC, etc.): render at 24px height, muted color, single row, no badges or borders
+- Order summary sidebar: match cart drawer aesthetic
+- Confirmation step: order number in Cormorant Garamond 48px, no badge or banner background
+
+---
+
+## PHASE 7 — Navigation, Search & Global Components
+
+### Navbar
+- Keep transparent-to-solid scroll behavior
+- Reduce link weight: DM Sans 12px ALL CAPS 0.2em letter-spacing for all nav links
+- Hover state: text color transitions through muted intermediate to gold over 400ms — slow and intentional, not snappy
+- Logo: keep centered on mobile, left on desktop
+- Currency switcher: replace dropdown with a small text-only display showing current currency code (e.g. "USD ↓") — opens a quiet dropdown panel on click, not a styled select
+- Language toggle: render as "EN · ES" with current language in gold, inactive in muted — no toggle UI
+- Cart icon: replace with text "CART (N)" in DM Sans 12px ALL CAPS — quieter than an icon with badge
+- Search icon: thin 1px stroke magnifier, no fill
+
+### Mobile Nav
+- Keep slide-in overlay
+- Link text in Cormorant Garamond 32px, not DM Sans
+- Stagger animation slowed to 800ms total reveal across all links
+- Currency selector: native select restyled with custom appearance — gold bottom rule, no border
+- Social links: render as text only ("Instagram · Facebook · Twitter") in DM Sans 11px ALL CAPS
+
+### Search Modal
+- Restyle to match Quick View / Cart Drawer side panel aesthetic — slides from top, not center modal
+- Search input: borderless with gold bottom-rule, large Cormorant 32px text input
+- Result rows: thumbnail at left, product info at right, separated by thin gold hairlines
+- Highlighted match text: gold color, not background highlight
+- Quick-link chips: render as thin 1px gold-bordered text pills, no fill
+
+### Cookie Consent Banner
+- Keep functionality
+- Restyle to a thin bottom strip, not a card
+- Single line text in DM Sans 12px
+- "Accept" button as text-only gold underline; "Decline" as text-only muted underline
+- Maximum visual prominence: 64px tall on desktop, dismisses to nothing
+
+### WhatsApp Widget
+- Keep — real customer service function
+- Restyle: replace bright green button with a subtle 56px gold-bordered circle, transparent fill, with hairline WhatsApp icon in gold inside
+- Tooltip: subtle dark card with gold border on hover, DM Sans 12px text
+- No green glow, no pulse animation
+
+---
+
+## PHASE 8 — Secondary Pages
+
+### Our Story (/our-story)
+- Replace standard page layout with editorial timeline
+- Hero: full-bleed archival image with "Our Story" in Cormorant 120px+ overlaid
+- Horizontal-scroll timeline component (NEW): milestone markers for 1958 founding, Jennifer Muller era, key collection launches, expansion into accessories
+- Each milestone: year in Cormorant 64px, eyebrow label "MILESTONE," paragraph copy, archival image
+- User drags horizontally or uses arrow keys to navigate
+- Values section: 4 columns (Swiss Precision, Fashion-Forward Design, Bold Community, Material Innovation) with eyebrow + heading + body
+
+### Lookbook (/lookbook)
+- Editorial gallery format, not e-commerce grid
+- Mix of full-bleed and contained images, varied aspect ratios
+- Minimal copy — let imagery dominate
+- Optional product attribution: small "FEATURING: [WATCH NAME]" eyebrow below each image, links to product
+
+### Campaign Films (/campaign-films)
+- Keep YouTube thumbnail-first loading behavior
+- Restyle: featured film takes 80vh, full-bleed
+- Two secondary films in 2-column grid at 50vh each
+- Eyebrow label badges retained but restyled as small gold ALL CAPS text only — no fill
+- Caption below each film in Cormorant italic 18px
+
+### Find a Retailer (/find-a-retailer)
+- Simple page: map embed at top, retailer list below
+- Retailer cards: minimal text only, gold hairline separators between
+- No buttons or chips — each retailer name links to its own detail or external map
+
+### Warranty Registration / Watch Care / FAQ
+- All three use consistent template:
+  - Hero with eyebrow + Cormorant headline
+  - Accordion-style sections with gold chevron indicators
+  - Body copy at 15px DM Sans, line-height 1.7
+  - Generous vertical padding (160px+ between accordion groups)
+
+### Support / Contact (/support)
+- Two-column: form left, store info right
+- Form fields borderless with gold bottom-rules
+- Store info card: minimal, no borders, just typography hierarchy
+- Miami service center highlighted with eyebrow label "AUTHORIZED SERVICE"
+
+### Footer
+- Keep three navigation columns
+- Restyle: column headers in eyebrow label format, links in DM Sans 13px regular
+- "As Seen In" strip: convert to text-only row in DM Sans 11px ALL CAPS — "E! ENTERTAINMENT · FRATELLO WATCHES · THE GRAMMY AWARDS" — no logos, no badges
+- Social icons: replace with text-only "INSTAGRAM · FACEBOOK · TWITTER" in DM Sans 11px ALL CAPS
+- Payment trust icons: keep as 20px height muted single row, no labels
+- Logo centered above the columns at smaller scale (120px wide max)
+- Copyright and legal links in single muted line at the very bottom, separator middle dots
+
+---
+
+## PHASE 9 — Motion & Micro-interactions
+
+Reset all transition timing across the site. This is the second-highest-impact change after typography.
+
+**Standard timing:**
+- Hover states: 400–600ms (not 200ms)
+- Custom easing: `cubic-bezier(0.16, 1, 0.3, 1)` on most transitions
+- Scroll-triggered reveals: 800–1200ms fade-in-up with 30–50px translateY
+- Parallax: 12–15% shift maximum on hero backgrounds (not 50%)
+- Image transitions: 700ms crossfade
+
+**Component-specific motion:**
+- Buttons: gold underline animates in from left 400ms, then text shifts right 4px on hover
+- Product cards: image scales to 1.04 over 600ms; no border or shadow changes
+- Navigation links: color transitions through muted intermediate before reaching gold (creates a "settling" feel)
+- Cart Drawer / Quick View / Search Modal: slide-in with cubic-bezier easing over 500ms
+- Accordion expand: height transition with 600ms ease-out, gold chevron rotates 180° over same duration
+- Image gallery zoom: 500ms scale transition with slight delay before zoom indicator hides
+- Cart success animation: button text crossfades over 400ms, gold check icon fades in, 800ms hold, reverts over 400ms
+
+**Ambient motion:**
+- Hero background: subtle Y-axis float between 0 and -8px over 6 seconds, infinite
+- Statement sections: no ambient motion — let stillness speak
+
+**Reduced motion:**
+- Respect `prefers-reduced-motion` — disable parallax, ambient float, and stagger animations
+- Keep functional transitions (hover, modal open/close) but reduce duration to 200ms
+
+---
+
+## PHASE 10 — Polish, Accessibility & QA
+
+### Accessibility audit
+- Verify gold-on-dark text passes WCAG AA (4.5:1) at all sizes
+- Gold at 60% opacity on near-black background may fail at body-text sizes — reserve low-opacity gold for decoration and large text only
+- All interactive elements have visible focus states: gold 2px outline at 4px offset, never browser default blue
+- Keyboard navigation works on all custom components: cart drawer, quick view, search modal, image gallery, color pickers, accordion sections, timeline
+- All images have descriptive alt text — not just product names but visual description
+- Form fields have programmatically associated labels (not just visual eyebrow labels)
+- Modal/drawer focus traps: focus moves to first interactive element on open, returns to trigger on close
+
+### Performance audit
+- All product images served as AVIF with WebP and JPG fallbacks
+- Hero images use `<link rel="preload">` for above-fold assets
+- Aspect ratios reserved in CSS to prevent layout shift on image load
+- Cormorant Garamond loaded with `font-display: swap`, preloaded
+- Animations use `transform` and `opacity` only — no `width`/`height`/`top`/`left` transitions
+- Cart, currency, language, reviews, recently viewed continue to persist correctly in localStorage
+
+### Brand voice audit
+- Confirm no "Buy Now" CTAs anywhere — replaced with "Add to Collection," "Discover," "Explore"
+- Confirm no exclamation marks in headlines (except where intentional brand expression)
+- Confirm "affordable," "budget," or discount-framing language absent from hero and featured product copy
+- Confirm Spanish translations match the new lowercase, intentional tone — not just literal translations
+
+### Content audit
+- All currency formatting renders correctly across USD, EUR, GBP, MXN, COP
+- Promo codes still validate
+- Engraving character counter works at 20-character limit
+- Recently Viewed populates correctly after viewing products
+- Cart persists across sessions
+- All external links have `rel="noopener noreferrer"`
+
+### Cross-browser verification
+- Chrome, Firefox, Safari, Edge desktop
+- iOS Safari, Android Chrome
+- Test all breakpoints: 320px, 375px, 390px, 768px, 1024px, 1440px
+- Verify backdrop-blur renders (some Android browsers fail silently — provide solid dark fallback)
+
+---
+
+## EXECUTION ORDER
+
+Implement in this priority. Each phase is independently testable and should be committed separately.
+
+1. **Phase 1 — Typography & Color** (largest single impact, touches everything)
+2. **Phase 2 — Spacing & Layout** (compounds Phase 1's impact)
+3. **Phase 3 — Homepage** (most visible page)
+4. **Phase 9 — Motion timing reset** (touches everything, do early)
+5. **Phase 4 — Product Detail** (highest commercial impact after homepage)
+6. **Phase 5 — Collections & Quick View** (browsing experience)
+7. **Phase 6 — Cart & Checkout** (conversion path polish)
+8. **Phase 7 — Nav, Search & Global** (cross-cutting touches)
+9. **Phase 8 — Secondary Pages** (lower traffic, lower priority)
+10. **Phase 10 — Polish, A11y & QA** (final sweep before launch)
+
+---
+
+## WHAT SUCCESS LOOKS LIKE
+
+A visitor lands on the redesigned homepage. The first feeling is spaciousness, not stimulation. Typography is at a scale they don't expect — large, considered, restrained. They scroll past a single statement, then meet one watch fully framed against generous black space, with a single thin gold link beneath it. The pacing feels like a magazine.
+
+On the product detail page, the watch reveals itself slowly — each angle deliberately, each material named with care. Color swatches, the engraving option, the warranty note — all present, but all quiet.
+
+The cart drawer slides in with a slowness that feels considered, not slow. The checkout flow uses the same restrained palette and never demands attention with badges or banners.
+
+Mobile feels uncompressed.
+
+When the visitor leaves, they should not recall any specific UI element — only the atmosphere of having visited somewhere considered. That is the test.

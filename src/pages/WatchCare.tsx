@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, Droplets, Zap, Settings, Wind, Package, AlertTriangle } from 'lucide-react';
+import { ChevronRight, Droplets, Zap, Settings, Package, AlertTriangle } from 'lucide-react';
 import { useInView } from '../hooks/useInView';
+import Eyebrow from '../components/Eyebrow';
 
 const highlights = [
   { icon: Droplets,      label: 'Water Resistance',  body: 'Know your watch\'s rating before exposing it to water' },
@@ -48,8 +49,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       ref={ref as React.RefObject<HTMLDivElement>}
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(20px)',
-        transition: 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)',
+        transform: inView ? 'translateY(0)' : 'translateY(40px)',
+        transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)',
       }}
     >
       <h2 className="font-serif text-2xl text-brand-white mb-4">{title}</h2>
@@ -63,17 +64,17 @@ export default function WatchCare() {
   return (
     <div className="min-h-screen bg-brand-black pt-[72px]">
       {/* Header */}
-      <div className="border-b border-brand-gold/10 py-12 px-6 md:px-12 lg:px-20">
-        <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 text-[10px] font-sans text-brand-muted mb-6">
-            <Link to="/" className="hover:text-brand-gold transition-colors">Home</Link>
+      <div className="border-b border-brand-gold/10 py-20 md:py-28 px-6 md:px-14 lg:px-24 text-center">
+        <div className="max-w-3xl mx-auto">
+          <nav className="flex items-center justify-center gap-1.5 text-[10px] font-sans text-brand-muted mb-8">
+            <Link to="/" className="hover:text-brand-gold transition-colors duration-[400ms]">Home</Link>
             <ChevronRight size={10} className="opacity-40" />
             <span className="text-brand-white">Watch Care</span>
           </nav>
-          <p className="text-[10px] font-sans tracking-[0.3em] uppercase text-brand-gold mb-3">Ownership Guide</p>
-          <h1 className="font-serif text-4xl md:text-5xl text-brand-white">Watch Care &amp; Maintenance</h1>
-          <div className="w-10 h-px bg-brand-gold mt-5" />
-          <p className="font-sans text-sm text-brand-muted mt-4 max-w-xl leading-relaxed">
+          <Eyebrow text="Ownership Guide" className="mb-4 justify-center" />
+          <h1 className="font-serif text-[3rem] md:text-[4rem] text-brand-white leading-[0.95] tracking-[-0.02em]">Watch Care &amp; Maintenance</h1>
+          <div className="w-10 h-px bg-brand-gold mx-auto mt-6" />
+          <p className="font-sans text-[14px] text-brand-muted mt-5 leading-[1.7]">
             A MULCO timepiece is built to last. With the right care, your watch will keep performing and looking its best for years to come.
           </p>
         </div>

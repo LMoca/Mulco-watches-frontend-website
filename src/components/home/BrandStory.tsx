@@ -29,8 +29,8 @@ export default function BrandStory() {
           className="text-center mb-20"
           style={{
             opacity: headlineInView ? 1 : 0,
-            transform: headlineInView ? 'translateY(0)' : 'translateY(28px)',
-            transition: 'opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)',
+            transform: headlineInView ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)',
           }}
         >
           <span className="text-xs tracking-[0.3em] text-brand-gold uppercase font-sans font-medium">
@@ -48,8 +48,8 @@ export default function BrandStory() {
           className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center"
           style={{
             opacity: contentInView ? 1 : 0,
-            transform: contentInView ? 'translateY(0)' : 'translateY(36px)',
-            transition: 'opacity 0.85s cubic-bezier(0.22,1,0.36,1) 0.12s, transform 0.85s cubic-bezier(0.22,1,0.36,1) 0.12s',
+            transform: contentInView ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'opacity 1s cubic-bezier(0.16,1,0.3,1) 0.12s, transform 1s cubic-bezier(0.16,1,0.3,1) 0.12s',
           }}
         >
           {/* Left: Editorial copy */}

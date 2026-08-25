@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronRight, Lock, CheckCircle, ArrowRight, ArrowLeft, CreditCard, Tag, X } from 'lucide-react';
+import { ChevronRight, Lock, CheckCircle, ArrowRight, ArrowLeft, Tag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 import PaymentIcons from '../components/PaymentIcons';
@@ -77,7 +77,7 @@ function generateOrderNumber() {
 }
 
 const inputBase =
-  'w-full bg-white/[0.03] border border-brand-gold/18 focus:border-brand-gold text-brand-white placeholder:text-brand-muted text-sm font-sans px-4 py-3 outline-none transition-colors duration-200';
+  'w-full bg-transparent border-0 border-b border-brand-gold/20 focus:border-brand-gold text-brand-white placeholder:text-brand-muted/50 text-sm font-sans px-0 py-3 outline-none transition-colors duration-200';
 
 const labelBase = 'block text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-1.5';
 
@@ -99,7 +99,7 @@ function StepBar({ step }: { step: Step }) {
           <div key={s.key} className="flex items-center">
             <div className="flex items-center gap-2">
               <div
-                className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-sans font-bold transition-colors duration-300 ${
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-sans font-bold transition-colors duration-300 ${
                   done
                     ? 'bg-brand-gold text-brand-black'
                     : active
@@ -164,10 +164,9 @@ function OrderSummary({
   const finalPrice = Math.max(0, totalPrice - (discount?.amount ?? 0));
 
   return (
-    <div className="border border-brand-gold/15 bg-white/[0.015]">
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-gold to-transparent" />
-      <div className="p-6 space-y-5">
-        <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-brand-gold">Order Summary</p>
+    <div className="border-t border-brand-gold/12 pt-6 space-y-5">
+      <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted">Order Summary</p>
+      <div className="space-y-5">
 
         {/* Items */}
         <div className="space-y-4">
@@ -197,35 +196,41 @@ function OrderSummary({
             <Tag size={10} /> Promo Code
           </p>
           {discount ? (
-            <div className="flex items-center justify-between bg-brand-gold/[0.06] border border-brand-gold/25 px-3 py-2">
-              <div>
-                <span className="text-[10px] font-sans font-semibold tracking-widest uppercase text-brand-gold">{discount.code}</span>
-                <span className="text-[10px] font-sans text-brand-muted ml-2">— {discount.label}</span>
-              </div>
-              <button onClick={handleRemove} className="text-brand-muted hover:text-red-400 transition-colors ml-2" aria-label="Remove promo">
-                <X size={13} />
+            <div className="flex items-center justify-between">
+              <p className="font-sans text-[11px] text-brand-muted italic">
+                Promo applied: {discount.code} — {discount.label}
+              </p>
+              <button
+                onClick={handleRemove}
+                aria-label="Remove promo"
+                className="font-serif text-xl leading-none text-brand-gold/40 hover:text-brand-gold transition-colors duration-300 ml-3"
+              >
+                ×
               </button>
             </div>
           ) : (
-            <div className="flex gap-2">
+            <div className="flex items-end gap-4">
               <input
                 type="text"
                 value={code}
                 onChange={(e) => { setCode(e.target.value.toUpperCase()); setError(''); }}
                 onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleApply())}
                 placeholder="Enter code"
-                className="flex-1 bg-white/[0.03] border border-brand-gold/18 focus:border-brand-gold text-brand-white placeholder:text-brand-muted text-xs font-sans px-3 py-2 outline-none transition-colors duration-200 tracking-widest"
+                className="flex-1 bg-transparent border-0 border-b border-brand-gold/20 focus:border-brand-gold text-brand-white placeholder:text-brand-muted/50 text-xs font-sans px-0 py-2 outline-none transition-colors tracking-widest"
               />
               <button
                 type="button"
                 onClick={handleApply}
-                className="px-3 py-2 text-[10px] font-sans font-semibold tracking-widest uppercase border border-brand-gold/30 text-brand-gold hover:bg-brand-gold hover:text-brand-black transition-colors duration-200"
+                className="group relative font-sans text-[11px] uppercase tracking-[0.2em] text-brand-gold flex-shrink-0 pb-0.5"
               >
-                Apply
+                <span className="relative">
+                  Apply
+                  <span className="absolute bottom-0 left-0 w-full h-px bg-brand-gold origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                </span>
               </button>
             </div>
           )}
-          {error && <p className="mt-1.5 text-[10px] font-sans text-red-400">{error}</p>}
+          {error && <p className="mt-1.5 text-[10px] font-sans text-brand-rose">{error}</p>}
         </div>
 
         {/* Divider */}
@@ -245,7 +250,7 @@ function OrderSummary({
           )}
           <div className="flex justify-between text-sm font-sans">
             <span className="text-brand-muted">Shipping</span>
-            <span className="text-[10px] font-sans tracking-wider uppercase text-brand-gold border border-brand-gold/30 px-2 py-0.5">Free</span>
+            <span className="font-sans text-[11px] uppercase tracking-[0.15em] text-brand-gold">Free</span>
           </div>
           <div className="flex justify-between font-serif text-xl pt-3 border-t border-brand-gold/12 mt-1">
             <span className="text-brand-white">Total</span>
@@ -258,11 +263,13 @@ function OrderSummary({
             <Lock size={10} />
             <span className="text-[10px] font-sans tracking-wide">256-bit SSL secure checkout</span>
           </div>
-          <PaymentIcons />
+          <div className="opacity-40">
+            <PaymentIcons />
+          </div>
         </div>
         {currency !== 'USD' && (
-          <p className="text-[10px] font-sans text-brand-muted text-center leading-relaxed pt-1">
-            Prices shown in {currency}. Your card is charged in USD.
+          <p className="text-[10px] font-sans text-brand-muted italic text-center">
+            Prices shown in {currency}. Charged in USD.
           </p>
         )}
       </div>
@@ -615,28 +622,29 @@ function ConfirmationStep({
         </p>
       </div>
 
-      <div className="border border-brand-gold/15 bg-white/[0.015] divide-y divide-brand-gold/10">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-gold to-transparent" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-0 divide-x divide-brand-gold/10">
+      {/* Order number — Cormorant 48px, no card background */}
+      <div className="border-t border-brand-gold/12 pt-8">
+        <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-muted mb-3">Order Number</p>
+        <p className="font-serif text-[3rem] text-brand-white leading-none mb-8">{orderNumber}</p>
+        <div className="grid grid-cols-2 gap-6 border-t border-brand-gold/12 pt-6">
           {[
-            { label: 'Order Number', value: orderNumber },
-            { label: 'Order Total',  value: formatPrice(finalPrice) },
+            { label: 'Order Total',   value: formatPrice(finalPrice) },
             { label: 'Est. Delivery', value: '5 – 7 Business Days' },
           ].map(({ label, value }) => (
-            <div key={label} className="p-5">
+            <div key={label}>
               <p className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-1">{label}</p>
-              <p className="font-serif text-base text-brand-white">{value}</p>
+              <p className="font-sans text-sm text-brand-white">{value}</p>
             </div>
           ))}
         </div>
         {discount && (
-          <div className="px-5 py-3 flex items-center gap-2">
+          <div className="mt-4 border-t border-brand-gold/12 pt-4 flex items-center gap-2">
             <Tag size={11} className="text-brand-gold" />
             <span className="text-[10px] font-sans text-brand-gold tracking-widest uppercase">{discount.code}</span>
             <span className="text-[10px] font-sans text-brand-muted">applied — saved {formatPrice(discount.amount)}</span>
           </div>
         )}
-        <div className="p-5">
+        <div className="mt-4 border-t border-brand-gold/12 pt-4">
           <p className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted mb-1">Shipping To</p>
           <p className="font-sans text-sm text-brand-white">{shipping.firstName} {shipping.lastName}</p>
           <p className="font-sans text-sm text-brand-muted">{shipping.address}, {shipping.city}, {shipping.state} {shipping.zip}, {shipping.country}</p>

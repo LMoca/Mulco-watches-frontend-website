@@ -20,14 +20,24 @@ import FindRetailer from './pages/FindRetailer';
 import WarrantyRegistration from './pages/WarrantyRegistration';
 import WatchCare from './pages/WatchCare';
 import CampaignFilms from './pages/CampaignFilms';
+import AccountLogin from './pages/AccountLogin';
+import Account from './pages/Account';
+import AccountRegistrations from './pages/AccountRegistrations';
+import Membership from './pages/Membership';
+import DiscountsPromotions from './pages/DiscountsPromotions';
 import NotFound from './pages/NotFound';
 import CookieBanner from './components/CookieBanner';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import CartDrawer from './components/CartDrawer';
+import MiniDashboard from './components/MiniDashboard';
+import { AccountProvider } from './context/AccountContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
   return (
     <BrowserRouter>
+      <ThemeProvider>
+      <AccountProvider>
       <ScrollToTop />
       <div className="min-h-screen bg-brand-black text-brand-white font-sans flex flex-col">
         <Navbar />
@@ -53,14 +63,22 @@ function App() {
             <Route path="/warranty-registration" element={<WarrantyRegistration />} />
             <Route path="/watch-care" element={<WatchCare />} />
             <Route path="/campaign-films" element={<CampaignFilms />} />
+            <Route path="/account/login" element={<AccountLogin />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/account/registrations" element={<AccountRegistrations />} />
+            <Route path="/membership" element={<Membership />} />
+            <Route path="/discounts" element={<DiscountsPromotions />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
         <CartDrawer />
+        <MiniDashboard />
         <CookieBanner />
         <WhatsAppWidget />
       </div>
+      </AccountProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

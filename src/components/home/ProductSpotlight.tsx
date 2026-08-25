@@ -1,337 +1,253 @@
-import { useRef, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, ShoppingBag, CheckCircle, ArrowRight } from 'lucide-react';
-import { useInView } from '../../hooks/useInView';
+import { ChevronLeft, ChevronRight, CheckCircle, ShoppingBag } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useCurrency } from '../../context/CurrencyContext';
+import Eyebrow from '../Eyebrow';
 
-interface Watch {
+interface FeaturedProduct {
   id: string;
   name: string;
   collection: string;
-  price: string;
-  priceNumber: number;
-  originalPrice?: string;
-  originalPriceNumber?: number;
+  price: number;
+  description: string;
   image: string;
   imageAlt: string;
-  tags: string[];
 }
 
-const womenWatches: Watch[] = [
-  {
-    id: 'blue-marine-fusion',
-    name: 'Blue Marine Fusion',
-    collection: 'Blue Marine',
-    price: '$205',
-    priceNumber: 205,
-    image: '/images/watches/blue_marine_fusion/white/blue_marine_fusion_white.jpg',
-    imageAlt: 'MULCO Blue Marine Fusion ladies watch in white',
-    tags: ['Swarovski Crystals', '100M WR'],
-  },
-  {
-    id: 'blue-marine-infinity',
-    name: 'Blue Marine Infinity',
-    collection: 'Blue Marine',
-    price: '$185',
-    priceNumber: 185,
-    image: '/images/watches/blue_marine_infinity/blue/blue_marine_infinity_blue.jpg',
-    imageAlt: 'MULCO Blue Marine Infinity ladies watch in blue',
-    tags: ['Mother of Pearl', 'Quartz'],
-  },
+const featuredProducts: FeaturedProduct[] = [
   {
     id: 'blue-marine-medusa',
     name: 'Blue Marine Medusa',
     collection: 'Blue Marine',
-    price: '$196',
-    priceNumber: 196,
+    price: 196,
+    description: 'A multifunctional ocean instrument, refined into everyday elegance.',
     image: '/images/watches/blue_marine_medusa/beige/blue_marine_medusa_beige.jpg',
-    imageAlt: 'MULCO Blue Marine Medusa ladies watch',
-    tags: ['Quartz Multifunctional', '100M WR'],
+    imageAlt: 'MULCO Blue Marine Medusa watch in beige',
   },
-  {
-    id: 'enchanted-maple',
-    name: 'Enchanted Maple',
-    collection: 'Enchanted',
-    price: '$195',
-    priceNumber: 195,
-    image: '/images/watches/enchanted_maple/pink/enchanted_maple_pink.jpg',
-    imageAlt: 'MULCO Enchanted Maple ladies watch in pink',
-    tags: ['Rose Gold Details', '100M WR'],
-  },
-  {
-    id: 'kripton-lady',
-    name: 'Kripton Lady',
-    collection: 'Kripton',
-    price: '$215',
-    priceNumber: 215,
-    image: '/images/watches/kripton_lady/white/kripton_lady_white.jpg',
-    imageAlt: 'MULCO Kripton Lady watch in white',
-    tags: ['Pearl Finish', 'Rose Gold Accents'],
-  },
-  {
-    id: 'titans-snap-ladies',
-    name: 'Titans Snap Ladies',
-    collection: 'Titans',
-    price: '$140',
-    priceNumber: 140,
-    originalPrice: '$195',
-    originalPriceNumber: 195,
-    image: '/images/watches/titans_snap_ladies/blue/titans_snap_ladies_blue.jpg',
-    imageAlt: 'MULCO Titans Snap Ladies watch',
-    tags: ['Quartz', '100M WR'],
-  },
-];
-
-const menWatches: Watch[] = [
   {
     id: 'buzo-tentacles',
     name: 'Buzo Tentacles',
     collection: 'Buzo',
-    price: '$215',
-    priceNumber: 215,
+    price: 215,
+    description: 'Deep-sea engineering translated into a bold, unmistakable urban presence.',
     image: '/images/watches/buzo_tentacles/black/buzo_tentacles_black.jpg',
-    imageAlt: "MULCO Buzo Tentacles men's watch",
-    tags: ['IP Black Steel', '100M WR'],
+    imageAlt: 'MULCO Buzo Tentacles watch in black',
   },
   {
-    id: 'buzo-atlantis',
-    name: 'Buzo Atlantis',
-    collection: 'Buzo',
-    price: '$245',
-    priceNumber: 245,
-    image: '/images/watches/buzo_atlantis/black_and_blue/buzo_atlantis_black_and_blue.jpg',
-    imageAlt: "MULCO Buzo Atlantis men's watch",
-    tags: ['Quartz Multifunctional', '100M WR'],
+    id: 'enchanted-quartz',
+    name: 'Enchanted Quartz',
+    collection: 'Enchanted',
+    price: 196,
+    description: 'Mother-of-pearl femininity, powered by Swiss quartz precision.',
+    image: '/images/watches/enchanted_quartz/green/enchanted_quartz_green.jpg',
+    imageAlt: 'MULCO Enchanted Quartz watch in green',
   },
   {
-    id: 'buzo-dive-silicone',
-    name: 'Buzo Dive Silicone',
-    collection: 'Buzo',
-    price: '$220',
-    priceNumber: 220,
-    image: '/images/watches/buzo_dive_silicone/orange/buzo_dive_silicone_orange.jpg',
-    imageAlt: "MULCO Buzo Dive Silicone men's watch",
-    tags: ['Chronograph', '100M WR'],
-  },
-  {
-    id: 'buzo-dive-stainless-steel',
-    name: 'Buzo Dive Stainless Steel',
-    collection: 'Buzo',
-    price: '$245',
-    priceNumber: 245,
-    image: '/images/watches/buzo_dive_stainless/gold/buzo_dive_stainless_gold.jpg',
-    imageAlt: "MULCO Buzo Dive Stainless Steel men's watch",
-    tags: ['Chronograph', 'Steel Bracelet'],
-  },
-  {
-    id: 'cobra',
-    name: 'COBRA',
-    collection: 'Cobra',
-    price: '$205',
-    priceNumber: 205,
-    image: '/images/watches/cobra/yellow/cobra_yellow.jpg',
-    imageAlt: "MULCO COBRA men's watch in yellow",
-    tags: ['Ion-Plated Steel', '100M WR'],
+    id: 'kripton-royale-gents',
+    name: 'Kripton Royale Gents',
+    collection: 'Kripton',
+    price: 215,
+    description: 'Architectural boldness, worn with quiet authority.',
+    image: '/images/watches/kripton_royale_gents/black/kripton_royale_gents_black.jpg',
+    imageAlt: 'MULCO Kripton Royale Gents watch in black',
   },
 ];
 
-function WatchCard({ watch }: { watch: Watch }) {
+const TRANSITION = 'opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+
+export default function ProductSpotlight() {
   const { addItem } = useCart();
   const { formatPrice } = useCurrency();
+  const [active, setActive] = useState(0);
+  const [prev, setPrev] = useState<number | null>(null);
+  const [animating, setAnimating] = useState(false);
+  const [direction, setDirection] = useState<1 | -1>(1);
   const [added, setAdded] = useState(false);
-  const [hovered, setHovered] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const autoplayRef = useRef<ReturnType<typeof setInterval>>();
 
-  function handleAdd(e: React.MouseEvent) {
-    e.preventDefault();
-    addItem({ id: watch.id, name: watch.name, collection: watch.collection, price: watch.priceNumber, image: watch.image });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2200);
+  const total = featuredProducts.length;
+  const AUTOPLAY_INTERVAL = 5000;
+
+  function go(next: number) {
+    if (animating || next === active) return;
+    setDirection(next > active || (active === total - 1 && next === 0) ? 1 : -1);
+    setPrev(active);
+    setActive(next);
+    setAnimating(true);
+    setAdded(false);
   }
 
+  function goNext() { go((active + 1) % total); }
+  function goPrev() { go((active - 1 + total) % total); }
+
+  useEffect(() => {
+    if (!animating) return;
+    timerRef.current = setTimeout(() => { setPrev(null); setAnimating(false); }, 650);
+    return () => clearTimeout(timerRef.current);
+  }, [animating]);
+
+  useEffect(() => {
+    if (paused) { clearInterval(autoplayRef.current); return; }
+    autoplayRef.current = setInterval(() => {
+      setAdded(false);
+      setDirection(1);
+      setPrev(prev => prev);
+      setActive(a => {
+        const next = (a + 1) % total;
+        setPrev(a);
+        setAnimating(true);
+        return next;
+      });
+    }, AUTOPLAY_INTERVAL);
+    return () => clearInterval(autoplayRef.current);
+  }, [paused, total]);
+
+  function handleAdd() {
+    const p = featuredProducts[active];
+    addItem({ id: p.id, name: p.name, collection: p.collection, price: p.price, image: p.image });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 800);
+  }
+
+  const product = featuredProducts[active];
+
   return (
-    <div
-      className="group flex-shrink-0 w-52 sm:w-60 overflow-hidden gpu"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <Link to={`/product/${watch.id}`} className="block relative aspect-square overflow-hidden">
-        <img
-          src={watch.image}
-          alt={watch.imageAlt}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover will-change-transform"
-          style={{
-            transform: hovered ? 'scale(1.07)' : 'scale(1)',
-            transition: 'transform 0.75s cubic-bezier(0.22,1,0.36,1)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-black/60 via-transparent to-transparent" />
+    <section className="bg-brand-black overflow-hidden">
 
-        {/* Collection badge */}
-        <span className="absolute top-2.5 left-2.5 text-[9px] font-sans font-semibold tracking-[0.18em] uppercase text-brand-gold bg-brand-black/75 px-2 py-1 backdrop-blur-sm">
-          {watch.collection}
-        </span>
-
-        {/* Quick-view on hover */}
-        <div
-          className="absolute inset-x-0 bottom-0 flex justify-center pb-3"
-          style={{
-            opacity: hovered ? 1 : 0,
-            transform: hovered ? 'translateY(0)' : 'translateY(6px)',
-            transition: 'opacity 0.25s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1)',
-          }}
-        >
-          <span className="text-[9px] font-sans tracking-[0.22em] uppercase text-brand-white bg-brand-black/80 backdrop-blur-sm px-4 py-1.5">
-            View Details
-          </span>
+      {/* Header */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 pt-24 pb-12 flex items-end justify-between">
+        <div>
+          <Eyebrow text="Handpicked" />
+          <h2 className="font-serif text-[2.5rem] md:text-[3.5rem] lg:text-[5rem] text-brand-white mt-3 leading-[0.95] tracking-[-0.02em]">
+            Featured Watches
+          </h2>
         </div>
-      </Link>
 
-      <div className="pt-3 pb-1 px-0.5">
-        <Link to={`/product/${watch.id}`} className="font-serif text-base text-brand-white hover:text-brand-gold transition-colors duration-200 leading-tight block">
-          {watch.name}
-        </Link>
-        <p className="text-[10px] font-sans text-brand-muted mt-1">
-          {watch.tags.join(' · ')}
-        </p>
-        <div className="flex items-center justify-between mt-3">
-          <div className="flex flex-col leading-tight">
-            <span className="font-serif text-brand-gold text-base">{formatPrice(watch.priceNumber)}</span>
-            {watch.originalPriceNumber && (
-              <span className="font-serif text-brand-muted text-xs line-through">{formatPrice(watch.originalPriceNumber)}</span>
-            )}
-          </div>
+        {/* Arrow controls */}
+        <div className="flex items-center gap-3 flex-shrink-0 pb-2">
           <button
-            onClick={handleAdd}
-            aria-label={`Add ${watch.name} to cart`}
-            className="flex items-center gap-1.5 text-[10px] font-sans font-medium tracking-widest uppercase px-2.5 py-1.5 border transition-all duration-250 ease-out"
-            style={{
-              borderColor: added ? 'rgba(201,168,76,0.8)' : 'rgba(201,168,76,0.35)',
-              backgroundColor: added ? 'rgba(201,168,76,0.12)' : 'transparent',
-              color: '#C9A84C',
-              transform: added ? 'scale(0.97)' : 'scale(1)',
-            }}
+            onClick={goPrev}
+            aria-label="Previous watch"
+            className="w-11 h-11 border border-brand-gold/30 flex items-center justify-center text-brand-muted hover:border-brand-gold hover:text-brand-gold transition-colors duration-[400ms]"
           >
-            <span
-              style={{
-                display: 'inline-flex',
-                transition: 'transform 0.2s ease, opacity 0.2s ease',
-                transform: added ? 'rotate(360deg) scale(1.1)' : 'rotate(0deg) scale(1)',
-              }}
-            >
-              {added ? <CheckCircle size={11} /> : <ShoppingBag size={11} />}
-            </span>
-            <span style={{ transition: 'opacity 0.15s ease' }}>
-              {added ? 'Added' : 'Add'}
-            </span>
+            <ChevronLeft size={18} strokeWidth={1.5} />
+          </button>
+          <button
+            onClick={goNext}
+            aria-label="Next watch"
+            className="w-11 h-11 border border-brand-gold/30 flex items-center justify-center text-brand-muted hover:border-brand-gold hover:text-brand-gold transition-colors duration-[400ms]"
+          >
+            <ChevronRight size={18} strokeWidth={1.5} />
           </button>
         </div>
       </div>
-    </div>
-  );
-}
 
-function WatchCarousel({ watches, label, viewAllHref, delay, inView }: {
-  watches: Watch[];
-  label: string;
-  viewAllHref: string;
-  delay: number;
-  inView: boolean;
-}) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+      {/* Carousel stage */}
+      <div className="relative h-[75vh] min-h-[520px] max-h-[820px]">
 
-  function scroll(dir: 'left' | 'right') {
-    scrollRef.current?.scrollBy({ left: dir === 'left' ? -280 : 280, behavior: 'smooth' });
-  }
+        {/* Slides */}
+        {featuredProducts.map((p, i) => {
+          const isActive = i === active;
+          const isPrev = i === prev;
+          if (!isActive && !isPrev) return null;
 
-  return (
-    <div
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(24px)',
-        transition: `opacity 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}ms, transform 0.7s cubic-bezier(0.22,1,0.36,1) ${delay}ms`,
-      }}
-    >
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-3">
-          <div className="w-5 h-px bg-brand-gold" />
-          <h3 className="font-serif text-2xl text-brand-white">{label}</h3>
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="hidden sm:flex gap-1.5">
-            <button
-              onClick={() => scroll('left')}
-              aria-label={`Scroll ${label} left`}
-              className="w-8 h-8 flex items-center justify-center border border-brand-gold/20 text-brand-muted hover:border-brand-gold hover:text-brand-gold transition-all duration-200 active:scale-95"
+          const entering = isActive;
+          const exitOffset = direction === 1 ? '-6%' : '6%';
+          const enterOffset = direction === 1 ? '6%' : '-6%';
+
+          return (
+            <div
+              key={p.id}
+              className="absolute inset-0 grid grid-cols-1 lg:grid-cols-[55%_45%]"
+              style={{
+                opacity: entering ? (animating ? 1 : 1) : 0,
+                transform: `translateX(${entering ? (animating ? '0%' : '0%') : exitOffset})`,
+                transition: TRANSITION,
+                pointerEvents: isActive ? 'auto' : 'none',
+                zIndex: isActive ? 2 : 1,
+              }}
             >
-              <ChevronLeft size={15} />
-            </button>
+              {/* Image */}
+              <div className="relative overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={p.imageAlt}
+                  className="w-full h-full object-cover"
+                  style={{
+                    transform: isActive && !animating ? 'scale(1)' : 'scale(1.03)',
+                    transition: 'transform 0.9s cubic-bezier(0.16,1,0.3,1)',
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-brand-black/20" />
+              </div>
+
+              {/* Text — only animate for active */}
+              <div
+                className="flex flex-col justify-center px-8 md:px-12 lg:px-16 py-12 lg:py-0 bg-brand-black"
+                style={{
+                  opacity: isActive ? (animating ? 0 : 1) : 0,
+                  transform: isActive ? (animating ? `translateX(${enterOffset})` : 'translateX(0)') : 'translateX(0)',
+                  transition: 'opacity 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.5s cubic-bezier(0.16,1,0.3,1) 0.15s',
+                }}
+              >
+                <Eyebrow text={p.collection} rule className="mb-5" />
+                <h3 className="font-serif text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] text-brand-white leading-[0.95] tracking-[-0.02em] mb-5">
+                  {p.name}
+                </h3>
+                <p className="font-sans text-[15px] text-brand-muted leading-[1.7] mb-6 max-w-xs">
+                  {p.description}
+                </p>
+                <p className="font-sans text-base text-brand-white mb-8">{formatPrice(p.price)}</p>
+
+                <Link
+                  to={`/product/${p.id}`}
+                  className="group relative inline-flex items-center gap-2 text-[13px] font-sans uppercase tracking-[0.15em] text-brand-white hover:text-brand-gold transition-colors duration-[400ms] mb-5 self-start"
+                >
+                  <span className="relative">
+                    Discover
+                    <span className="absolute bottom-0 left-0 w-full h-px bg-brand-gold origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[400ms]" />
+                  </span>
+                  <span className="text-brand-gold/60 group-hover:text-brand-gold transition-colors duration-300">→</span>
+                </Link>
+
+                <button
+                  onClick={handleAdd}
+                  className="inline-flex items-center gap-2 text-[11px] font-sans uppercase tracking-[0.15em] border border-brand-gold/40 text-brand-gold/80 px-5 py-2.5 hover:border-brand-gold hover:text-brand-gold self-start transition-all duration-[400ms]"
+                >
+                  {added ? <CheckCircle size={12} strokeWidth={1.5} /> : <ShoppingBag size={12} strokeWidth={1.5} />}
+                  {added ? 'Added to Collection' : 'Add to Collection'}
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Dot indicators + counter */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 py-8 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          {featuredProducts.map((_, i) => (
             <button
-              onClick={() => scroll('right')}
-              aria-label={`Scroll ${label} right`}
-              className="w-8 h-8 flex items-center justify-center border border-brand-gold/20 text-brand-muted hover:border-brand-gold hover:text-brand-gold transition-all duration-200 active:scale-95"
-            >
-              <ChevronRight size={15} />
-            </button>
-          </div>
-          <Link
-            to={viewAllHref}
-            className="inline-flex items-center gap-1.5 text-xs font-sans tracking-widest uppercase text-brand-gold border-b border-brand-gold/40 pb-0.5 hover:border-brand-gold hover:gap-2.5 transition-all duration-200"
-          >
-            View All <ArrowRight size={11} />
-          </Link>
+              key={i}
+              onClick={() => go(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className="transition-all duration-[400ms]"
+              style={{
+                width: i === active ? '28px' : '6px',
+                height: '2px',
+                backgroundColor: i === active ? 'rgb(var(--brand-gold))' : 'rgb(var(--brand-muted) / 0.4)',
+              }}
+            />
+          ))}
         </div>
+        <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted">
+          {String(active + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+        </p>
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-2 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-webkit-overflow-scrolling:touch]"
-      >
-        {watches.map((w) => (
-          <div key={w.id} className="snap-start flex-shrink-0">
-            <WatchCard watch={w} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default function ProductSpotlight() {
-  const { ref, inView } = useInView(0.05);
-
-  return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      className="py-20 md:py-24 bg-brand-black"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 space-y-12">
-        <div
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? 'translateY(0)' : 'translateY(22px)',
-            transition: 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)',
-          }}
-        >
-          <span className="text-[10px] font-sans font-semibold tracking-[0.3em] uppercase text-brand-gold">
-            Handpicked
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl text-brand-white mt-2">Featured Watches</h2>
-          <div
-            className="h-px bg-brand-gold mt-4 origin-left"
-            style={{
-              width: inView ? '40px' : '0px',
-              transition: 'width 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s',
-            }}
-          />
-        </div>
-
-        <WatchCarousel watches={womenWatches} label="Women's" viewAllHref="/collections/women" delay={100} inView={inView} />
-        <div className="h-px bg-brand-gold/10" />
-        <WatchCarousel watches={menWatches} label="Men's" viewAllHref="/collections/men" delay={200} inView={inView} />
-      </div>
     </section>
   );
 }

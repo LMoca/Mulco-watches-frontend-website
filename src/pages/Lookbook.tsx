@@ -243,7 +243,7 @@ export default function Lookbook() {
             style={{ animationDelay: '160ms' }}
           />
           <p
-            className="font-sans text-sm text-white/70 max-w-xs leading-relaxed animate-fade-in-up"
+            className="font-sans text-[15px] text-brand-white/70 leading-[1.7] max-w-xs animate-fade-in-up"
             style={{ animationDelay: '240ms' }}
           >
             Four collections. Four perspectives on what it means to wear time boldly.

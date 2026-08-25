@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Twitter } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import PaymentIcons from './PaymentIcons';
 
@@ -8,179 +7,148 @@ export default function Footer() {
 
   return (
     <footer className="bg-brand-black border-t border-brand-gold/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Logo */}
-        <div className="flex justify-center mb-12">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 py-20 md:py-28">
+
+        {/* Logo — centered, 120px max */}
+        <div className="flex justify-center mb-16">
           <Link to="/">
             <img
               src="/images/ui/mulco_logo_blanco.png"
               alt="MULCO"
-              className="h-8"
+              style={{ maxWidth: '120px' }}
+              className="h-auto opacity-80 hover:opacity-100 transition-opacity duration-[400ms]"
             />
           </Link>
         </div>
 
-        {/* Navigation Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mb-14">
-          {/* Shop */}
-          <div className="text-center sm:text-left">
-            <h4 className="text-xs uppercase tracking-widest text-brand-gold mb-4">
-              {t('footer.shop')}
-            </h4>
+        {/* Navigation columns */}
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
+          <div>
+            <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-gold/80 mb-5">{t('footer.shop')}</p>
             <nav className="flex flex-col gap-3">
-              <Link to="/collections/men" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('nav.men')}
-              </Link>
-              <Link to="/collections/women" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('nav.women')}
-              </Link>
-              <Link to="/collections/new-arrivals" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('nav.newArrivals')}
-              </Link>
-              <Link to="/accessories" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('nav.accessories')}
-              </Link>
-              <Link to="/collections" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('nav.collections')}
-              </Link>
+              {[
+                { to: '/collections/men', label: t('nav.men') },
+                { to: '/collections/women', label: t('nav.women') },
+                { to: '/collections/new-arrivals', label: t('nav.newArrivals') },
+                { to: '/accessories', label: t('nav.accessories') },
+                { to: '/collections', label: t('nav.collections') },
+              ].map(({ to, label }) => (
+                <Link key={to} to={to} className="font-sans text-[13px] text-brand-muted hover:text-brand-white transition-colors duration-[400ms]">
+                  {label}
+                </Link>
+              ))}
             </nav>
           </div>
 
-          {/* About */}
-          <div className="text-center sm:text-left">
-            <h4 className="text-xs uppercase tracking-widest text-brand-gold mb-4">
-              {t('footer.about')}
-            </h4>
+          <div>
+            <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-gold/80 mb-5">{t('footer.about')}</p>
             <nav className="flex flex-col gap-3">
-              <Link to="/our-story" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('nav.ourStory')}
-              </Link>
-              <Link to="/warranty-registration" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                Warranty Registration
-              </Link>
-              <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('footer.warranty')}
-              </Link>
-              <Link to="/watch-care" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                Watch Care Guide
-              </Link>
-              <Link to="/campaign-films" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                Campaign Films
-              </Link>
-              <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('footer.repairs')}
-              </Link>
-              <Link to="/faq" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('nav.faq')}
-              </Link>
+              {[
+                { to: '/our-story', label: t('nav.ourStory') },
+                { to: '/membership', label: 'Membership' },
+                { to: '/lookbook', label: 'Lookbook' },
+                { to: '/campaign-films', label: 'Campaign Films' },
+                { to: '/warranty-registration', label: 'Warranty Registration' },
+                { to: '/watch-care', label: 'Watch Care Guide' },
+                { to: '/faq', label: t('nav.faq') },
+              ].map(({ to, label }) => (
+                <Link key={to} to={to} className="font-sans text-[13px] text-brand-muted hover:text-brand-white transition-colors duration-[400ms]">
+                  {label}
+                </Link>
+              ))}
             </nav>
           </div>
 
-          {/* Support */}
-          <div className="text-center sm:text-left">
-            <h4 className="text-xs uppercase tracking-widest text-brand-gold mb-4">
-              {t('footer.support')}
-            </h4>
+          <div>
+            <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-gold/80 mb-5">{t('footer.support')}</p>
             <nav className="flex flex-col gap-3">
-              <Link to="/shipping" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('footer.shippingPolicy')}
-              </Link>
-              <Link to="/returns" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('footer.returns')}
-              </Link>
-              <Link to="/support" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('footer.contact')}
-              </Link>
-              <Link to="/support" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                {t('footer.storeLocation')}
-              </Link>
-              <Link to="/find-a-retailer" className="text-sm text-brand-muted hover:text-brand-white transition-colors">
-                Find a Retailer
-              </Link>
+              {[
+                { to: '/support', label: t('footer.contact') },
+                { to: '/find-a-retailer', label: 'Find a Retailer' },
+                { to: '/shipping', label: t('footer.shippingPolicy') },
+                { to: '/returns', label: t('footer.returns') },
+                { to: '/support', label: t('footer.storeLocation') },
+              ].map(({ to, label }) => (
+                <Link key={label} to={to} className="font-sans text-[13px] text-brand-muted hover:text-brand-white transition-colors duration-[400ms]">
+                  {label}
+                </Link>
+              ))}
             </nav>
           </div>
-        </div>
 
-        {/* As Seen In */}
-        <div className="border-t border-b border-brand-gold/10 py-8 mb-10">
-          <p className="text-[9px] font-sans tracking-[0.35em] uppercase text-brand-muted text-center mb-6">As Seen In</p>
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-            {[
-              { name: 'E! Entertainment',  note: 'Grammy Awards Sponsor', href: 'https://www.youtube.com/watch?v=Yp-FUcrB92M' },
-              { name: 'Fratello Watches',  note: 'Featured Review',       href: 'https://www.fratellowatches.com/watchbrands/mulco/' },
-              { name: 'The Grammy Awards', note: 'Official Sponsor',      href: 'https://www.youtube.com/watch?v=Yp-FUcrB92M' },
-            ].map(({ name, note, href }, i, arr) => (
-              <div key={name} className="flex items-center gap-6 md:gap-10">
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-center group"
-                >
-                  <p className="font-serif text-base text-brand-white/70 tracking-wide leading-none group-hover:text-brand-gold transition-colors duration-200">{name}</p>
-                  <p className="text-[9px] font-sans tracking-[0.2em] uppercase text-brand-gold/50 mt-1 group-hover:text-brand-gold/80 transition-colors duration-200">{note}</p>
-                </a>
-                {i < arr.length - 1 && (
-                  <span className="hidden sm:block w-px h-6 bg-brand-gold/15" />
-                )}
-              </div>
-            ))}
+          {/* Policies column */}
+          <div>
+            <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-gold/80 mb-5">Policies</p>
+            <nav className="flex flex-col gap-3">
+              {[
+                { to: '/returns', label: 'Refunds & Returns' },
+                { to: '/discounts', label: 'Discounts & Promotions' },
+                { to: '/shipping', label: 'Domestic Shipping' },
+                { to: '/shipping', label: 'International Shipping' },
+                { to: '/terms', label: 'Terms & Conditions' },
+                { to: '/privacy-policy', label: 'Privacy Policy' },
+              ].map(({ to, label }) => (
+                <Link key={label} to={to} className="font-sans text-[13px] text-brand-muted hover:text-brand-white transition-colors duration-[400ms]">
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Connect column — social + payment */}
+          <div>
+            <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-gold/80 mb-5">Connect</p>
+            <div className="flex flex-col gap-4 mb-8">
+              <a href="https://www.instagram.com/mulcowatches" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex items-center gap-3 text-brand-muted hover:text-brand-gold transition-colors duration-[400ms]">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+                </svg>
+                <span className="font-sans text-[13px]">Instagram</span>
+              </a>
+              <a href="https://www.facebook.com/mulcowatches" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex items-center gap-3 text-brand-muted hover:text-brand-gold transition-colors duration-[400ms]">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+                <span className="font-sans text-[13px]">Facebook</span>
+              </a>
+              <a href="https://twitter.com/mulcowatches" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="flex items-center gap-3 text-brand-muted hover:text-brand-gold transition-colors duration-[400ms]">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                <span className="font-sans text-[13px]">X / Twitter</span>
+              </a>
+            </div>
+
+            <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-gold/80 mb-4">We Accept</p>
+            <PaymentIcons />
           </div>
         </div>
 
-        {/* Social Icons */}
-        <div className="flex justify-center gap-6 mb-10">
-          <a
-            href="https://www.instagram.com/mulcowatches"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="text-brand-muted hover:text-brand-gold transition-colors"
-          >
-            <Instagram size={20} />
-          </a>
-          <a
-            href="https://www.facebook.com/mulcowatches"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-            className="text-brand-muted hover:text-brand-gold transition-colors"
-          >
-            <Facebook size={20} />
-          </a>
-          <a
-            href="https://twitter.com/mulcowatches"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Twitter"
-            className="text-brand-muted hover:text-brand-gold transition-colors"
-          >
-            <Twitter size={20} />
-          </a>
-        </div>
-
-        {/* Payment icons */}
-        <div className="flex justify-center mb-8">
-          <PaymentIcons />
-        </div>
-
-        {/* Bottom bar */}
-        <div className="border-t border-brand-gold/10 pt-6 flex flex-col items-center gap-3">
-          <p className="text-xs text-brand-muted">
-            &copy; {new Date().getFullYear()} {t('footer.copyright')}
-          </p>
-          <p className="text-xs text-brand-muted">
-            19790 W Dixie Hwy, Suite 201, Aventura, FL 33180
-          </p>
-          <div className="flex items-center gap-4 flex-wrap justify-center">
-            <Link to="/privacy-policy" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Privacy Policy</Link>
-            <span className="text-brand-gold/20 text-xs">·</span>
-            <Link to="/terms" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Terms &amp; Conditions</Link>
-            <span className="text-brand-gold/20 text-xs">·</span>
-            <Link to="/shipping" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Shipping</Link>
-            <span className="text-brand-gold/20 text-xs">·</span>
-            <Link to="/returns" className="text-[11px] text-brand-muted hover:text-brand-gold transition-colors">Returns</Link>
+        {/* As Seen In — text-only row */}
+        <div className="border-t border-b border-brand-gold/10 py-7 mb-10 text-center">
+          <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-muted mb-4">As Seen In</p>
+          <div className="flex flex-wrap items-center justify-center gap-2 font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted">
+            <a href="https://www.youtube.com/watch?v=Yp-FUcrB92M" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors duration-[400ms]">E! Entertainment</a>
+            <span className="text-brand-gold/30">·</span>
+            <a href="https://www.fratellowatches.com/watchbrands/mulco/" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors duration-[400ms]">Fratello Watches</a>
+            <span className="text-brand-gold/30">·</span>
+            <a href="https://www.youtube.com/watch?v=Yp-FUcrB92M" target="_blank" rel="noopener noreferrer" className="hover:text-brand-gold transition-colors duration-[400ms]">The Grammy Awards</a>
           </div>
+        </div>
+
+        {/* Bottom bar — single line */}
+        <div className="border-t border-brand-gold/10 pt-6 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 flex-wrap text-[11px] font-sans text-brand-muted">
+          <span>&copy; {new Date().getFullYear()} {t('footer.copyright')}</span>
+          <span className="hidden sm:inline text-brand-gold/25">·</span>
+          <Link to="/privacy-policy" className="hover:text-brand-gold transition-colors duration-[400ms]">Privacy Policy</Link>
+          <span className="text-brand-gold/25">·</span>
+          <Link to="/terms" className="hover:text-brand-gold transition-colors duration-[400ms]">Terms</Link>
+          <span className="text-brand-gold/25">·</span>
+          <Link to="/shipping" className="hover:text-brand-gold transition-colors duration-[400ms]">Shipping</Link>
+          <span className="text-brand-gold/25">·</span>
+          <Link to="/returns" className="hover:text-brand-gold transition-colors duration-[400ms]">Returns</Link>
         </div>
       </div>
     </footer>

@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
+import { Search, Menu, ChevronDown, ShoppingBag, User, Sun, Moon } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useCart } from '../context/CartContext';
 import { useCurrency, CURRENCIES, type Currency } from '../context/CurrencyContext';
+import { useAccount } from '../context/AccountContext';
+import { useTheme } from '../context/ThemeContext';
 import MobileNav from './MobileNav';
 import SearchModal from './SearchModal';
 
@@ -19,6 +21,8 @@ export default function Navbar() {
   const { t, language, setLanguage } = useLanguage();
   const { totalItems, openDrawer } = useCart();
   const { currency, setCurrency } = useCurrency();
+  const { account, openMiniDashboard } = useAccount();
+  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
 
   useEffect(() => {
@@ -68,7 +72,8 @@ export default function Navbar() {
               <img
                 src="/images/ui/mulco_logo_blanco.png"
                 alt="MULCO"
-                className="h-8 md:h-9"
+                className="h-8 md:h-9 transition-[filter] duration-300"
+                style={theme === 'light' ? { filter: 'invert(1)' } : undefined}
               />
             </Link>
 
@@ -79,17 +84,17 @@ export default function Navbar() {
                 onMouseEnter={handleMegaEnter}
                 onMouseLeave={handleMegaLeave}
               >
-                <button className="flex items-center gap-1 text-sm uppercase tracking-wider text-brand-white hover:text-brand-gold transition-colors duration-200">
+                <button className="flex items-center gap-1 text-[12px] font-sans uppercase tracking-[0.2em] text-brand-white hover:text-brand-gold transition-colors duration-[400ms]">
                   {t('nav.collections')}
                   <ChevronDown
-                    size={14}
-                    className={`transition-transform duration-200 ${megaOpen ? 'rotate-180' : ''}`}
+                    size={12}
+                    className={`transition-transform duration-[400ms] ${megaOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
 
                 {/* Mega Dropdown */}
                 <div
-                  style={{ backgroundColor: '#0A0A0A' }}
+                  style={{ backgroundColor: 'rgb(var(--brand-black))' }}
                   className={`absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[600px] border border-brand-gold/15 rounded-sm transition-all duration-250 ease-out ${
                     megaOpen
                       ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
@@ -108,7 +113,7 @@ export default function Navbar() {
                           key={key}
                           to={to}
                           onMouseEnter={() => setActiveCollection(key)}
-                          className={`block text-sm uppercase tracking-wider transition-colors ${className}`}
+                          className={`block text-[12px] font-sans uppercase tracking-[0.2em] transition-colors duration-[400ms] ${className}`}
                         >
                           {label}
                         </Link>
@@ -142,94 +147,133 @@ export default function Navbar() {
 
               <Link
                 to="/accessories"
-                className="text-sm uppercase tracking-wider text-brand-white hover:text-brand-gold transition-colors duration-200"
+                className="text-[12px] font-sans uppercase tracking-[0.2em] text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
               >
                 {t('nav.accessories')}
               </Link>
               <Link
                 to="/lookbook"
-                className="text-sm uppercase tracking-wider text-brand-white hover:text-brand-gold transition-colors duration-200"
+                className="text-[12px] font-sans uppercase tracking-[0.2em] text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
               >
                 Lookbook
               </Link>
               <Link
                 to="/our-story"
-                className="text-sm uppercase tracking-wider text-brand-white hover:text-brand-gold transition-colors duration-200"
+                className="text-[12px] font-sans uppercase tracking-[0.2em] text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
               >
                 {t('nav.ourStory')}
               </Link>
             </div>
 
             {/* Right side */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-5">
               <button
                 onClick={() => setSearchOpen(true)}
                 aria-label={t('nav.search')}
-                className="text-brand-white hover:text-brand-gold transition-colors duration-200"
+                className="text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
               >
-                <Search size={18} />
+                <Search size={17} strokeWidth={1.5} />
               </button>
 
-              <button
-                onClick={() => setLanguage(language === 'en' ? 'es' : 'en')}
-                className="text-xs uppercase tracking-widest text-brand-muted hover:text-brand-gold transition-colors duration-200 hidden sm:block"
-              >
-                {language === 'en' ? 'ES' : 'EN'}
-              </button>
+              {/* Language: EN · ES */}
+              <div className="hidden sm:flex items-center gap-1 text-[12px] font-sans uppercase tracking-[0.2em]">
+                <button
+                  onClick={() => setLanguage('en')}
+                  className={`transition-colors duration-[400ms] ${language === 'en' ? 'text-brand-gold' : 'text-brand-white/60 hover:text-brand-gold'}`}
+                >
+                  EN
+                </button>
+                <span className="text-brand-white/30">·</span>
+                <button
+                  onClick={() => setLanguage('es')}
+                  className={`transition-colors duration-[400ms] ${language === 'es' ? 'text-brand-gold' : 'text-brand-white/60 hover:text-brand-gold'}`}
+                >
+                  ES
+                </button>
+              </div>
 
-              {/* Currency selector */}
+              {/* Currency: text display with ↓ */}
               <div ref={currencyRef} className="relative hidden sm:block">
                 <button
                   onClick={() => setCurrencyOpen(!currencyOpen)}
-                  className="flex items-center gap-0.5 text-xs uppercase tracking-widest text-brand-muted hover:text-brand-gold transition-colors duration-200"
+                  className="font-sans text-[12px] uppercase tracking-[0.2em] text-brand-white/80 hover:text-brand-gold transition-colors duration-[400ms]"
                   aria-label="Select currency"
                 >
-                  {currency}
-                  <ChevronDown
-                    size={10}
-                    className={`transition-transform duration-200 ${currencyOpen ? 'rotate-180' : ''}`}
-                  />
+                  {currency} ↓
                 </button>
                 {currencyOpen && (
                   <div
-                    style={{ backgroundColor: '#0A0A0A' }}
-                    className="absolute right-0 top-full mt-2 w-28 border border-brand-gold/15 shadow-lg z-50 py-1"
+                    style={{ backgroundColor: 'rgb(var(--brand-black))' }}
+                    className="absolute right-0 top-full mt-3 w-28 border border-brand-gold/15 z-50 py-1"
                   >
                     {(Object.keys(CURRENCIES) as Currency[]).map((c) => (
                       <button
                         key={c}
                         onClick={() => { setCurrency(c); setCurrencyOpen(false); }}
-                        className={`w-full text-left px-3 py-2 text-[11px] font-sans uppercase tracking-widest transition-colors flex items-center justify-between ${
+                        className={`w-full text-left px-4 py-2.5 text-[11px] font-sans uppercase tracking-[0.15em] transition-colors duration-[400ms] flex items-center justify-between ${
                           c === currency ? 'text-brand-gold' : 'text-brand-muted hover:text-brand-white'
                         }`}
                       >
                         <span>{c}</span>
-                        <span className="opacity-50">{CURRENCIES[c].symbol}</span>
+                        <span className="opacity-40">{CURRENCIES[c].symbol}</span>
                       </button>
                     ))}
                   </div>
                 )}
               </div>
 
+              {/* Account icon / monogram */}
+              {account ? (
+                <button
+                  onClick={openMiniDashboard}
+                  aria-label="My account"
+                  className="w-7 h-7 rounded-full border border-brand-gold/50 flex items-center justify-center hover:border-brand-gold transition-colors duration-[400ms] flex-shrink-0"
+                >
+                  <span className="font-serif text-[11px] text-brand-gold leading-none">
+                    {account.name.split(' ').map((w) => w[0]).slice(0, 2).join('').toUpperCase()}
+                  </span>
+                </button>
+              ) : (
+                <a
+                  href="/account/login"
+                  aria-label="Sign in"
+                  className="text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
+                >
+                  <User size={17} strokeWidth={1.5} />
+                </a>
+              )}
+
+              {/* Cart — icon with count badge */}
               <button
                 onClick={openDrawer}
                 aria-label={t('nav.cart')}
-                className="relative text-brand-white hover:text-brand-gold transition-colors duration-200"
+                className="relative text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
               >
-                <ShoppingBag size={18} />
+                <ShoppingBag size={19} strokeWidth={1.5} />
                 {totalItems > 0 && (
-                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-brand-gold text-brand-black text-[10px] font-bold rounded-full flex items-center justify-center animate-scale-in">
+                  <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-brand-gold text-brand-black text-[9px] font-sans font-bold flex items-center justify-center leading-none">
                     {totalItems}
                   </span>
                 )}
               </button>
 
               <button
+                onClick={toggleTheme}
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                className="text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
+              >
+                {theme === 'dark'
+                  ? <Sun size={17} strokeWidth={1.5} />
+                  : <Moon size={17} strokeWidth={1.5} />
+                }
+              </button>
+
+              <button
                 aria-label="Menu"
                 onClick={() => setMobileOpen(true)}
-                className="lg:hidden text-brand-white hover:text-brand-gold transition-colors duration-200"
+                className="lg:hidden text-brand-white hover:text-brand-gold transition-colors duration-[400ms]"
               >
-                <Menu size={22} />
+                <Menu size={20} strokeWidth={1.5} />
               </button>
             </div>
           </div>

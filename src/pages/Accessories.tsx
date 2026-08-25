@@ -120,16 +120,21 @@ function ProductCard({ product, index, onQuickView }: { product: Product; index:
         className="p-4 flex-1 flex flex-col transition-colors duration-300"
         style={{ background: hovered ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.015)' }}
       >
-        <p className="text-[10px] font-sans text-brand-gold tracking-widest uppercase">{product.collection}</p>
-        <Link to={`/product/${product.id}`} className="font-serif text-base text-brand-white hover:text-brand-gold transition-colors duration-200 leading-tight mt-0.5 block">
+        <p className="text-[10px] font-sans text-brand-gold/80 tracking-widest uppercase">{product.collection}</p>
+        <Link to={`/product/${product.id}`} className="font-serif text-xl text-brand-white hover:text-brand-gold transition-colors duration-200 leading-tight mt-0.5 block">
           {product.name}
         </Link>
         <p className="text-[10px] font-sans text-brand-muted mt-1.5 flex-1">{product.tags.join(' · ')}</p>
         <div className="flex items-center justify-between mt-3">
-          <div className="flex flex-col leading-tight">
-            <span className="font-serif text-brand-gold text-lg">{formatPrice(product.price)}</span>
+          <div className="flex items-baseline gap-2">
+            <span
+              className="font-sans text-base text-brand-muted"
+              style={product.originalPrice ? { textDecoration: 'underline', textDecorationColor: '#C9A84C', textUnderlineOffset: '3px' } : undefined}
+            >
+              {formatPrice(product.price)}
+            </span>
             {product.originalPrice && (
-              <span className="font-serif text-brand-muted text-sm line-through">{formatPrice(product.originalPrice)}</span>
+              <span className="font-sans text-[13px] text-brand-muted line-through">{formatPrice(product.originalPrice)}</span>
             )}
           </div>
           <button
@@ -185,7 +190,7 @@ export default function Accessories() {
         </div>
 
         {/* Category grid */}
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 pb-28">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 py-24 pb-40">
           <FadeSection>
             <div className="text-center mb-14">
               <p className="font-sans text-sm text-brand-muted max-w-xl mx-auto leading-relaxed">
@@ -193,7 +198,7 @@ export default function Accessories() {
               </p>
             </div>
           </FadeSection>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {ALL_CATEGORIES.map((c, i) => (
               <FadeSection key={c.slug} delay={i * 100}>
                 <Link to={`/accessories/${c.slug}`} className="group block relative overflow-hidden aspect-[3/4]">
@@ -247,14 +252,14 @@ export default function Accessories() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-14 pb-28">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 py-20 pb-36">
         {/* Subtitle */}
         <FadeSection>
           <p className="font-sans text-sm text-brand-muted max-w-xl mb-14 leading-relaxed">{cat.sub}</p>
         </FadeSection>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-7">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-10 lg:gap-12">
           {catProducts.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} onQuickView={setQuickViewProduct} />
           ))}

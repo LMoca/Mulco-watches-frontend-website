@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { X } from 'lucide-react';
 
 const STORAGE_KEY = 'mulco-cookie-consent';
 
@@ -28,46 +27,38 @@ export default function CookieBanner() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-[300] px-4 pb-4 pointer-events-none"
-      style={{ animation: 'slide-up 0.35s cubic-bezier(0.22,1,0.36,1) both' }}
+      className="fixed bottom-0 left-0 right-0 z-[300] bg-brand-black/95 backdrop-blur-sm border-t border-brand-gold/12"
+      style={{ animation: 'fade-in-up 0.35s cubic-bezier(0.22,1,0.36,1) both' }}
     >
-      <div className="pointer-events-auto max-w-3xl mx-auto bg-[#111111] border border-brand-gold/20 shadow-[0_-4px_40px_rgba(0,0,0,0.6)]">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-gold to-transparent" />
-        <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center gap-5">
-          {/* Text */}
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-brand-gold mb-1">Cookie Notice</p>
-            <p className="font-sans text-sm text-brand-muted leading-relaxed">
-              We use cookies to enhance your browsing experience and analyse site traffic.
-              By clicking <span className="text-brand-white">Accept All</span>, you consent to our use of cookies.{' '}
-              <Link to="/privacy-policy" className="text-brand-gold hover:text-brand-white transition-colors underline underline-offset-2">
-                Privacy Policy
-              </Link>
-            </p>
-          </div>
-
-          {/* Actions */}
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <button
-              onClick={decline}
-              className="text-[10px] font-sans tracking-widest uppercase text-brand-muted border border-brand-gold/20 px-5 py-2.5 hover:border-brand-gold/40 hover:text-brand-white transition-colors duration-200"
-            >
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 h-16 flex items-center justify-between gap-6">
+        <p className="font-sans text-[12px] text-brand-muted leading-snug flex-1 min-w-0 truncate">
+          We use cookies to enhance your experience.{' '}
+          <Link
+            to="/privacy-policy"
+            className="text-brand-gold/60 hover:text-brand-gold transition-colors duration-[400ms] underline underline-offset-2"
+          >
+            Privacy Policy
+          </Link>
+        </p>
+        <div className="flex items-center gap-6 flex-shrink-0">
+          <button
+            onClick={decline}
+            className="group relative font-sans text-[12px] text-brand-muted hover:text-brand-white transition-colors duration-[400ms]"
+          >
+            <span className="relative">
               Decline
-            </button>
-            <button
-              onClick={accept}
-              className="text-[10px] font-sans font-semibold tracking-widest uppercase bg-brand-gold text-brand-black px-5 py-2.5 hover:bg-brand-white transition-colors duration-200"
-            >
+              <span className="absolute bottom-0 left-0 w-full h-px bg-brand-muted/40 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[400ms]" />
+            </span>
+          </button>
+          <button
+            onClick={accept}
+            className="group relative font-sans text-[12px] text-brand-gold hover:text-brand-white transition-colors duration-[400ms]"
+          >
+            <span className="relative">
               Accept All
-            </button>
-            <button
-              onClick={decline}
-              aria-label="Close"
-              className="text-brand-muted hover:text-brand-gold transition-colors ml-1"
-            >
-              <X size={15} />
-            </button>
-          </div>
+              <span className="absolute bottom-0 left-0 w-full h-px bg-brand-gold origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[400ms]" />
+            </span>
+          </button>
         </div>
       </div>
     </div>

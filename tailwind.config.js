@@ -5,12 +5,12 @@ export default {
     extend: {
       colors: {
         brand: {
-          black: '#0A0A0A',
-          navy: '#1A1A2E',
-          gold: '#C9A84C',
-          rose: '#B76E79',
-          white: '#F5F5F0',
-          muted: '#888880',
+          black: 'rgb(var(--brand-black) / <alpha-value>)',
+          navy:  'rgb(var(--brand-navy)  / <alpha-value>)',
+          gold:  'rgb(var(--brand-gold)  / <alpha-value>)',
+          rose:  'rgb(var(--brand-rose)  / <alpha-value>)',
+          white: 'rgb(var(--brand-white) / <alpha-value>)',
+          muted: 'rgb(var(--brand-muted) / <alpha-value>)',
         },
       },
       fontFamily: {

@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, X, ArrowRight } from 'lucide-react';
+import { Search, ArrowRight } from 'lucide-react';
 import { products } from '../data/products';
 import { useCurrency } from '../context/CurrencyContext';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface Props {
   open: boolean;
@@ -16,9 +17,9 @@ function highlight(text: string, query: string): React.ReactNode {
   return (
     <>
       {text.slice(0, idx)}
-      <mark className="bg-brand-gold/30 text-brand-gold rounded-[2px] px-[1px]">
+      <span className="text-brand-gold">
         {text.slice(idx, idx + query.length)}
-      </mark>
+      </span>
       {text.slice(idx + query.length)}
     </>
   );
@@ -27,8 +28,10 @@ function highlight(text: string, query: string): React.ReactNode {
 export default function SearchModal({ open, onClose }: Props) {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const { formatPrice } = useCurrency();
   const navigate = useNavigate();
+  useFocusTrap(panelRef, open);
 
   /* Focus input when modal opens */
   useEffect(() => {
@@ -98,20 +101,24 @@ export default function SearchModal({ open, onClose }: Props) {
 
       {/* Panel */}
       <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search"
         className="relative z-10 w-full bg-brand-black border-b border-brand-gold/15 shadow-[0_8px_40px_rgba(0,0,0,0.7)]"
         style={{ animation: 'slide-down 0.22s cubic-bezier(0.22,1,0.36,1) both' }}
       >
         {/* Search bar */}
         <div className="max-w-3xl mx-auto px-6 md:px-10">
           <div className="flex items-center gap-4 py-5 border-b border-brand-gold/12">
-            <Search size={18} className="text-brand-gold flex-shrink-0" />
+            <Search size={16} strokeWidth={1} className="text-brand-gold/60 flex-shrink-0" />
             <input
               ref={inputRef}
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search watches, collections, styles…"
-              className="flex-1 bg-transparent text-brand-white placeholder:text-brand-muted text-base font-sans outline-none caret-brand-gold"
+              placeholder="Search watches, collections…"
+              className="flex-1 bg-transparent text-brand-white placeholder:text-brand-muted/50 font-serif text-[2rem] leading-none outline-none caret-brand-gold"
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
@@ -119,18 +126,18 @@ export default function SearchModal({ open, onClose }: Props) {
             {query && (
               <button
                 onClick={() => setQuery('')}
-                className="text-brand-muted hover:text-brand-gold transition-colors"
                 aria-label="Clear search"
+                className="font-serif text-2xl leading-none text-brand-gold/40 hover:text-brand-gold transition-colors duration-[400ms]"
               >
-                <X size={16} />
+                ×
               </button>
             )}
             <button
               onClick={onClose}
-              className="text-brand-muted hover:text-brand-gold transition-colors ml-2 flex-shrink-0"
+              className="font-sans text-[10px] uppercase tracking-[0.2em] text-brand-muted hover:text-brand-gold transition-colors duration-[400ms] ml-2 flex-shrink-0"
               aria-label="Close search"
             >
-              <span className="text-[10px] font-sans tracking-widest uppercase border border-brand-gold/25 px-2 py-1 hover:border-brand-gold transition-colors">ESC</span>
+              ESC
             </button>
           </div>
 
@@ -145,7 +152,7 @@ export default function SearchModal({ open, onClose }: Props) {
                     <button
                       key={ql.label}
                       onClick={() => go(ql.href)}
-                      className="text-xs font-sans tracking-wide text-brand-muted border border-brand-gold/15 px-4 py-2 hover:border-brand-gold hover:text-brand-gold transition-colors duration-200"
+                      className="text-[10px] font-sans uppercase tracking-[0.18em] text-brand-gold/60 border border-brand-gold/20 px-4 py-2 hover:border-brand-gold hover:text-brand-gold transition-colors duration-[400ms]"
                     >
                       {ql.label}
                     </button>

@@ -9,8 +9,18 @@
   50% { transform: translateY(-10px); }
 }
 
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes underlineFromLeft {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -39,6 +49,11 @@
   to   { transform: scaleX(1); }
 }
 
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
   100% { background-position:  200% 0; }
@@ -46,41 +61,78 @@
 
 /* ─── Base ───────────────────────────────────────────────────────────────── */
 
+/* ─── Theme tokens ───────────────────────────────────────────────────────── */
+
+:root {
+  --brand-black: 10 10 10;
+  --brand-navy:  26 26 46;
+  --brand-gold:  201 168 76;
+  --brand-rose:  183 110 121;
+  --brand-white: 245 245 240;
+  --brand-muted: 136 136 128;
+  --color-on-gold: #0A0A0A;
+}
+
+html.light {
+  --brand-black: 240 237 230;
+  --brand-navy:  226 222 214;
+  --brand-gold:  176 138 40;
+  --brand-rose:  183 110 121;
+  --brand-white: 28 26 22;
+  --brand-muted: 108 106 100;
+  --color-on-gold: #1C1A16;
+}
+
+/* In light mode, text-brand-black is used on gold CTAs — keep it dark */
+html.light .text-brand-black {
+  color: #1C1A16;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   body {
-    background-color: #0A0A0A;
-    color: #F5F5F0;
+    background-color: rgb(var(--brand-black));
+    color: rgb(var(--brand-white));
+  }
+
+  /* Gold focus ring for keyboard navigation — never browser blue */
+  :focus-visible {
+    outline: 2px solid rgb(var(--brand-gold));
+    outline-offset: 4px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 
   ::selection {
     background-color: rgba(201, 168, 76, 0.28);
-    color: #F5F5F0;
+    color: rgb(var(--brand-white));
   }
 
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #0A0A0A; }
+  ::-webkit-scrollbar-track { background: rgb(var(--brand-black)); }
   ::-webkit-scrollbar-thumb {
-    background: #C9A84C;
+    background: rgb(var(--brand-gold));
     border-radius: 3px;
     transition: background 0.2s ease;
   }
-  ::-webkit-scrollbar-thumb:hover { background: #b8953f; }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--brand-gold) / 0.75); }
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: #C9A84C #0A0A0A;
+    scrollbar-color: rgb(var(--brand-gold)) rgb(var(--brand-black));
   }
 
-  /* Respect reduced-motion */
+  /* Respect reduced-motion: collapse decorative animations, keep functional transitions at 200ms */
   @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
+      transition-duration: 200ms !important;
     }
   }
 }
@@ -89,7 +141,7 @@
 
 @layer utilities {
   .animate-fade-in-up {
-    animation: fade-in-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: fade-in-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .animate-fade-in {
     animation: fade-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;

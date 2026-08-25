@@ -98,8 +98,8 @@ export default function VideoSection() {
           className="text-center mb-10"
           style={{
             opacity: headInView ? 1 : 0,
-            transform: headInView ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1)',
+            transform: headInView ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)',
           }}
         >
           <p className="text-[10px] font-sans tracking-[0.3em] uppercase text-brand-gold mb-3">On Screen</p>
@@ -113,8 +113,8 @@ export default function VideoSection() {
           className="grid grid-cols-1 lg:grid-cols-3 gap-3"
           style={{
             opacity: gridInView ? 1 : 0,
-            transform: gridInView ? 'translateY(0)' : 'translateY(24px)',
-            transition: 'opacity 0.7s cubic-bezier(0.22,1,0.36,1) 100ms, transform 0.7s cubic-bezier(0.22,1,0.36,1) 100ms',
+            transform: gridInView ? 'translateY(0)' : 'translateY(40px)',
+            transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1) 100ms, transform 0.9s cubic-bezier(0.16,1,0.3,1) 100ms',
           }}
         >
           {/* Featured — spans 2 cols on desktop */}

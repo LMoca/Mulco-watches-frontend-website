@@ -1,163 +1,74 @@
 import { Link } from 'react-router-dom';
-import { ChevronRight, MapPin, Phone, Mail, MessageCircle, Globe, ExternalLink } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
+import Eyebrow from '../components/Eyebrow';
+
+const RETAILERS = [
+  { name: 'MULCO Watches Inc.', location: 'Aventura, FL — United States', note: 'Flagship Boutique & Service Center', href: 'https://maps.google.com/?q=19790+W+Dixie+Hwy+Suite+201+Aventura+FL+33180' },
+  { name: 'mulco.com/apps/store-locator', location: 'Worldwide', note: 'Official Store Locator', href: 'https://mulco.com/apps/store-locator' },
+  { name: 'Authorized Dealers', location: 'United States · Latin America · Europe', note: 'Contact us to find the nearest point of sale', href: '/support' },
+];
 
 export default function FindRetailer() {
   return (
     <div className="min-h-screen bg-brand-black pt-[72px]">
+
       {/* Header */}
-      <div className="border-b border-brand-gold/10 py-12 px-6 md:px-12 lg:px-20">
-        <div className="max-w-4xl mx-auto">
-          <nav className="flex items-center gap-1.5 text-[10px] font-sans text-brand-muted mb-6">
-            <Link to="/" className="hover:text-brand-gold transition-colors">Home</Link>
-            <ChevronRight size={10} className="opacity-40" />
-            <span className="text-brand-white">Find a Retailer</span>
-          </nav>
-          <p className="text-[10px] font-sans tracking-[0.3em] uppercase text-brand-gold mb-3">Where to Buy</p>
-          <h1 className="font-serif text-4xl md:text-5xl text-brand-white">Find a Retailer</h1>
-          <div className="w-10 h-px bg-brand-gold mt-5" />
-          <p className="font-sans text-sm text-brand-muted mt-4 max-w-xl leading-relaxed">
-            Experience MULCO in person at our flagship boutique or shop online with worldwide shipping. Contact us to locate an authorized retailer near you.
-          </p>
-        </div>
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 pt-16 pb-10">
+        <nav className="flex items-center gap-1.5 text-[10px] font-sans text-brand-muted mb-8">
+          <Link to="/" className="hover:text-brand-gold transition-colors duration-[400ms]">Home</Link>
+          <ChevronRight size={10} className="opacity-40" />
+          <span className="text-brand-white">Find a Retailer</span>
+        </nav>
+        <Eyebrow text="Where to Buy" className="mb-4" />
+        <h1 className="font-serif text-[3rem] md:text-[4rem] text-brand-white leading-[0.95] tracking-[-0.02em]">Find a Retailer</h1>
+        <p className="font-sans text-[14px] text-brand-muted mt-5 max-w-xl leading-[1.7]">
+          Experience MULCO in person at our flagship boutique or through our global network of authorized retailers.
+        </p>
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 py-16 pb-28 space-y-16">
+      {/* Map embed */}
+      <div className="w-full h-[50vh] bg-brand-gold/[0.03] border-y border-brand-gold/10 overflow-hidden">
+        <iframe
+          title="MULCO Aventura Flagship"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3589.1!2d-80.1362!3d25.9669!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9ad2a63bfffff%3A0x0!2s19790+W+Dixie+Hwy+%23201%2C+Aventura%2C+FL+33180!5e0!3m2!1sen!2sus!4v1"
+          width="100%"
+          height="100%"
+          className="border-0 grayscale opacity-70"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
+      </div>
 
-        {/* Flagship */}
-        <div>
-          <h2 className="font-serif text-2xl text-brand-white mb-4">Flagship Boutique</h2>
-          <div className="w-8 h-px bg-brand-gold mb-8" />
+      {/* Retailer list */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-14 lg:px-24 py-20 pb-32">
+        <p className="font-sans text-[10px] uppercase tracking-[0.25em] text-brand-gold mb-8">Locations</p>
 
-          <div className="border border-brand-gold/20 bg-brand-gold/[0.02] p-8 relative">
-            <span className="absolute top-6 right-6 text-[9px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-gold text-brand-black px-2 py-0.5">
-              Flagship
-            </span>
-
-            <p className="text-[10px] font-sans tracking-[0.25em] uppercase text-brand-gold mb-2">Aventura, Florida</p>
-            <h3 className="font-serif text-2xl text-brand-white mb-6">MULCO Watches Inc.</h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <MapPin size={14} className="text-brand-gold mt-0.5 flex-shrink-0" strokeWidth={1.5} />
-                  <div>
-                    <p className="text-xs font-sans text-brand-white">19790 W Dixie Hwy, Suite 201</p>
-                    <p className="text-xs font-sans text-brand-muted">Aventura, FL 33180</p>
-                    <p className="text-xs font-sans text-brand-muted">United States</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone size={14} className="text-brand-gold flex-shrink-0" strokeWidth={1.5} />
-                  <a href="tel:+18442394995" className="text-xs font-sans text-brand-muted hover:text-brand-white transition-colors">
-                    +1 (844) 239-4995
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MessageCircle size={14} className="text-brand-gold flex-shrink-0" strokeWidth={1.5} />
-                  <a
-                    href="https://wa.me/17868640808"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-sans text-brand-muted hover:text-brand-white transition-colors"
-                  >
-                    WhatsApp: +1 (786) 864-0808
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Mail size={14} className="text-brand-gold flex-shrink-0" strokeWidth={1.5} />
-                  <a href="mailto:info@mulcowatches.com" className="text-xs font-sans text-brand-muted hover:text-brand-white transition-colors">
-                    info@mulcowatches.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Globe size={14} className="text-brand-gold flex-shrink-0" strokeWidth={1.5} />
-                  <a
-                    href="https://mulco.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-sans text-brand-gold hover:text-brand-white transition-colors inline-flex items-center gap-1"
-                  >
-                    mulco.com <ExternalLink size={10} />
-                  </a>
-                </div>
-              </div>
-
-              {/* Map embed placeholder */}
-              <a
-                href="https://maps.google.com/?q=19790+W+Dixie+Hwy+Suite+201+Aventura+FL+33180"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative flex items-center justify-center bg-brand-gold/[0.04] border border-brand-gold/15 min-h-[160px] group hover:border-brand-gold/40 transition-colors duration-200"
-              >
-                <div className="text-center">
-                  <MapPin size={24} className="text-brand-gold/50 group-hover:text-brand-gold mx-auto mb-2 transition-colors duration-200" strokeWidth={1.5} />
-                  <p className="text-[10px] font-sans tracking-widest uppercase text-brand-muted group-hover:text-brand-white transition-colors duration-200">
-                    Open in Google Maps
-                  </p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Authorized retailers note */}
-        <div>
-          <h2 className="font-serif text-2xl text-brand-white mb-4">Authorized Retailers</h2>
-          <div className="w-8 h-px bg-brand-gold mb-6" />
-          <div className="space-y-4 font-sans text-sm text-brand-muted leading-relaxed">
-            <p>
-              MULCO timepieces are carried by select authorized retailers across the United States, Latin America, and Europe.
-              For the most current list of retailers near you, visit the official store locator at{' '}
-              <a
-                href="https://mulco.com/apps/store-locator"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-gold hover:text-brand-white transition-colors inline-flex items-center gap-1"
-              >
-                mulco.com/apps/store-locator <ExternalLink size={10} />
-              </a>.
-            </p>
-            <p>
-              You can also reach our team directly — we are happy to help you find the nearest point of sale.
-            </p>
-          </div>
-        </div>
-
-        {/* Contact CTA */}
-        <div className="border border-brand-gold/15 bg-brand-gold/[0.02] p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
-          <div>
-            <p className="font-serif text-xl text-brand-white mb-1">Can't find a retailer near you?</p>
-            <p className="font-sans text-sm text-brand-muted">Our team is available Monday–Saturday, 10 AM–6 PM EST.</p>
-          </div>
-          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
-            <Link
-              to="/support"
-              className="inline-flex items-center gap-2 bg-brand-gold text-brand-black text-xs font-sans font-bold tracking-[0.2em] uppercase px-7 py-3.5 hover:bg-brand-white transition-colors duration-200"
-            >
-              Contact Us
-            </Link>
+        <div className="divide-y divide-brand-gold/10">
+          {RETAILERS.map(({ name, location, note, href }) => (
             <a
-              href="https://mulco.com/apps/store-locator"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-brand-gold/30 text-brand-gold text-xs font-sans font-medium tracking-[0.2em] uppercase px-7 py-3.5 hover:bg-brand-gold hover:text-brand-black transition-colors duration-200"
+              key={name}
+              href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              className="group flex flex-col sm:flex-row sm:items-center justify-between py-7 gap-2 hover:bg-white/[0.01] transition-colors duration-[400ms] -mx-2 px-2"
             >
-              Official Locator <ExternalLink size={11} />
+              <div>
+                <p className="font-serif text-xl text-brand-white group-hover:text-brand-gold transition-colors duration-[400ms] leading-tight">{name}</p>
+                <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-brand-muted mt-1">{location}</p>
+              </div>
+              <p className="font-sans text-[12px] text-brand-muted/60 group-hover:text-brand-gold/60 transition-colors duration-[400ms] flex-shrink-0">{note}</p>
             </a>
-          </div>
+          ))}
         </div>
 
-        {/* Wholesale */}
-        <div className="pt-4 border-t border-brand-gold/10">
-          <p className="font-sans text-sm text-brand-muted leading-relaxed">
-            <span className="text-brand-white">Interested in carrying MULCO?</span>{' '}
-            Contact our wholesale team at{' '}
-            <a href="mailto:info@mulcowatches.com" className="text-brand-gold hover:text-brand-white transition-colors">
-              info@mulcowatches.com
-            </a>{' '}
-            to learn about becoming an authorized retailer.
-          </p>
-        </div>
+        {/* Wholesale note */}
+        <p className="font-sans text-[13px] text-brand-muted leading-[1.7] mt-16 border-t border-brand-gold/10 pt-8 max-w-xl">
+          Interested in carrying MULCO?{' '}
+          <a href="mailto:info@mulcowatches.com" className="text-brand-gold hover:text-brand-white transition-colors duration-[400ms]">
+            info@mulcowatches.com
+          </a>
+        </p>
       </div>
     </div>
   );

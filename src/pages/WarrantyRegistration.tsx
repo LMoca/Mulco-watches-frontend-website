@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronRight, Shield, CheckCircle, ChevronDown } from 'lucide-react';
+import { ChevronRight, Shield, CheckCircle, ChevronDown, ShieldCheck, HeadphonesIcon, Tag } from 'lucide-react';
+import Eyebrow from '../components/Eyebrow';
+import { useAccount } from '../context/AccountContext';
 
 const WATCH_MODELS = [
   'Blue Marine Fusion',
@@ -42,6 +44,7 @@ interface FormState {
   serialNumber: string;
   purchaseDate: string;
   purchaseSource: string;
+  orderNumber: string;
   retailerName: string;
   country: string;
 }
@@ -55,14 +58,15 @@ const EMPTY: FormState = {
   serialNumber: '',
   purchaseDate: '',
   purchaseSource: '',
+  orderNumber: '',
   retailerName: '',
   country: '',
 };
 
-function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
+function Field({ label, required, id, children }: { label: string; required?: boolean; id?: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted">
+      <label htmlFor={id} className="text-[10px] font-sans tracking-[0.2em] uppercase text-brand-muted">
         {label}{required && <span className="text-brand-gold ml-1">*</span>}
       </label>
       {children}
@@ -73,6 +77,7 @@ function Field({ label, required, children }: { label: string; required?: boolea
 const inputCls = 'bg-transparent border border-brand-gold/20 text-brand-white text-sm font-sans px-3 py-2.5 placeholder:text-brand-muted/40 focus:outline-none focus:border-brand-gold/60 transition-colors w-full';
 
 export default function WarrantyRegistration() {
+  const { account } = useAccount();
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -144,30 +149,39 @@ export default function WarrantyRegistration() {
   return (
     <div className="min-h-screen bg-brand-black pt-[72px]">
       {/* Header */}
-      <div className="border-b border-brand-gold/10 py-12 px-6 md:px-12 lg:px-20">
+      <div className="border-b border-brand-gold/10 py-20 md:py-28 px-6 md:px-14 lg:px-24 text-center">
         <div className="max-w-2xl mx-auto">
-          <nav className="flex items-center gap-1.5 text-[10px] font-sans text-brand-muted mb-6">
-            <Link to="/" className="hover:text-brand-gold transition-colors">Home</Link>
+          <nav className="flex items-center justify-center gap-1.5 text-[10px] font-sans text-brand-muted mb-8">
+            <Link to="/" className="hover:text-brand-gold transition-colors duration-[400ms]">Home</Link>
             <ChevronRight size={10} className="opacity-40" />
-            <span className="text-brand-white">Warranty Registration</span>
+            <span className="text-brand-white">Product Registration</span>
           </nav>
-          <p className="text-[10px] font-sans tracking-[0.3em] uppercase text-brand-gold mb-3">After Your Purchase</p>
-          <h1 className="font-serif text-4xl md:text-5xl text-brand-white">Warranty Registration</h1>
-          <div className="w-10 h-px bg-brand-gold mt-5" />
-          <p className="font-sans text-sm text-brand-muted mt-4 leading-relaxed">
-            Register your MULCO timepiece to activate your 2-year international limited warranty and receive priority support.
+          <Eyebrow text="After Your Purchase" className="mb-4 justify-center" />
+          <h1 className="font-serif text-[3rem] md:text-[4rem] text-brand-white leading-[0.95] tracking-[-0.02em]">Product Registration</h1>
+          <div className="w-10 h-px bg-brand-gold mx-auto mt-6" />
+          <p className="font-sans text-[14px] text-brand-muted mt-5 leading-[1.7]">
+            Thanks for purchasing your MULCO timepiece. Register it below to activate your warranty and unlock full support.
           </p>
+          {!account && (
+            <p className="font-sans text-[12px] text-brand-muted mt-4">
+              Already registered a product?{' '}
+              <Link to="/account/login" className="text-brand-gold hover:text-brand-white transition-colors duration-[400ms]">
+                Sign in first
+              </Link>{' '}
+              to keep everything in one place.
+            </p>
+          )}
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20 py-14 pb-28">
 
-        {/* What you get */}
+        {/* Reasons to register */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-brand-gold/8 mb-12">
           {[
-            { icon: Shield, label: '2-Year Coverage',    body: 'Manufacturing defects in materials and workmanship' },
-            { icon: CheckCircle, label: 'Priority Support', body: 'Registered owners receive faster claim processing' },
-            { icon: Shield, label: 'Proof of Ownership', body: 'Your registration serves as official ownership record' },
+            { icon: ShieldCheck, label: 'Warranty', body: "We're confident nothing will go wrong, but if it does, we'll make it right." },
+            { icon: HeadphonesIcon, label: 'Support', body: 'Get the most from your timepiece with easy access to our support team.' },
+            { icon: Tag, label: 'Offers & Updates', body: 'Receive special offers, new arrivals, and exclusive member updates.' },
           ].map(({ icon: Icon, label, body }) => (
             <div key={label} className="bg-brand-black p-5 flex flex-col gap-2">
               <Icon size={16} className="text-brand-gold" strokeWidth={1.5} />
@@ -182,28 +196,28 @@ export default function WarrantyRegistration() {
           <p className="font-serif text-xl text-brand-white">Your Information</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field label="First Name" required>
-              <input value={form.firstName} onChange={(e) => set('firstName', e.target.value)} placeholder="Jane" className={inputCls} autoComplete="given-name" />
+            <Field label="First Name" required id="wr-firstName">
+              <input id="wr-firstName" value={form.firstName} onChange={(e) => set('firstName', e.target.value)} placeholder="Jane" className={inputCls} autoComplete="given-name" />
               {errors.firstName && <span className="text-[10px] font-sans text-brand-rose">{errors.firstName}</span>}
             </Field>
-            <Field label="Last Name" required>
-              <input value={form.lastName} onChange={(e) => set('lastName', e.target.value)} placeholder="Smith" className={inputCls} autoComplete="family-name" />
+            <Field label="Last Name" required id="wr-lastName">
+              <input id="wr-lastName" value={form.lastName} onChange={(e) => set('lastName', e.target.value)} placeholder="Smith" className={inputCls} autoComplete="family-name" />
               {errors.lastName && <span className="text-[10px] font-sans text-brand-rose">{errors.lastName}</span>}
             </Field>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <Field label="Email Address" required>
-              <input type="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="jane@example.com" className={inputCls} autoComplete="email" />
+            <Field label="Email Address" required id="wr-email">
+              <input id="wr-email" type="email" value={form.email} onChange={(e) => set('email', e.target.value)} placeholder="jane@example.com" className={inputCls} autoComplete="email" />
               {errors.email && <span className="text-[10px] font-sans text-brand-rose">{errors.email}</span>}
             </Field>
-            <Field label="Phone Number">
-              <input type="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="+1 (305) 000-0000" className={inputCls} autoComplete="tel" />
+            <Field label="Phone Number" id="wr-phone">
+              <input id="wr-phone" type="tel" value={form.phone} onChange={(e) => set('phone', e.target.value)} placeholder="+1 (305) 000-0000" className={inputCls} autoComplete="tel" />
             </Field>
           </div>
 
-          <Field label="Country of Residence" required>
-            <input value={form.country} onChange={(e) => set('country', e.target.value)} placeholder="United States" className={inputCls} autoComplete="country-name" />
+          <Field label="Country of Residence" required id="wr-country">
+            <input id="wr-country" value={form.country} onChange={(e) => set('country', e.target.value)} placeholder="United States" className={inputCls} autoComplete="country-name" />
             {errors.country && <span className="text-[10px] font-sans text-brand-rose">{errors.country}</span>}
           </Field>
 
@@ -211,13 +225,14 @@ export default function WarrantyRegistration() {
             <p className="font-serif text-xl text-brand-white mb-6">Watch Details</p>
 
             <div className="space-y-5">
-              <Field label="Watch Model" required>
+              <Field label="Watch Model" required id="wr-model">
                 <div className="relative">
                   <select
+                    id="wr-model"
                     value={form.model}
                     onChange={(e) => set('model', e.target.value)}
                     className={`${inputCls} appearance-none pr-8 cursor-pointer`}
-                    style={{ backgroundColor: '#0A0A0A' }}
+                    style={{ backgroundColor: 'rgb(var(--brand-black))' }}
                   >
                     <option value="">Select your model…</option>
                     {WATCH_MODELS.map((m) => (
@@ -229,14 +244,15 @@ export default function WarrantyRegistration() {
                 {errors.model && <span className="text-[10px] font-sans text-brand-rose">{errors.model}</span>}
               </Field>
 
-              <Field label="Serial Number" required>
-                <input value={form.serialNumber} onChange={(e) => set('serialNumber', e.target.value)} placeholder="Found on the case back" className={inputCls} />
+              <Field label="Serial Number" required id="wr-serial">
+                <input id="wr-serial" value={form.serialNumber} onChange={(e) => set('serialNumber', e.target.value)} placeholder="Found on the case back" className={inputCls} />
                 {errors.serialNumber && <span className="text-[10px] font-sans text-brand-rose">{errors.serialNumber}</span>}
                 <span className="text-[10px] font-sans text-brand-muted/60">The serial number is engraved on the case back of your watch.</span>
               </Field>
 
-              <Field label="Date of Purchase" required>
+              <Field label="Date of Purchase" required id="wr-date">
                 <input
+                  id="wr-date"
                   type="date"
                   value={form.purchaseDate}
                   onChange={(e) => set('purchaseDate', e.target.value)}
@@ -246,13 +262,14 @@ export default function WarrantyRegistration() {
                 {errors.purchaseDate && <span className="text-[10px] font-sans text-brand-rose">{errors.purchaseDate}</span>}
               </Field>
 
-              <Field label="Where did you purchase?" required>
+              <Field label="Where did you purchase?" required id="wr-source">
                 <div className="relative">
                   <select
+                    id="wr-source"
                     value={form.purchaseSource}
                     onChange={(e) => set('purchaseSource', e.target.value)}
                     className={`${inputCls} appearance-none pr-8 cursor-pointer`}
-                    style={{ backgroundColor: '#0A0A0A' }}
+                    style={{ backgroundColor: 'rgb(var(--brand-black))' }}
                   >
                     <option value="">Select…</option>
                     {PURCHASE_SOURCES.map((s) => (
@@ -264,9 +281,16 @@ export default function WarrantyRegistration() {
                 {errors.purchaseSource && <span className="text-[10px] font-sans text-brand-rose">{errors.purchaseSource}</span>}
               </Field>
 
+              {form.purchaseSource === 'Online at mulco.com' && (
+                <Field label="Order Number" id="wr-order">
+                  <input id="wr-order" value={form.orderNumber} onChange={(e) => set('orderNumber', e.target.value)} placeholder="e.g. ORD-2026-1234" className={inputCls} />
+                  <span className="text-[10px] font-sans text-brand-muted/60">Found in your order confirmation email.</span>
+                </Field>
+              )}
+
               {form.purchaseSource === 'Authorized Retailer' && (
-                <Field label="Retailer Name" required>
-                  <input value={form.retailerName} onChange={(e) => set('retailerName', e.target.value)} placeholder="Store name and city" className={inputCls} />
+                <Field label="Retailer Name" required id="wr-retailer">
+                  <input id="wr-retailer" value={form.retailerName} onChange={(e) => set('retailerName', e.target.value)} placeholder="Store name and city" className={inputCls} />
                   {errors.retailerName && <span className="text-[10px] font-sans text-brand-rose">{errors.retailerName}</span>}
                 </Field>
               )}

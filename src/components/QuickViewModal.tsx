@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { X, ShoppingBag, CheckCircle, ArrowRight } from 'lucide-react';
+import { ShoppingBag, CheckCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 import type { Product } from '../data/products';
+import Eyebrow from './Eyebrow';
+import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface Props {
   product: Product | null;
@@ -15,8 +17,10 @@ export default function QuickViewModal({ product, onClose }: Props) {
   const { formatPrice } = useCurrency();
   const [selectedColor, setSelectedColor] = useState<{ name: string; image: string } | null>(null);
   const [added, setAdded] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const open = product !== null;
+  useFocusTrap(panelRef, open);
 
   useEffect(() => {
     if (product) {
@@ -49,7 +53,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
       variant: selectedColor?.name,
     });
     setAdded(true);
-    setTimeout(() => setAdded(false), 2200);
+    setTimeout(() => setAdded(false), 800);
   }
 
   const displayImage = selectedColor?.image ?? product?.images[0] ?? '';
@@ -63,147 +67,153 @@ export default function QuickViewModal({ product, onClose }: Props) {
           position: 'fixed',
           inset: 0,
           background: 'rgba(0,0,0,0.7)',
-          backdropFilter: 'blur(3px)',
+          backdropFilter: 'blur(8px)',
           zIndex: 400,
           opacity: open ? 1 : 0,
           pointerEvents: open ? 'auto' : 'none',
-          transition: 'opacity 0.25s ease',
+          transition: 'opacity 0.4s ease',
         }}
       />
 
-      {/* Modal */}
+      {/* Side panel — slides in from right */}
       <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Quick view"
         style={{
           position: 'fixed',
-          inset: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          width: '480px',
+          maxWidth: '100vw',
+          background: 'rgb(var(--brand-black))',
           zIndex: 401,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '1rem',
+          overflowY: 'auto',
+          transform: open ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.5s cubic-bezier(0.22,1,0.36,1)',
           pointerEvents: open ? 'auto' : 'none',
         }}
       >
-        <div
-          style={{
-            background: '#0f0f0f',
-            border: '1px solid rgba(201,168,76,0.15)',
-            width: '100%',
-            maxWidth: 760,
-            maxHeight: '90vh',
-            overflowY: 'auto',
-            opacity: open ? 1 : 0,
-            transform: open ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.97)',
-            transition: 'opacity 0.3s ease, transform 0.3s cubic-bezier(0.22,1,0.36,1)',
-          }}
-        >
-          {product && (
-            <>
-              {/* Gold top accent */}
-              <div style={{ height: 1, background: 'linear-gradient(to right, transparent, #C9A84C, transparent)', flexShrink: 0 }} />
+        {product && (
+          <>
+            {/* Close — "×" character, no border or background */}
+            <button
+              onClick={onClose}
+              aria-label="Close"
+              className="absolute top-5 right-6 z-10 font-serif text-2xl leading-none text-brand-gold/60 hover:text-brand-gold transition-colors duration-300"
+            >
+              ×
+            </button>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2">
-                {/* Image */}
-                <div className="relative aspect-square bg-brand-gold/[0.03]">
-                  <img
-                    src={displayImage}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                  {product.isNew && (
-                    <span className="absolute top-3 left-3 text-[9px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-gold text-brand-black px-2 py-1">
-                      New
-                    </span>
-                  )}
-                  {product.stock !== undefined && product.stock <= 5 && (
-                    <span className="absolute bottom-3 left-3 text-[9px] font-sans font-semibold tracking-[0.18em] uppercase bg-brand-black/80 text-brand-gold border border-brand-gold/40 px-2 py-1">
-                      Only {product.stock} left
-                    </span>
-                  )}
-                </div>
+            {/* Product image — full width at top */}
+            <div className="relative aspect-square w-full bg-brand-gold/[0.03] flex-shrink-0">
+              <img
+                src={displayImage}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
+              {product.isNew && (
+                <span className="absolute top-4 left-4 text-[9px] font-sans font-semibold tracking-[0.2em] uppercase bg-brand-gold text-brand-black px-2 py-1">
+                  New
+                </span>
+              )}
+            </div>
 
-                {/* Info */}
-                <div className="flex flex-col gap-5 p-6 sm:p-8">
-                  {/* Close */}
-                  <div className="flex justify-between items-start">
-                    <p className="text-[9px] font-sans tracking-[0.3em] uppercase text-brand-gold">{product.collection}</p>
-                    <button onClick={onClose} aria-label="Close" className="text-brand-muted hover:text-brand-gold transition-colors">
-                      <X size={16} />
-                    </button>
-                  </div>
+            {/* Info — mirrors ProductDetail buying column */}
+            <div className="flex flex-col gap-5 px-8 py-8">
+              <Eyebrow text={product.collection} rule />
 
-                  <div>
-                    <h2 className="font-serif text-2xl text-brand-white leading-tight">{product.name}</h2>
-                    <div className="w-6 h-px bg-brand-gold mt-3" />
-                  </div>
+              <div>
+                <h2 className="font-serif text-[2rem] text-brand-white leading-[0.95] tracking-[-0.02em]">
+                  {product.name}
+                </h2>
+                <div className="w-8 h-px bg-brand-gold mt-3" />
+              </div>
 
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {product.tags.map((tag) => (
-                      <span key={tag} className="text-[9px] font-sans text-brand-muted tracking-wider border border-brand-gold/12 px-2 py-0.5">
-                        {tag}
-                      </span>
+              {/* Tags — middle-dot separated, no pills */}
+              {product.tags.length > 0 && (
+                <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted">
+                  {product.tags.join(' · ')}
+                </p>
+              )}
+
+              {/* Color picker — 1px gold ring at 4px offset */}
+              {product.colors && product.colors.length > 0 && (
+                <div>
+                  <p className="text-[11px] font-sans text-brand-muted tracking-widest uppercase mb-2.5">
+                    Color: <span className="text-brand-white ml-1">{selectedColor?.name}</span>
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {product.colors.map((c) => (
+                      <button
+                        key={c.name}
+                        onClick={() => setSelectedColor(c)}
+                        title={c.name}
+                        aria-label={`Select ${c.name}`}
+                        className="w-10 h-10 overflow-hidden transition-all duration-200"
+                        style={{
+                          outline: selectedColor?.name === c.name ? '1px solid #C9A84C' : '1px solid transparent',
+                          outlineOffset: '4px',
+                        }}
+                      >
+                        <img src={c.image} alt={c.name} className="w-full h-full object-cover" />
+                      </button>
                     ))}
                   </div>
-
-                  {/* Color picker */}
-                  {product.colors && product.colors.length > 0 && (
-                    <div>
-                      <p className="text-[10px] font-sans text-brand-muted tracking-widest uppercase mb-2">
-                        Color: <span className="text-brand-white ml-1">{selectedColor?.name}</span>
-                      </p>
-                      <div className="flex flex-wrap gap-1.5">
-                        {product.colors.map((c) => (
-                          <button
-                            key={c.name}
-                            onClick={() => setSelectedColor(c)}
-                            title={c.name}
-                            className="w-9 h-9 overflow-hidden transition-all duration-200"
-                            style={{
-                              outline: selectedColor?.name === c.name ? '2px solid #C9A84C' : '2px solid transparent',
-                              outlineOffset: '2px',
-                            }}
-                          >
-                            <img src={c.image} alt={c.name} className="w-full h-full object-cover" />
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Price */}
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-serif text-3xl text-brand-gold">{formatPrice(product.price)}</span>
-                    {product.originalPrice && (
-                      <span className="font-serif text-lg text-brand-muted line-through">{formatPrice(product.originalPrice)}</span>
-                    )}
-                  </div>
-
-                  {/* CTA row */}
-                  <div className="flex flex-col gap-3 mt-auto">
-                    <button
-                      onClick={handleAdd}
-                      className="flex items-center justify-center gap-3 w-full py-3.5 text-xs font-sans font-bold tracking-[0.22em] uppercase transition-all duration-300"
-                      style={{ backgroundColor: added ? '#F5F5F0' : '#C9A84C', color: '#0A0A0A' }}
-                    >
-                      {added ? <CheckCircle size={14} /> : <ShoppingBag size={14} />}
-                      {added ? 'Added to Cart' : 'Add to Cart'}
-                    </button>
-
-                    <Link
-                      to={`/product/${product.id}`}
-                      onClick={onClose}
-                      className="flex items-center justify-center gap-2 text-[11px] font-sans tracking-[0.2em] uppercase text-brand-muted hover:text-brand-gold transition-colors duration-200"
-                    >
-                      View Full Details
-                      <ArrowRight size={11} />
-                    </Link>
-                  </div>
                 </div>
+              )}
+
+              {/* Price */}
+              <div className="flex items-baseline gap-3">
+                <span
+                  className="font-sans text-base text-brand-muted"
+                  style={product.originalPrice ? { textDecoration: 'underline', textDecorationColor: '#C9A84C', textUnderlineOffset: '4px' } : undefined}
+                >
+                  {formatPrice(product.price)}
+                </span>
+                {product.originalPrice && (
+                  <span className="font-sans text-[13px] text-brand-muted line-through">{formatPrice(product.originalPrice)}</span>
+                )}
               </div>
-            </>
-          )}
-        </div>
+
+              {/* Low stock */}
+              {product.stock !== undefined && product.stock <= 5 && (
+                <p className="font-sans text-[11px] uppercase tracking-[0.2em] text-brand-rose/70">
+                  Only {product.stock} left in stock
+                </p>
+              )}
+
+              {/* Add to Collection */}
+              <button
+                onClick={handleAdd}
+                className="flex items-center justify-center gap-3 w-full h-14 text-[13px] font-sans font-semibold tracking-[0.15em] uppercase transition-all duration-300"
+                style={{
+                  backgroundColor: added ? '#F5F5F0' : '#C9A84C',
+                  color: 'var(--color-on-gold)',
+                }}
+              >
+                <span style={{ transition: 'transform 0.2s ease', transform: added ? 'rotate(360deg) scale(1.15)' : 'rotate(0) scale(1)', display: 'inline-flex' }}>
+                  {added ? <CheckCircle size={16} /> : <ShoppingBag size={16} />}
+                </span>
+                {added ? 'Added to Collection' : 'Add to Collection'}
+              </button>
+
+              {/* View Full Details — gold underline on hover */}
+              <Link
+                to={`/product/${product.id}`}
+                onClick={onClose}
+                className="group relative inline-flex self-center font-sans text-[11px] uppercase tracking-[0.2em] text-brand-muted hover:text-brand-gold transition-colors duration-[400ms]"
+              >
+                <span className="relative">
+                  View Full Details
+                  <span className="absolute bottom-0 left-0 w-full h-px bg-brand-gold origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[400ms]" />
+                </span>
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </>
   );
